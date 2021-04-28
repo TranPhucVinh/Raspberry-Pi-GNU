@@ -48,28 +48,7 @@ main() {
 
 ### Slave
 
-```c
-#include <Arduino.h>
-#include <Wire.h>
-
-int count = 0;
-
-void sendNumber();
-
-void setup()
-{
-  Wire.begin(0x30); // Set up its I2C address to 0x30
-  Wire.onRequest(sendNumber); // Set up received mode from Master board
-}
- 
-void loop(){}
- 
-void sendNumber() 
-{
- Wire.write(count);
- count++;
-}
-```
+Check Slave program in ``Example 2`` of ``AVR-Arduino-framework/Physical layer/I2C/Examples part 1.md``.
 
 ## Master send data, Slave receives data
 
@@ -103,26 +82,4 @@ main() {
 
 ### Slave
 
-```c
-#include <Arduino.h>
-#include <Wire.h>
-
-void receiveEvent();
-
-void setup()
-{
-  Wire.begin(0x30); // Set up slave I2C address to 0x30
-  Wire.onReceive(receiveEvent); // Set up received mode from Master board
-  Serial.begin(9600);
-}
- 
-void loop(){}
- 
-void receiveEvent() 
-{
-  while(Wire.available()) 
-  {
-    Serial.println(Wire.read());
-  }
-}
-```
+Check Slave program in ``Example 1`` of ``AVR-Arduino-framework/Physical layer/I2C/Examples part 1.md``.
