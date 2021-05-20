@@ -1,9 +1,7 @@
 ## Feature
 
-* Using Wiring Pi
-* Raspberry Pi as a HTTP client with multithread sends data to HTTP server.
-* HTTP server runs PHP code to handle received data from HTTP client.
-* Web browser
+* Raspberry Pi as a HTTP client sends data to a HTTP server.
+* HTTP server runs PHP code to handle the received data from HTTP client.
 
 ### Raspberry
 
