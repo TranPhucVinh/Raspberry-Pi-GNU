@@ -1,6 +1,6 @@
-### Blink LED
+### Example 1
 
-Blink LED connected to GPIO21 of Raspberry Pi 2 second.
+Blink LED connected to GPIO21
 
 ```c
 #include <wiringPi.h>
@@ -17,7 +17,7 @@ int main (void) {
 }
 ```
 
-### Blink LED with millis()
+Blink LED with ``millis()``
 
 ```c
 #include <wiringPi.h>
@@ -41,11 +41,15 @@ int main (void) {
 }
 ```
 
-**Notice**: With Raspbian, if you declare  ``unsigned int previousTime = millis();``, there will be an error
+**Notice**:
 
-**initializer element is not constant**
+With Raspbian, if you declare  ``unsigned int previousTime = millis();``, there will be an error:
 
-### Read GPIO status
+```
+initializer element is not constant
+```
+
+### Example 2
 
 Read button status and print out if status change.
 
@@ -70,9 +74,7 @@ int main (void) {
 }
 ```
 
-### ON, OFF LED with button
-
-If button is pressed with HIGH level, LED will turn off; it not (LOW level), LED will turn off.
+Use button to control LED: If button is pressed with HIGH level, LED will turn on; it not, LED will turn off.
 
 ```c
 #include <stdio.h>
@@ -93,15 +95,17 @@ int main (void) {
 }
 ```
 
-### LED with bitwise
+### Example 3
 
-Press on button the first time, LED will turn on; press the button next time, LED turn off.
+LED toggle: Press on the button the first time, LED will turn on; press the button next time, LED will turn off.
+
+Using XOR operator
 
 ```c
 #include <stdio.h>
 #include <wiringPi.h>
 
-int pressed = 0, toggle_val = 0;
+int pressed = 0, ledState = 0;
 
 int main (void) {
     wiringPiSetup(); 
@@ -109,14 +113,14 @@ int main (void) {
     pinMode (25, INPUT);
 
     while(1) {
-	if (digitalRead(25) == 0 && pressed == 0){
-	    digitalWrite(21, toggle_val);
-	    toggle_val ^= 1;
-	    pressed = 1;
-	}
-	else if (digitalRead(25) == 1 && pressed == 1){
-	    pressed = 0;
-	}    
+        if (digitalRead(25) && !pressed){
+            digitalWrite(21, ledState);
+            ledState ^= 1;
+            pressed = 1;
+        }
+        else if (digitalRead(25) && pressed){
+            pressed = 0;
+        }    
     }
     return 0;
 }
