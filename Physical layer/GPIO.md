@@ -82,23 +82,24 @@ LED toggle: Press on the button the first time, LED will turn on; press the butt
 Using XOR operator
 
 ```c
-#include <stdio.h>
 #include <wiringPi.h>
+#define LED 	1
+#define BUTTON 	15
 
 int pressed = 0, ledState = 0;
 
-int main (void) {
+int main() {
     wiringPiSetup(); 
-    pinMode (21, OUTPUT);
-    pinMode (25, INPUT);
+    pinMode (LED, OUTPUT);
+    pinMode (BUTTON, INPUT);
 
     while(1) {
-        if (digitalRead(25) && !pressed){
-            digitalWrite(21, ledState);
+        if (!digitalRead(BUTTON) && !pressed){
+            digitalWrite(LED, ledState);
             ledState ^= 1;
             pressed = 1;
         }
-        else if (digitalRead(25) && pressed){
+        else if (digitalRead(BUTTON) && pressed){
             pressed = 0;
         }    
     }
