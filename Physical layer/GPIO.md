@@ -1,17 +1,20 @@
 ### Example 1
 
-Blink LED connected to GPIO21
+Blink LED connected to WiringPi GPIO1
 
 ```c
 #include <wiringPi.h>
-int main (void) {
-    wiringPiSetup (); 
-    pinMode (21, OUTPUT);
-    for (;;) {
-        digitalWrite (21, HIGH);
-        delay (2000);
-        digitalWrite (21, LOW);
-        delay (2000);
+
+#define LED 1
+
+int main () {
+    wiringPiSetup(); 
+    pinMode(LED, OUTPUT);
+    while(1) {
+        digitalWrite (LED, HIGH);
+        delay(1000);
+        digitalWrite (LED, LOW);
+        delay(1000);
     }
     return 0;
 }
