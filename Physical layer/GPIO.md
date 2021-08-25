@@ -25,18 +25,20 @@ Blink LED with ``millis()``
 ```c
 #include <wiringPi.h>
 
-unsigned int previousTime;
-const unsigned long interval = 1000;
+#define LED 1
 
-int main (void) {
+unsigned int previousTime;
+const unsigned long interval = 500;
+
+int main() {
     wiringPiSetup(); 
-    pinMode (21, OUTPUT);
+    pinMode(LED, OUTPUT);
     previousTime = millis();
     
     while(1) {
         unsigned long diff = millis() - previousTime;
         if (diff > interval){
-            digitalWrite(21, !digitalRead(21));
+            digitalWrite(LED, !digitalRead(LED));
             previousTime += diff;
         }
     }
@@ -54,45 +56,20 @@ initializer element is not constant
 
 ### Example 2
 
-Read button status and print out if status change.
+Use button to control the LED: If button is pressed, turn on LED, if not pressed, turn off LED.
 
 ```c
-#include <stdio.h>
 #include <wiringPi.h>
 
-int main (void) {
+#define LED 	1
+#define BUTTON 	15
+
+int main() {
     wiringPiSetup(); 
-    pinMode (21, INPUT);
-    int buttonStatus = digitalRead(21);
-    printf("Button status at first %d ", buttonStatus);
-    printf("");
+    pinMode (LED, OUTPUT);
+    pinMode (BUTTON, INPUT);
     while(1) {
-        if (digitalRead(21) != buttonStatus){
-            printf("Button status %d ", buttonStatus);
-            printf("");
-            buttonStatus = digitalRead(21);
-        }
-    }
-    return 0;
-}
-```
-
-Use button to control LED: If button is pressed with HIGH level, LED will turn on; it not, LED will turn off.
-
-```c
-#include <stdio.h>
-#include <wiringPi.h>
-
-int main (void) {
-    wiringPiSetup(); 
-    pinMode (21, OUTPUT);
-    pinMode (25, INPUT);
-    int buttonStatus = digitalRead(25);
-    while(1) {
-        if (digitalRead(25) != buttonStatus){
-            digitalWrite(21, digitalRead(25));
-            buttonStatus = digitalRead(21);
-        }
+		digitalWrite(LED, digitalRead(BUTTON));
     }
     return 0;
 }
