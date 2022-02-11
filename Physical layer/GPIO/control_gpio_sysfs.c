@@ -9,9 +9,10 @@ char path[50];
 int fd;
 int main()
 {  
-	//echo $led > $path"export"
 	sprintf(path, "%sexport", PATH);
-	fd = open(path, O_RDWR);//defined in fcntl.h
+
+	//The mode must be O_WRONLY. Mode O_RDWR result in fd=-1
+	fd = open(path, O_WRONLY);
 	if(fd < 0) {
 		printf("Fail %s", path);
 		return 1;
