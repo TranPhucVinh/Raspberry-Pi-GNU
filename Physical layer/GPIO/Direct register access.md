@@ -7,7 +7,7 @@ Based on BCM2837-ARM-Peripherals, bus address of GPIO started at ``0x7E200000``:
 #define GPIO_BASE                       (BCM2837_PHY_ADDR + 0x200000)
 ```
 
-To set up input/output mode based on GPIO Alternate function select register
+## Set up input/output mode based on GPIO Alternate function select register
 
 Take an example with **GPIO Alternate function select register 0**
 
@@ -52,7 +52,15 @@ So the whole process will be:
 * AND GPIO register with ``~(7<<(((pin)%10)*3))`` for input mode
 * AND GPIO register with ``~(7<<(((pin)%10)*3))`` then OR GPIO register with ``(1<<(((pin)%10)*3))`` for output mode
 
-Take ``addr`` as the virtual address mapped from the ``GPIO_BASE`` physical address, then the address of the specific GPIO pin will be: ``(addr+((pin)/10))``
+Take ``addr`` as the virtual address mapped from the ``GPIO_BASE`` physical address, then the virtual address of the specific GPIO pin will be: ``(addr+((pin)/10))``
+
+E.g: 
+
+For GPIO ``0`` to ``9``: ``pin/10 = 0`` then ``addr+((pin)/10)`` will be the virtual address mapped from ``GPFSEL0`` physical address (``0x7E200000``)
+
+For GPIO ``10`` to ``19``: ``pin/10 = 1`` then ``addr+((pin)/10)`` will be the virtual address mapped from ``GPFSEL1`` physical address (``0x7E200004``)
+
+As the virtual address mapping process, all registers ``GPFSEL0``, ``GPFSEL1``,...  with have the virtual address arranged continuously.
 
 So for GPIO input mode setup:
 
