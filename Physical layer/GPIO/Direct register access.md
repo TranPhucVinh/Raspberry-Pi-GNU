@@ -28,6 +28,7 @@ Take an example with **GPIO Alternate function select register 0**
 As 3-bit is used to set the input/output mode for every GPIO pin:
 
 * Use ``7``  (``0b111``) then execute complement operator (``~``) to change to ``0b000`` for input mode.
+* First setting up bit like input mode to clear 3-bit, then use ``1`` (``0b001``) then OR bit for output mode.
 
 As the position of those 3-bit varies from GPIO pin, so ``( GPIO_pin_number % 10) * 3`` will result in the exact position of those pins:
 
@@ -41,11 +42,15 @@ Then start shifting for the exact position of those 3-bit corresponded to the sp
 
 GPIO pin 9: ``7 << 27``
 
-Then start executing complement operator to switch those 3-bit to ``0b000`` for input mode.
+Then:
+
+* Start executing complement operator to switch those 3-bit to ``0b000`` for input mode.
+* Start the whole process like input mode then use OR operator for putput mode.
 
 So the whole process will be: 
 
-* ``~(7<<(((pin)%10)*3))`` for input mode
+* AND GPIO register with ``~(7<<(((pin)%10)*3))`` for input mode
+* AND GPIO register with ``~(7<<(((pin)%10)*3))`` then OR GPIO register with ``(1<<(((pin)%10)*3))`` for output mode
 
 Take ``addr`` as the virtual address mapped from the ``GPIO_BASE`` physical address, then the address of the specific GPIO pin will be: ``(addr+((pin)/10))``
 
@@ -53,4 +58,13 @@ So for GPIO input mode setup:
 
 ```c
 #define GPIO_INP(addr,pin) *(addr+((pin)/10)) &= ~(7<<(((pin)%10)*3))
+```
+
+GPIO output mode setup:
+
+```c
+#define GPIO_OUT(addr,pin) {\
+        *(addr+((pin)/10)) &= ~(7<<(((pin)%10)*3));\
+        *(addr+((pin)/10)) |= (1<<(((pin)%10)*3));\
+}
 ```
