@@ -60,7 +60,7 @@ For GPIO ``0`` to ``9``: ``pin/10 = 0`` then ``addr+((pin)/10)`` will be the vir
 
 For GPIO ``10`` to ``19``: ``pin/10 = 1`` then ``addr+((pin)/10)`` will be the virtual address mapped from ``GPFSEL1`` physical address (``0x7E200004``)
 
-As the virtual address mapping process, all registers ``GPFSEL0``, ``GPFSEL1``,...  with have the virtual address arranged continuously.
+As the virtual address mapping process, all registers ``GPFSEL0``, ``GPFSEL1``,...  with have the virtual address arranged continuously (2 consecutively registers like ``GPFSEL0`` and ``GPFSEL1`` will have the address difference by ``1``)
 
 So for GPIO input mode setup:
 
@@ -75,4 +75,23 @@ GPIO output mode setup:
         *(addr+((pin)/10)) &= ~(7<<(((pin)%10)*3));\
         *(addr+((pin)/10)) |= (1<<(((pin)%10)*3));\
 }
+```
+
+### Set, clear and get GPIO value
+
+``GPSETn`` is used to set the value of a specific GPIO. ``GPSET0`` is available for GPIO from ``0`` to ``31``.
+
+``1`` = Set GPIO pin n
+
+As ``GPSET0`` is ``7`` registers far from the ``GPIO_BASE``:
+
+```c
+#define GPIO_SET(addr,pin) *(addr+7)=1<<pin //Set GPIO in GPSET0
+```
+
+Same mechanism for ``GPCLR0`` and ``GPLEV0``:
+
+```c
+#define GPIO_CLR(addr,pin) *(addr+10)=1<<pin //Clear GPIO in GPCLR0
+#define GPIO_GET(addr,pin) ((*(addr+13))>>pin)&1 //GET GPIO value in GPLEV0
 ```
