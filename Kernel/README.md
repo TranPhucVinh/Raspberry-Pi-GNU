@@ -14,7 +14,7 @@ modules.builtin.alias.bin  modules.devname
 
 (no ``build`` folder)
 
-To build kernel module, user has to install Kernel header for Raspberry Pi: ``sudo apt-get install raspberrypi-kernel-headers``
+To build kernel module, user has to install Kernel header for Raspbian: ``sudo apt-get install raspberrypi-kernel-headers``
 
 After installing, ``/lib/modules/5.10.17-v7+`` will have: (has ``build`` folder)
 
@@ -36,6 +36,8 @@ clean:
 ```    
 
 For kernel module insert and remove, check ``README.md`` in ``C/Kernel/`` as their implementations are identical.
+
+In 12th February 2022, with Raspbian installed from ``2021-10-30-raspios-bullseye-armhf.img``, the module will be ``5.10.63-v7+``. After installing the kernel header for Raspbian, there won't be ``build`` folder inside ``/lib/modules/5.10.17-v7+``.
 
 ### Examples
 
