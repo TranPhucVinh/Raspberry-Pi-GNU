@@ -43,7 +43,7 @@
 
 uintptr_t setup_io();
 
-volatile uint32_t *gpio;
+uint32_t *gpio;
 
 int main(int argc, char **argv)
 {
@@ -58,9 +58,9 @@ int main(int argc, char **argv)
 
         while(1){
                 GPIO_SET(gpio, LED);
-                sleep(2);
+                sleep(1);
                 GPIO_CLR(gpio, LED);
-                sleep(2);
+                sleep(1);
         }
         return 0;
 }
