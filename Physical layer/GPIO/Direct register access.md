@@ -1,7 +1,5 @@
 # Fundamental concepts
 
-Bus address for peripherals advertised inside the official document like BCM2835, BCM2837 (e.g ``0x7E000000``) are mapped into the physical address (e.g: physical address starting at ``0x20000000`` for BCM2835, ``0x3f000000`` for BCM2837)
-
 Based on BCM2837-ARM-Peripherals, bus address of GPIO started at ``0x7E200000``:
 
 ```c
