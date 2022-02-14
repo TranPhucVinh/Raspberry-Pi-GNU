@@ -1,3 +1,5 @@
+# Fundamental concepts
+
 Bus address for peripherals advertised inside the official document like BCM2835, BCM2837 (e.g ``0x7E000000``) are mapped into the physical address (e.g: physical address starting at ``0x20000000`` for BCM2835)
 
 Based on BCM2837-ARM-Peripherals, bus address of GPIO started at ``0x7E200000``:
@@ -95,3 +97,7 @@ Same mechanism for ``GPCLR0`` and ``GPLEV0``:
 #define GPIO_CLR(addr,pin) *(addr+10)=1<<pin //Clear GPIO in GPCLR0
 #define GPIO_GET(addr,pin) ((*(addr+13))>>pin)&1 //GET GPIO value in GPLEV0
 ```
+
+# Examples
+
+``direct_register access_control_gpio.c``: Control GPIO by direct register access
