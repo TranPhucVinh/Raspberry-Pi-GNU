@@ -98,4 +98,4 @@ Same mechanism for ``GPCLR0`` and ``GPLEV0``:
 
 # Examples
 
-``direct_register_access_control_gpio.c``: Control GPIO by direct register access in BCM2537. To run the program: ``sudo ./a.out`` (to open ``/dev/mem``).
+[direct_register_access_control_gpio.c](direct_register_access_control_gpio.c): Control GPIO by direct register access in BCM2537. To run the program: ``sudo ./a.out`` (to open ``/dev/mem``).
