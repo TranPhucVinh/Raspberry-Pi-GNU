@@ -1,6 +1,6 @@
 Using WiringPi: Check [WiringPi.md](https://github.com/TranPhucVinh/Raspberry-Pi-C/blob/main/Physical%20layer/GPIO/WiringPi.md)
 
-Using Direct register access: Check [Direct%20register%20access.md](Direct register access.md]
+Using Direct register access: Check [Direct register access document](Direct%20register%20access.md]
 
 **Using sysfs**:
 
