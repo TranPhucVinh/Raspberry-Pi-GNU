@@ -1,4 +1,8 @@
-## Communication with slave
+# Using system call ioctl
+
+Check I2C sensors and modules examples in [Sensors and Modules](Sensors%20and%20Modules).
+
+# Using wiringPi
 
 **Connection**
 
