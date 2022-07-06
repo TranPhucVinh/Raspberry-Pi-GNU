@@ -14,7 +14,7 @@ BCM2835 contains the following peripherals which may safely be accessed by the A
 * PWM
 * UART0, UART1 
 
-![](https://github.com/TranPhucVinh/Kicad/blob/master/Images/BCM2835_address_spaces.png)
+![](../Environment/Images/BCM2835_address_spaces.png)
 
 Addresses in ARM Linux are:
 * issued as virtual addresses by the ARM core, then
