@@ -50,6 +50,11 @@ In 12th February 2022, with Raspbian installed from ``2021-10-30-raspios-bullsey
 * [blink_led.c](blink_led.c): Blink LED by GPIO kernel API and kernel timer setup
 * [control_led_with_button.c](control_led_with_button.c): Use button to control the LED. If button is pressed, turn on LED, if not pressed, turn off LED.
 
+Control GPIO with ``linux/io``:
+
+* [gpio_control_with_linux_io.c](gpio_control_with_linux_io.c): Blink LED with ``ioremap()``
+* [gpio_control_io_rw.c](gpio_control_io_rw.c): Blink LED with ``ioremap()``, ``iowrite()``, ``ioread()``
+
 # Interrupt
 
 * [toggle_led_by_interrupt.c](toggle_led_by_interrupt.c): Toggle LED status by pressing button with interrupt. If pressed button for the first time, LED turn on, press one more time, LED turn off.
