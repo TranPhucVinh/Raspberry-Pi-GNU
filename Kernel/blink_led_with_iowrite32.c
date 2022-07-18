@@ -11,7 +11,7 @@
 
 #define DELAY                   5000
 
-#define MAPPING_SIZE            0x100 //Map 256 physical registers to virtual registers
+#define MAPPING_SIZE            0x100
 
 MODULE_LICENSE("GPL");
 

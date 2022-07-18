@@ -52,8 +52,8 @@ In 12th February 2022, with Raspbian installed from ``2021-10-30-raspios-bullsey
 
 Control GPIO with ``linux/io``:
 
-* [gpio_control_with_linux_io.c](gpio_control_with_linux_io.c): Blink LED with ``ioremap()``
-* [gpio_control_io_rw.c](gpio_control_io_rw.c): Blink LED with ``ioremap()``, ``iowrite()``, ``ioread()``
+* [blink_led_with_ioremap.c](blink_led_with_ioremap.c): Blink LED with ``ioremap()``
+* [blink_led_with_iowrite32.c](blink_led_with_iowrite32.c): Blink LED with ``ioremap()`` and ``iowrite32()``
 
 # Interrupt
 
