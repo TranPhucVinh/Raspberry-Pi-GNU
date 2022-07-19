@@ -57,4 +57,4 @@ Control GPIO with ``linux/io``:
 
 # Interrupt
 
-* [toggle_led_by_interrupt.c](toggle_led_by_interrupt.c): Toggle LED status by pressing button with interrupt. If pressed button for the first time, LED turn on, press one more time, LED turn off.
+* [toggle_led_by_gpio_interrupt.c](toggle_led_by_interrupt.c): Toggle LED status by pressing button with interrupt. If pressed button for the first time, LED turn on, press one more time, LED turn off.
