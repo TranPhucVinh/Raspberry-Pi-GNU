@@ -57,4 +57,15 @@ Control GPIO with ``linux/io``:
 
 # Interrupt
 
-* [toggle_led_by_gpio_interrupt.c](toggle_led_by_gpio_interrupt.c): Toggle LED status by pressing button with interrupt. If pressed button for the first time, LED turn on, press one more time, LED turn off.
+## Toggle LED by interrupt
+
+Toggle LED status by pressing button with interrupt. If pressed button for the first time, LED turn on, press one more time, LED turn off.
+
+**Program**: [toggle_led_by_gpio_interrupt.c](toggle_led_by_gpio_interrupt.c)
+
+After inserting the module, the IRQ number registered by the GPIO and interrupt name can be viewed in proc/interrupts
+
+```
+           CPU0       CPU1       CPU2       CPU3   
+199:        446          0          0          0  pinctrl-bcm2835   3 Edge      Device name
+```
