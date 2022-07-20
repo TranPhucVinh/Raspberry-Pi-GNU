@@ -63,9 +63,11 @@ Toggle LED status by pressing button with interrupt. If pressed button for the f
 
 **Program**: [toggle_led_by_gpio_interrupt.c](toggle_led_by_gpio_interrupt.c)
 
-After inserting the module, the IRQ number registered by the GPIO and interrupt name can be viewed in proc/interrupts
+After inserting the module, the IRQ number registered by the GPIO and interrupt name can be viewed in ``proc/interrupts``
 
 ```
            CPU0       CPU1       CPU2       CPU3   
 199:        446          0          0          0  pinctrl-bcm2835   3 Edge      Device name
 ```
+
+where ``199`` is the built-in interrupt in BCM2835 (``pinctrl-bcm2835``) which is used to handle all GPIO interrupt
