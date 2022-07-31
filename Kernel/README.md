@@ -65,3 +65,39 @@ Control GPIO with ``linux/io``:
 * Count how many times the GPIO interrupt is triggered.
 
 **Program**: [toggle_led_by_gpio_interrupt.c](toggle_led_by_gpio_interrupt.c)
+
+After inserting the module, the IRQ number registered by the GPIO and interrupt name can be viewed in ``proc/interrupts``
+
+```
+           CPU0       CPU1       CPU2       CPU3   
+199:        446          0          0          0  pinctrl-bcm2835   3 Edge      Device name
+```
+
+where ``199`` is the built-in interrupt in BCM2835 (``pinctrl-bcm2835``) which is used to handle all GPIO interrupt
+
+## Disable GPIO interrupt 
+
+This kernel module will disable interrupt ``199`` which is registred by the program/kernel module ``toggle_led_by_gpio_interrupt.c`` above. Note that interrupt ``199`` is not needed to be shared (by ``IRQF_SHARED`` flag) to be disable by other kernel module.
+
+```c
+#include <linux/module.h>
+#include <linux/kernel.h>
+#include <linux/interrupt.h>
+
+#define IRQ_NUM    199
+
+int init_module(void)
+{
+	printk(KERN_INFO "Module to disable interrupt\n");
+	disable_irq(IRQ_NUM);
+
+	return 0;
+}
+
+void cleanup_module(void)
+{
+	printk(KERN_INFO "clean up module disable interrupt\n");
+}
+```
+
+After inserting this module, the interrupt name Device name still existed in ``199`` but the interrupt function no longer work.
