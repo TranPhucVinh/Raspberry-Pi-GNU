@@ -79,6 +79,8 @@ After inserting the module, the IRQ number registered by the GPIO and interrupt 
 
 where ``199`` is the built-in interrupt in BCM2835 (``pinctrl-bcm2835``) which is used to handle all GPIO interrupt
 
+**Trigger the registered GPIO interrupt by a userspace program**: [direct_register_access_control_led_with_button.c](https://github.com/TranPhucVinh/Raspberry-Pi-C/blob/main/Physical%20layer/GPIO/direct_register_access_control_led_with_button.c), a userspace program can trigger the IRQ number registered by this kernel module. The IRQ handler message in this kernel will then print out how many times the GPIO interrupt is triggered every time the button is pressed when running this user space program.
+
 ## Disable GPIO interrupt 
 
 This kernel module will disable interrupt ``199`` which is registred by the program/kernel module ``toggle_led_by_gpio_interrupt.c`` above. Note that interrupt ``199`` is not needed to be shared (by ``IRQF_SHARED`` flag) to be disable by other kernel module.
