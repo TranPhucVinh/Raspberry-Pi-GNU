@@ -7,7 +7,7 @@
 #define BCM2837_PHY_ADDR                0x3f000000 //BCM2837 physical address start
 #define GPIO_BASE                       (BCM2837_PHY_ADDR + 0x200000) /* GPIO controller */
 
-#define LED			4
+#define LED			3
 
 #define DELAY                   5000
 
@@ -20,18 +20,18 @@ struct 	task_struct *kthread_1;
 unsigned int *gpio_base;
 
 unsigned int *led_address;
-unsigned int *on_address;
-unsigned int *off_address;
+unsigned int *led_on_address;
+unsigned int *led_off_address;
 
-unsigned long output_value = 0;//output_value to setup output mode, read, write operation
-unsigned long on_value = 0;//on_value to write ON to LED
-unsigned long off_value = 0;//off_value to write OFF to LED
+unsigned long led_output_value = 0;//led_output_value to setup output mode, read, write operation
+unsigned long led_on_value = 0;//led_on_value to write ON to LED
+unsigned long led_off_value = 0;//led_off_value to write OFF to LED
 
 int thread_function(void *kernel_data) {
 	while(!kthread_should_stop()){
-                iowrite32(on_value, on_address);
+                iowrite32(led_on_value, led_on_address);
                 msleep(DELAY);
-                iowrite32(off_value, off_address);
+                iowrite32(led_off_value, led_off_address);
                 msleep(DELAY);
 	}
 	return 0;
@@ -46,17 +46,17 @@ int init_module(void)
 	if (gpio_base == NULL) printk("Couldn't perform mapping\n");
 	else {
 		led_address = gpio_base + LED/10; //Set virtual address for LED pin
-		on_address = gpio_base + 7; //Set virtual address for ON address
-		off_address = gpio_base + 10; //Set virtual address for OFF address
+		led_on_address = gpio_base + 7; //Set virtual address for ON address
+		led_off_address = gpio_base + 10; //Set virtual address for OFF address
 
 		//Set GPIO output
-		output_value  &= ~(7<<(((LED)%10)*3));
-		output_value |= (1<<(((LED)%10)*3));
+		led_output_value  &= ~(7<<(((LED)%10)*3));
+		led_output_value |= (1<<(((LED)%10)*3));
 
-		iowrite32(output_value, led_address); //Set LED output
+		iowrite32(led_output_value, led_address); //Set LED output
 		
-		on_value = 1<<LED;	//set value to write ON
-		off_value = on_value;   //set value to write OFF
+		led_on_value = 1<<LED;	//set value to write ON
+		led_off_value = led_on_value;   //set value to write OFF
 		
 		//Thread setup
 		kthread_1 = kthread_create(thread_function, NULL, "kthread_1");
