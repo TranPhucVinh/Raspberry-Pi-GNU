@@ -9,7 +9,7 @@
 
 #define LED			3
 
-#define DELAY                   5000
+#define DELAY                   1000
 
 #define MAPPING_SIZE            0x100
 
@@ -50,6 +50,7 @@ int init_module(void)
 		led_off_address = gpio_base + 10; //Set virtual address for OFF address
 
 		//Set GPIO output
+        led_output_value = ioread32(led_address);
 		led_output_value  &= ~(7<<(((LED)%10)*3));
 		led_output_value |= (1<<(((LED)%10)*3));
 
