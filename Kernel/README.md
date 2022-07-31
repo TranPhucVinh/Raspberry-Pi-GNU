@@ -54,6 +54,7 @@ Control GPIO with ``linux/io``:
 
 * [blink_led_with_ioremap.c](blink_led_with_ioremap.c): Blink LED with ``ioremap()``
 * [blink_led_with_iowrite32.c](blink_led_with_iowrite32.c): Blink LED with ``ioremap()`` and ``iowrite32()``
+* [control_led_with_ioread32.c](control_led_with_ioread32.c): Use button to control the LED. If button is pressed, turn on LED, if not pressed, turn off LED. Using ``ioread32()`` and ``iowrite32()``.
 
 # Interrupt with GPIO
 
