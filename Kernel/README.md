@@ -55,6 +55,13 @@ Control GPIO with ``linux/io``:
 * [blink_led_with_ioremap.c](blink_led_with_ioremap.c): Blink LED with ``ioremap()``
 * [blink_led_with_iowrite32.c](blink_led_with_iowrite32.c): Blink LED with ``ioremap()`` and ``iowrite32()``
 
-# Interrupt
+# Interrupt with GPIO
 
-* [toggle_led_by_gpio_interrupt.c](toggle_led_by_gpio_interrupt.c): Toggle LED status by pressing button with interrupt. If pressed button for the first time, LED turn on, press one more time, LED turn off.
+## Example: Toggle LED by GPIO interrupt
+
+**Features**:
+
+* Toggle LED status by pressing button with interrupt. If pressed button for the first time, LED turn on, press one more time, LED turn off
+* Count how many times the GPIO interrupt is triggered.
+
+**Program**: [toggle_led_by_gpio_interrupt.c](toggle_led_by_gpio_interrupt.c)

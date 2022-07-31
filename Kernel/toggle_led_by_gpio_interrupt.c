@@ -14,10 +14,14 @@ MODULE_LICENSE("GPL");
 int irq_number;
 int led_status;
 
+int triggered_times = 0;
+
 irq_handler_t gpio_irq_handler(unsigned int irq, void* dev_id, struct pt_regs *regs){
 	led_status = !led_status;
 	gpio_direction_output(LED, led_status);
 
+    printk("IRQ triggered times %d\n", triggered_times);
+    triggered_times += 1;
     return (irq_handler_t) IRQ_HANDLED;
 }
 
