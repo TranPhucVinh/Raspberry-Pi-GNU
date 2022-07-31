@@ -57,6 +57,10 @@ Control GPIO with ``linux/io``:
 
 # Interrupt with GPIO
 
+## API
+
+In Raspbian, every GPIO will have a unique IRQ number. ``gpio_to_irq()`` will return that unique number of each GPIO.
+
 ## Example: Toggle LED by GPIO interrupt
 
 **Features**:
