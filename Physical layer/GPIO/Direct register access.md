@@ -45,7 +45,7 @@ GPIO pin 9: ``7 << 27``
 Then:
 
 * Start executing complement operator to switch those 3-bit to ``0b000`` for input mode.
-* Start the whole process like input mode then use OR operator for putput mode.
+* Start the whole process like input mode then use OR operator for output mode.
 
 So the whole process will be: 
 
