@@ -9,9 +9,18 @@
 #define I2C_BUS "/dev/i2c-1"
 #define SHT30	0x44
 
+// #define PERIODIC_MODE
+#define SINGLE_MODE
+
+#if defined(SINGLE_MODE)
 //Single-shot High Repeatability, enable Clock stretching
-#define MSB_COMMAND 0x2C
+#define MSB_COMMAND 0x2c
 #define LSB_COMMAND 0x06
+#elif defined(PERIODIC_MODE)
+//Preriodic mode, 2mps, medium
+#define MSB_COMMAND 0x22
+#define LSB_COMMAND 0x20
+#endif
 
 #define READ_SIZE	6
 #define STORE_SIZE	2
@@ -37,14 +46,22 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 
-    char write_command[2] = {MSB_COMMAND, LSB_COMMAND};    
+    char write_command[2] = {MSB_COMMAND, LSB_COMMAND};
     int ret = write(i2c_bus, write_command, 2);
     if (ret != 2){
         printf("Unable to write command to SHT30, ret %d\n", ret);
+        close(i2c_bus);
         return -1;
     }
 
+#if defined(SINGLE_MODE)
+    char temp[2] = {MSB_COMMAND, LSB_COMMAND};
+#elif defined(PERIODIC_MODE)
+    char temp[2] = {0xe0, 0x00};
+#endif
     while (1){
+        int rett = write(i2c_bus, temp, 2);
+        usleep(10000);
         if (read(i2c_bus, sht30_data, READ_SIZE) < 0){
             printf("Unable to read SHT30 temperature and humidity\n");
             break;
