@@ -45,8 +45,9 @@ In 12th February 2022, with Raspbian installed from ``2021-10-30-raspios-bullsey
 
 * ``raspbian_kernel_module.c``: The very first kernel module built on Raspbian
 
-# GPIO control
+## GPIO driver
 
+Kernel module as driver to control GPIO:
 * [blink_led.c](blink_led.c): Blink LED by GPIO kernel API and kernel timer setup
 * [control_led_with_button.c](control_led_with_button.c): Use button to control the LED. If button is pressed, turn on LED, if not pressed, turn off LED.
 
@@ -56,7 +57,7 @@ Control GPIO with ``linux/io``:
 * [blink_led_with_iowrite32.c](blink_led_with_iowrite32.c): Blink LED with ``ioremap()`` and ``iowrite32()``
 * [control_led_with_ioread32.c](control_led_with_ioread32.c): Use button to control the LED. If button is pressed, turn on LED, if not pressed, turn off LED. Using ``ioread32()`` and ``iowrite32()``.
 
-# Interrupt with GPIO
+## Interrupt with GPIO
 
 ## API
 
@@ -108,3 +109,7 @@ void cleanup_module(void)
 ```
 
 After inserting this module, the interrupt name Device name still existed in ``199`` but the interrupt function no longer work.
+
+# I2C driver
+
+Build a I2C driver to control PCF8574 module, turn on a specific GPIO when ``insmod`` successfully: [i2c_driver_pcf8574.c](i2c_driver_pcf8574.c)
