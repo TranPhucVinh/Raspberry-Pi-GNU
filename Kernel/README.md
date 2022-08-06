@@ -114,4 +114,47 @@ After inserting this module, the interrupt name Device name still existed in ``1
 
 Build a I2C driver to control PCF8574 module, turn on a specific GPIO when ``insmod`` successfully: [i2c_driver_pcf8574.c](i2c_driver_pcf8574.c)
 
-After insmod the driver, device ``/dev/PCF8574_DRIVER`` will be available for userspace communication.
+After ``insmod`` the driver, device ``/dev/PCF8574_DRIVER`` will be available for userspace communication.
+
+## Control GPIO of PCF8574 module through the device from user space
+
+In driver code, change ``dev_write()`` function to:
+
+```c
+#define WRITE_SIZE	1
+char write_value[WRITE_SIZE];
+ssize_t dev_write(struct file*filep, const char __user *buf, size_t len, loff_t *offset)
+{
+	memset(write_value, 0, sizeof(write_value));
+	copy_from_user(write_value, buf, len);
+
+	//Then turn on a specifc GPIO when insmod successfully
+	i2c_master_send(pcf8574_i2c_client, write_value, WRITE_SIZE);
+	return sizeof(write_value);
+}
+```
+
+Userspace program to control GPIO by ``write()`` system call:
+
+```c
+#define DEV_NAME    "/dev/PCF8574_DRIVER"
+#define WRITE_SIZE	1
+#define PIN         4
+
+char write_string[WRITE_SIZE];
+
+int fd;
+
+int main(){
+    fd = open(DEV_NAME, O_RDWR);
+    if(fd < 0) {
+        printf("Fail to open %s\n",DEV_NAME);
+        return 1;
+    }
+    else {
+        write_string[0] = 1 << PIN;
+        write(fd, write_string, sizeof(write_string));
+    }
+    return 0;
+}
+```
