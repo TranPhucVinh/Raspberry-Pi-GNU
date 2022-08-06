@@ -113,3 +113,4 @@ After inserting this module, the interrupt name Device name still existed in ``1
 # I2C driver
 
 Build a I2C driver to control PCF8574 module, turn on a specific GPIO when ``insmod`` successfully: [i2c_driver_pcf8574.c](i2c_driver_pcf8574.c)
+After insmod the driver, device ``/dev/PCF8574_DRIVER`` will be available for userspace communication.
