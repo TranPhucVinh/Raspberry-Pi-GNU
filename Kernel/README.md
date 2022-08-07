@@ -63,12 +63,14 @@ Control GPIO with ``linux/io``:
 
 In Raspbian, every GPIO will have a unique IRQ number. ``gpio_to_irq()`` will return that unique number of each GPIO.
 
-## Example: Toggle LED by GPIO interrupt
+## Example 1: Blink LED and count how many times IRQ is triggered
 
 **Features**:
 
-* Toggle LED status by pressing button with interrupt. If pressed button for the first time, LED turn on, press one more time, LED turn off
-* Count how many times the GPIO interrupt is triggered.
+* Map a GPIO to an IRQ then blink that GPIO with a thread
+* Count how many times that IRQ is triggered in the IRQ handler (as it is triggered everytime it blinks)
+
+**Program**: [gpio_interrupt.c](gpio_interrupt.c)
 
 **Program**: [toggle_led_by_gpio_interrupt.c](toggle_led_by_gpio_interrupt.c)
 
@@ -76,10 +78,15 @@ After inserting the module, the IRQ number registered by the GPIO and interrupt 
 
 ```
            CPU0       CPU1       CPU2       CPU3   
-199:        446          0          0          0  pinctrl-bcm2835   3 Edge      Device name
+199:        126          0          0          0  pinctrl-bcm2835   2 Edge      GPIO_IRQ
 ```
 
-where ``199`` is the built-in interrupt in BCM2835 (``pinctrl-bcm2835``) which is used to handle all GPIO interrupt
+## Example 2: Toggle LED by GPIO interrupt
+
+**Features**:
+
+* Toggle LED status by pressing button with interrupt. If pressed button for the first time, LED turn on, press one more time, LED turn off
+* Count how many times the GPIO interrupt is triggered.
 
 **Trigger the registered GPIO interrupt by a userspace program**: [direct_register_access_control_led_with_button.c](https://github.com/TranPhucVinh/Raspberry-Pi-C/blob/main/Physical%20layer/GPIO/direct_register_access_control_led_with_button.c), a userspace program can trigger the IRQ number registered by this kernel module. The IRQ handler message in this kernel will then print out how many times the GPIO interrupt is triggered every time the button is pressed when running this user space program.
 
