@@ -72,8 +72,6 @@ In Raspbian, every GPIO will have a unique IRQ number. ``gpio_to_irq()`` will re
 
 **Program**: [gpio_interrupt.c](gpio_interrupt.c)
 
-**Program**: [toggle_led_by_gpio_interrupt.c](toggle_led_by_gpio_interrupt.c)
-
 After inserting the module, the IRQ number registered by the GPIO and interrupt name can be viewed in ``proc/interrupts``
 
 ```
@@ -87,6 +85,8 @@ After inserting the module, the IRQ number registered by the GPIO and interrupt 
 
 * Toggle LED status by pressing button with interrupt. If pressed button for the first time, LED turn on, press one more time, LED turn off
 * Count how many times the GPIO interrupt is triggered.
+
+**Program**: [toggle_led_by_gpio_interrupt.c](toggle_led_by_gpio_interrupt.c)
 
 **Trigger the registered GPIO interrupt by a userspace program**: [direct_register_access_control_led_with_button.c](https://github.com/TranPhucVinh/Raspberry-Pi-C/blob/main/Physical%20layer/GPIO/direct_register_access_control_led_with_button.c), a userspace program can trigger the IRQ number registered by this kernel module. The IRQ handler message in this kernel will then print out how many times the GPIO interrupt is triggered every time the button is pressed when running this user space program.
 
