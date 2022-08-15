@@ -45,7 +45,7 @@ In 12th February 2022, with Raspbian installed from ``2021-10-30-raspios-bullsey
 
 * ``raspbian_kernel_module.c``: The very first kernel module built on Raspbian
 
-## GPIO driver
+# GPIO driver
 
 Kernel module as driver to control GPIO:
 * [blink_led.c](blink_led.c): Blink LED by GPIO kernel API and kernel timer setup
@@ -59,11 +59,11 @@ Control GPIO with ``linux/io``:
 
 ## Interrupt with GPIO
 
-## API
+### API
 
 In Raspbian, every GPIO will have a unique IRQ number. ``gpio_to_irq()`` will return that unique number of each GPIO.
 
-## Example 1: Blink LED and count how many times IRQ is triggered
+### Example 1: Blink LED and count how many times IRQ is triggered
 
 **Features**:
 
@@ -79,7 +79,7 @@ After inserting the module, the IRQ number registered by the GPIO and interrupt 
 199:        126          0          0          0  pinctrl-bcm2835   2 Edge      GPIO_IRQ
 ```
 
-## Example 2: Toggle LED by GPIO interrupt
+### Example 2: Toggle LED by GPIO interrupt
 
 **Features**:
 
@@ -90,7 +90,7 @@ After inserting the module, the IRQ number registered by the GPIO and interrupt 
 
 **Trigger the registered GPIO interrupt by a userspace program**: [direct_register_access_control_led_with_button.c](https://github.com/TranPhucVinh/Raspberry-Pi-C/blob/main/Physical%20layer/GPIO/direct_register_access_control_led_with_button.c), a userspace program can trigger the IRQ number registered by this kernel module. The IRQ handler message in this kernel will then print out how many times the GPIO interrupt is triggered every time the button is pressed when running this user space program.
 
-## Disable GPIO interrupt 
+### Disable GPIO interrupt 
 
 This kernel module will disable interrupt ``199`` which is registred by the program/kernel module ``toggle_led_by_gpio_interrupt.c`` above. Note that interrupt ``199`` is not needed to be shared (by ``IRQF_SHARED`` flag) to be disable by other kernel module.
 
