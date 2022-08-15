@@ -199,7 +199,7 @@ dtc -@ -I dts -O dtb -o dt_overlay_test.dtbo dt_overlay_test.dts
 Insert the overlay device tree to the existed device tree (must run with ``sudo``):
 
 ```sh
-sudo dtoverlay dt_overlay_test.dtbo``
+sudo dtoverlay dt_overlay_test.dtbo
 ```
 
 Before inserting the overlay device tree, node ``new_dt_node`` is not existed:
