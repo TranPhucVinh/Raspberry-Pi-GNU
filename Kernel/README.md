@@ -167,3 +167,5 @@ int main(){
 ```
 
 # Device tree
+
+Check [device tree document folder](Device%20tree)
