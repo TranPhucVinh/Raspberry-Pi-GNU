@@ -234,9 +234,9 @@ struct device_node *dev_node;
 int init_module(void)
 {
 	dev_node = (struct device_node *)kmalloc(sizeof(struct device_node), GFP_KERNEL);
-	dev_node = of_find_node_by_type(NULL, "serial");
-	printk("name: %s\n", dev_node->name);//serial
-	printk("full_name: %s\n", dev_node->full_name);//serial@e0000000
+	dev_node = of_find_node_by_type(NULL, "memory");
+	printk("name: %s\n", dev_node->name);//memory
+	printk("full_name: %s\n", dev_node->full_name);//memory@0
 	return 0;
 }
 
