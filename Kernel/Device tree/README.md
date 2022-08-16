@@ -188,7 +188,11 @@ sudo busybox devmem 0x3f200000 w 0x200 	#Set output for GPIO 3
 
 # API
 
-Functions to read device tree node properties like ``device_property_present()`` are only available for platform devices, running th function inside character device will result in error.
+### Platform driver functions
+
+Functions to read device tree node properties like ``device_property_present()`` are only available for platform devices, running those function inside character device will result in error.
+
+### platform_get_irq()
 
 ```c
 int platform_get_irq(struct platform_device *dev, unsigned int irq_index)
@@ -203,3 +207,41 @@ int irq = platform_get_irq(pdev, 0);
 ```
 
 This function will return the ``irq`` number; this number is usable by ``devm_request_irq()`` (``irq`` is then visible in ``/proc/interrupts``). The second argument, ``0``, says that we need the first interrupt specified in the device node. If there is more than one interrupt, we can change this index according to the interrupt we need.
+
+### of_find_node_by_type()
+
+```c
+struct device_node *of_find_node_by_type(struct device_node *from, const char *type);
+```
+
+Find a node by its ``device_type`` property
+
+* ``from``: If ``NULL``, search the entire device tree
+* ``type``: ``device_type`` propery value
+
+**Example**: Find a node device with ``device_type`` is ``serial`` in a kernel module
+
+```c
+#include <linux/module.h>
+#include <linux/kernel.h>
+#include <linux/of.h>
+#include <linux/slab.h> //for kmalloc()
+
+MODULE_LICENSE("GPL");
+
+struct device_node *dev_node;
+
+int init_module(void)
+{
+	dev_node = (struct device_node *)kmalloc(sizeof(struct device_node), GFP_KERNEL);
+	dev_node = of_find_node_by_type(NULL, "serial");
+	printk("name: %s\n", dev_node->name);//serial
+	printk("full_name: %s\n", dev_node->full_name);//serial@e0000000
+	return 0;
+}
+
+void cleanup_module(void)
+{
+	printk(KERN_INFO "clean up module\n");
+}
+```
