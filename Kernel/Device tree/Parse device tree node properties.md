@@ -32,3 +32,31 @@ Only a platform driver can be used to parse the properties of a device tree node
 Running ``rmmod`` will call platform driver ``remove()`` function.
 
 Parse all properties of ``new_dt_node``: [parse_device_tree_node_properties.c](parse_device_tree_node_properties.c)
+
+## Change property of an added overlay device tree node by a kernel module
+
+Linux support kernel API for CRUD operations to device tree nodes in a single board computer Unix OS.
+
+Kernel module: [update_property_for_overlay_device_tree.c](update_property_for_overlay_device_tree.c)
+
+Before change:
+
+```sh
+new_dt_node {
+        compatible = "compatible_string";
+        device_type = "new_dt_node";
+        interrupt-parent = <0x07>;
+        interrupts = <0x03 0x01>;
+};
+```
+
+Change ``compatible`` property to ``new_compatible_string``.
+
+```sh
+new_dt_node {
+        compatible = "compatible_string";
+        device_type = "new_compatible_string";
+        interrupt-parent = <0x07>;
+        interrupts = <0x03 0x01>;
+};
+```
