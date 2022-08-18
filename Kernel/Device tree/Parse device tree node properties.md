@@ -60,3 +60,5 @@ new_dt_node {
         interrupts = <0x03 0x01>;
 };
 ```
+
+With the kernel module program above, as using the overlay device tree node with ``target-path = "/"``, its parent node will be ``NULL``.
