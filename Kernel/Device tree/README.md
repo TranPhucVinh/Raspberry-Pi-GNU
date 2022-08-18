@@ -163,7 +163,7 @@ sudo busybox devmem 0x3f200000 w 0x200 	#Set output for GPIO 3
 
 # API
 
-### Platform driver functions
+## Platform driver functions
 
 Functions to read device tree node properties like ``device_property_present()`` are only available for platform devices, running those function inside character device will result in error.
 
@@ -182,6 +182,8 @@ int irq = platform_get_irq(pdev, 0);
 ```
 
 This function will return the ``irq`` number; this number is usable by ``devm_request_irq()`` (``irq`` is then visible in ``/proc/interrupts``). The second argument, ``0``, says that we need the first interrupt specified in the device node. If there is more than one interrupt, we can change this index according to the interrupt we need.
+
+## Device tree node parsing API
 
 ### of_find_node_by_type()
 
@@ -219,4 +221,20 @@ void cleanup_module(void)
 {
 	printk(KERN_INFO "clean up module\n");
 }
+```
+
+```c
+struct of_changeset {
+	struct list_head entries;
+};
+
+struct list_head {
+	struct list_head *next, *prev;
+};
+
+void of_changeset_init(struct of_changeset *ocs);
+
+int of_changeset_attach_node(struct of_changeset *ocs, struct device_node *np);
+
+int of_overlay_fdt_apply(const void *overlay_fdt, u32 overlay_fdt_size, int *ovcs_id);
 ```
