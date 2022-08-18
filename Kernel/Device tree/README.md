@@ -82,7 +82,7 @@ After inserting the overlay device tree above, node ``new_dt_node`` will appear:
 
 ## Parse device node properties
 
-Check [parse device node properties document](Parse%20device%20node%20properties.md).
+Check [parse device node properties document](Parse%20device%20tree%20node%20properties.md).
 
 ## Interrupt
 
