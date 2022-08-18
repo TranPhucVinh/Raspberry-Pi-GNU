@@ -1,6 +1,8 @@
 # Fundamental concepts
 
-Unpack the device tree and view on terminal: ``dtc -I fs /sys/firmware/devicetree/base``
+In Raspbian or Unix single board computers in general, device tree are opened to read in ``/sys/firmware/devicetree/``.
+
+To unpack the device tree and view on terminal: ``dtc -I fs /sys/firmware/devicetree/base``
 
 Unpack the device tree to a file: ``(dtc -I fs /sys/firmware/devicetree/base) > device_tree.md``
 
