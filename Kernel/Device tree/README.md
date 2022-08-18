@@ -185,6 +185,58 @@ This function will return the ``irq`` number; this number is usable by ``devm_re
 
 ## Device tree node parsing API
 
+### struct
+
+```c
+#include <linux/of.h>
+```
+
+```c
+struct device_node {
+	const char *name;
+	phandle phandle;
+	const char *full_name;
+	struct fwnode_handle fwnode;
+
+	struct	property *properties;
+	struct	property *deadprops;	/* removed properties */
+	struct	device_node *parent;
+	struct	device_node *child;
+	struct	device_node *sibling;
+#if defined(CONFIG_OF_KOBJ)
+	struct	kobject kobj;
+#endif
+	unsigned long _flags;
+	void	*data;
+#if defined(CONFIG_SPARC)
+	unsigned int unique_id;
+	struct of_irq_controller *irq_trans;
+#endif
+};
+```
+
+```c
+struct property {
+	char	*name;
+	int	  length;
+	void	*value;
+	struct property *next;
+	unsigned long _flags;
+	unsigned int unique_id;
+	struct bin_attribute attr;
+};
+```
+
+```c
+struct of_changeset {
+	struct list_head entries;
+};
+
+struct list_head {
+	struct list_head *next, *prev;
+};
+```
+
 ### of_find_node_by_type()
 
 ```c
@@ -226,14 +278,6 @@ void cleanup_module(void)
 ### APIs to update device tree node properties
 
 ```c
-struct of_changeset {
-	struct list_head entries;
-};
-
-struct list_head {
-	struct list_head *next, *prev;
-};
-
 void of_changeset_init(struct of_changeset *ocs);
 
 int of_changeset_attach_node(struct of_changeset *ocs, struct device_node *np);
