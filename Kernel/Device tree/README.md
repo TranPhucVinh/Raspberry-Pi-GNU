@@ -223,6 +223,8 @@ void cleanup_module(void)
 }
 ```
 
+### APIs to update device tree node properties
+
 ```c
 struct of_changeset {
 	struct list_head entries;
@@ -238,3 +240,32 @@ int of_changeset_attach_node(struct of_changeset *ocs, struct device_node *np);
 
 int of_overlay_fdt_apply(const void *overlay_fdt, u32 overlay_fdt_size, int *ovcs_id);
 ```
+
+### of_property_read_u32_array()
+
+Read ``interrupts`` properties from node ``new_dt_node``
+
+```
+new_dt_node {
+        compatible = "compatible_string";     
+        interrupts = <0x0 0x23 0x1 0x0 0x24 0x1>;
+};
+```
+
+```c
+int int_array[6];
+struct device_node  *dev_node;
+int init_module(void)
+{
+	dev_node = (struct device_node *)kmalloc(sizeof(struct device_node), GFP_KERNEL);
+	dev_node = of_find_compatible_node(NULL, NULL, "compatible_string");
+	
+	prop = kmalloc(sizeof(struct property*), GFP_KERNEL);
+
+	int ret = of_property_read_u32_array(dev_node, "interrupts", int_array, 6);
+	printk("ret %d\n", ret);
+	printk("%d %d %d\n", int_array[0], int_array[1], int_array[2]);
+}
+```
+
+Note that the ``size`` parameter to read must be fixed to the existed size of the property. E.g: As ``interrupts`` array size is ``6`` but use array size ``100`` to read, then there will be error ``EOVERFLOW`` (``75``).
