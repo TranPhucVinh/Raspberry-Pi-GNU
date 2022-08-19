@@ -36,6 +36,14 @@ E.g: Read 4 bytes from physical address ``0x12345678``
 sudo busybox devmem 0x12345678
 ```
 
+### Blink LED on GPIO 03 by devmem
+
+```sh
+sudo busybox devmem 0x3f200000 w 0x200 	#Set output for GPIO 3
+sudo busybox devmem 0x3f20001c w 0x8	#Turn ON GPIO 3 
+sudo busybox devmem 0x3f200028 w 0x8	#Turn OFF GPIO 3
+```
+
 ### Working with ``devmem`` based on the virtual memory achieved by``iowrite32()`` operations
 
 Kernel module program that setup output for GPIO and also print out the physical address and written value for later testing with ``devmem``:
