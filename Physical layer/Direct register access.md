@@ -44,7 +44,7 @@ sudo busybox devmem 0x3f20001c w 0x8	#Turn ON GPIO 3
 sudo busybox devmem 0x3f200028 w 0x8	#Turn OFF GPIO 3
 ```
 
-Please note that the register incremented in those operations are multiple by ``4``, that related to [the + arithmetic issue in C](https://github.com/TranPhucVinh/C/tree/master/Physical%20layer/Memory/Pointer#-arithmetic-issue).
+In this case, the register address are handled by their real value, so the register incremented in those operations are multiple by ``4``, that related to [the + arithmetic issue in C](https://github.com/TranPhucVinh/C/tree/master/Physical%20layer/Memory/Pointer#-arithmetic-issue).
 
 ```
 0x3f200000: output register address
