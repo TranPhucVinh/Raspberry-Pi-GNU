@@ -46,6 +46,12 @@ sudo busybox devmem 0x3f200028 w 0x8	#Turn OFF GPIO 3
 
 Please note that the register incremented in those operations are multiple by ``4``, that related to [the + arithmetic issue in C](https://github.com/TranPhucVinh/C/tree/master/Physical%20layer/Memory/Pointer#-arithmetic-issue).
 
+```
+0x3f200000: output register address
+0x3f20001c = 0x3f200000  + 7*4;
+0x3f200028 = 0x3f200000 + 10*4;
+```
+
 ### Working with ``devmem`` based on the virtual memory achieved by``iowrite32()`` operations
 
 Kernel module program that setup output for GPIO and also print out the physical address and written value for later testing with ``devmem``:
