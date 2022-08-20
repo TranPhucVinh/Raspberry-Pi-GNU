@@ -1,6 +1,36 @@
-``interrupt-parent`` is a phandle that points to the interrupt controller for the current node.
+## Properties
 
-``interrupts``: A general value depends on type of the ``interrupt-parent``. E.g with with ``interrupt-parent`` is ``gpio``, then the ``interrupts`` is the GPIO number.
+* ``interrupt-parent`` is a phandle that points to the interrupt controller for the current node.
+* ``interrupts``: A general value depends on type of the ``interrupt-parent``. E.g with with ``interrupt-parent`` is ``gpio``, then the ``interrupts`` has the GPIO number as one of its properties.
+
+* ``#interrupt-cells`` indicates the number of cells in the interrupts property for the interrupts managed by the
+selected interrupt controller.
+
+## GPIO interrupt
+
+GPIO nodes in device tree with interrups properties:
+
+```c
+gpio@7e200000 {
+	compatible = "brcm,bcm2835-gpio";
+	//Other values here
+	#interrupt-cells = <0x02>;
+	interrupts = <0x02 0x11 0x02 0x12>;
+	phandle = <0x07>;
+	reg = <0x7e200000 0xb4>;
+	#gpio-cells = <0x02>;
+	pinctrl-names = "default";
+	interrupt-controller;
+
+	uart0_gpio14 {
+		brcm,pins = <0x0e 0x0f>;
+		phandle = <0x4e>;
+		brcm,function = <0x04>;
+	};
+
+```
+
+The properties of GPIO states has ``interrupt-controller`` which infers that it is also an interrupt controller.
 
 Add GPIO interrupt to an overlay device tree
 
@@ -22,9 +52,10 @@ Add GPIO interrupt to an overlay device tree
 };
 ```
 
-``3``: GPIO pin number of Raspberry that wished to be converted to IRQ number
+As ``#interrupt-cells`` is ``0x02``, so every GPIO interrupt need 2 values. In this example:
 
-``1``: IRQ flag for ``IRQF_TRIGGER_RISING``
+* ``3``: GPIO pin number of Raspberry that wished to be converted to IRQ number
+* ``1``: IRQ flag for ``IRQF_TRIGGER_RISING``
 
 Note that the ``interrupt-parent`` must have value ``<&gpio>``, as it is the GPIO IRQ. Without ``interrupt-parent``, there will be warning/error:
 
