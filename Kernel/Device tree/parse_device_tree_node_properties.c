@@ -5,6 +5,8 @@
 #include <linux/platform_device.h>
 #include <linux/of_device.h>
 
+#define SIZE	4
+
 MODULE_LICENSE("GPL");
 
 static int dt_probe(struct platform_device *pdev);
@@ -32,6 +34,7 @@ static int dt_probe(struct platform_device *pdev) {
 	struct device *dev = &pdev->dev;
     int ret;
     int int_val_1;
+	int int_array[SIZE];
 	const char *string_val_1, *string_val_2;
 
 	/* Check for device properties */
@@ -71,6 +74,13 @@ static int dt_probe(struct platform_device *pdev) {
 	}
 	printk("int_val_1: %d\n", int_val_1);
 
+	ret = device_property_read_u32_array(dev, "int_array", int_array, SIZE);
+	if(ret) {
+		printk("Could not read 'int_array'\n");
+		return -1;
+	}
+	printk("int_array members: %d %d %d %d\n", int_array[0], int_array[1], int_array[2], int_array[3]);
+	
 	return 0;
 }
 

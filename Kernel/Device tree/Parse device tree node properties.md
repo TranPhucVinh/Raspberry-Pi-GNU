@@ -24,9 +24,10 @@ Overlay node:
 		__overlay__ {
 			new_dt_node {
 				compatible = "compatible_string";
-                string_val_1 = "String value 1";
-                string_val_2 = "String value 2";
-                int_val_1    = <123>;
+                                string_val_1 = "String value 1";
+                                string_val_2 = "String value 2";
+                                int_val_1    = <123>;
+				int_array	 = <1 2 3 4>;
 			};
 		};
 	};
