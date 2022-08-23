@@ -101,3 +101,7 @@ This setup operation can be done by ``busybox devmem``. So run this ``devmem`` c
 ```sh
 sudo busybox devmem 0x3f200000 w 0x200 	#Set output for GPIO 3
 ```
+
+### Get interrupt number by name
+
+Program get_interrupt_by_name.c
