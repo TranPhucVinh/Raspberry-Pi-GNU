@@ -111,6 +111,32 @@ new_dt_node {
 };
 ```
 
+Overlay node must not have unit address like this
+
+```
+/dts-v1/;
+/plugin/;
+/ {
+    compatible = "brcm,bcm2835";
+    fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			new_node_label: new_dt_node@1 {
+				compatible = "compatible_string";
+			};
+        };
+	};
+};
+```
+
+This will give error when compiling with ``dtc`` as there is no ``reg`` value:
+
+```
+dt_overlay_test.dts:8.34-10.6: Warning (unit_address_vs_reg): /fragment@0/__overlay__/new_dt_node@1: node has a unit name, but no reg property
+```
+
+However, ``reg`` value can't be setup randomly or used the existed one from other node, as this will still give compilation error when compilding with ``dtc``.
+
 ## Parse device node properties
 
 Check [parse device node properties document](Parse%20device%20tree%20node%20properties.md).
