@@ -79,6 +79,15 @@ After inserting the module, the IRQ number registered by the GPIO and interrupt 
 199:        126          0          0          0  pinctrl-bcm2835   2 Edge      GPIO_IRQ
 ```
 
+**Note**: Without ``gpio_direction_output()`` setup, there will be error:
+
+```
+[ 5808.116545] gpio gpiochip0: (pinctrl-bcm2835): gpiochip_lock_as_irq: cannot get GPIO direction
+[ 5808.116566] gpio gpiochip0: (pinctrl-bcm2835): unable to lock HW IRQ 2 for IRQ
+[ 5808.116582] genirq: Failed to request resources for GPIO_IRQ (irq 199) on irqchip pinctrl-bcm2835
+[ 5808.116597] Can't request interrupt number 199
+```
+
 ### Example 2: Toggle LED by GPIO interrupt
 
 **Features**:
