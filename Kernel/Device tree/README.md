@@ -6,6 +6,8 @@ To unpack the device tree and view on terminal: ``dtc -I fs /sys/firmware/device
 
 Unpack the device tree to a file: ``(dtc -I fs /sys/firmware/devicetree/base) > device_tree.md``
 
+**Create an overlay device tree**
+
 Create an overlay device tree with node name ``new_dt_node``:
 
 ```sh
@@ -80,6 +82,33 @@ After inserting the overlay device tree above, node ``new_dt_node`` will appear:
 
                 linux,cma {
 		...
+```
+
+**Add an overlay node with label**
+
+```
+/dts-v1/;
+/plugin/;
+/ {
+    compatible = "brcm,bcm2835";
+    fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			new_node_label: new_dt_node {
+				compatible = "compatible_string";
+			};
+        };
+	};
+};
+```
+
+After inserting the node, the device tree will be:
+
+```
+new_dt_node {
+        compatible = "compatible_string";
+        phandle = <0x94>;
+};
 ```
 
 ## Parse device node properties
