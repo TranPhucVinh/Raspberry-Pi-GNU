@@ -206,7 +206,7 @@ Node like ``cpus`` can be add normally by an overlay node with ``target-path = "
 };
 ```
 
-**Result**
+**Result in device tree file**
 
 ```c
 new_dt_node {
