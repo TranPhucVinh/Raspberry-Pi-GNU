@@ -1,0 +1,130 @@
+## Create an overlay device tree node
+
+Create an overlay device tree with node name ``new_dt_node``:
+
+```sh
+/dts-v1/;
+/plugin/;
+/ {
+    compatible = "brcm,bcm2835";
+    fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			new_dt_node {
+				compatible = "compatible_string";
+			};
+        };
+	};
+};
+```
+
+Compile the overlay device tree in Raspbian:
+
+```sh
+dtc -@ -I dts -O dtb -o dt_overlay_test.dtbo dt_overlay_test.dts
+```
+
+Insert the overlay device tree to the existed device tree (must run with ``sudo``):
+
+```sh
+sudo dtoverlay dt_overlay_test.dtbo
+```
+
+Before inserting the overlay device tree, node ``new_dt_node`` is not existed:
+
+```c
+/ {
+        compatible = "raspberrypi,3-model-b\0brcm,bcm2837";
+        serial-number = "000000004bfc6d54";
+        model = "Raspberry Pi 3 Model B Rev 1.2";
+        memreserve = <0x3b400000 0x4c00000>;
+        interrupt-parent = <0x01>;
+        #address-cells = <0x01>;
+        #size-cells = <0x01>;
+
+        reserved-memory {
+                ranges;
+                #address-cells = <0x01>;
+                #size-cells = <0x01>;
+                phandle = <0x36>;
+		...
+```
+
+After inserting the overlay device tree above, node ``new_dt_node`` will appear:
+
+```c
+/ {
+        compatible = "raspberrypi,3-model-b\0brcm,bcm2837";
+        serial-number = "000000004bfc6d54";
+        model = "Raspberry Pi 3 Model B Rev 1.2";
+        memreserve = <0x3b400000 0x4c00000>;
+        interrupt-parent = <0x01>;
+        #address-cells = <0x01>;
+        #size-cells = <0x01>;
+
+        new_dt_node {
+                compatible = "compatible_string";
+        };
+
+        reserved-memory {
+                ranges;
+                #address-cells = <0x01>;
+                #size-cells = <0x01>;
+                phandle = <0x36>;
+
+                linux,cma {
+		...
+```
+
+**Add an overlay node with label**
+
+```
+/dts-v1/;
+/plugin/;
+/ {
+    compatible = "brcm,bcm2835";
+    fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			new_node_label: new_dt_node {
+				compatible = "compatible_string";
+			};
+        };
+	};
+};
+```
+
+After inserting the node, the device tree will be:
+
+```
+new_dt_node {
+        compatible = "compatible_string";
+        phandle = <0x94>;
+};
+```
+
+Overlay node must not have unit address like this
+
+```
+/dts-v1/;
+/plugin/;
+/ {
+    compatible = "brcm,bcm2835";
+    fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			new_node_label: new_dt_node@1 {
+				compatible = "compatible_string";
+			};
+        };
+	};
+};
+```
+
+This will give error when compiling with ``dtc`` as there is no ``reg`` value:
+
+```
+dt_overlay_test.dts:8.34-10.6: Warning (unit_address_vs_reg): /fragment@0/__overlay__/new_dt_node@1: node has a unit name, but no reg property
+```
+
+However, ``reg`` value can't be setup randomly or used the existed one from other node, as this will still give compilation error when compilding with ``dtc``.
