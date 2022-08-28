@@ -179,7 +179,34 @@ Node like ``cpus`` can be add normally by an overlay node with ``target-path = "
 
 ## Add multiple fragments in overlay device tree
 
-**Overlay dts**
+**Overlay dts with path "/"**
+
+```json
+/dts-v1/;
+/plugin/;
+/ {
+    compatible = "brcm,bcm2835";
+    fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			new_dt_node_1 {
+				compatible = "compatible_string";
+			};
+        };
+	};
+
+	fragment@1 {
+		target-path = "/";
+		__overlay__ {
+			new_dt_node_2 {
+				compatible = "compatible_string";
+			};
+        };
+	};
+};
+```
+
+**Overlay dts with 2 different paths**
 
 ```c
 /dts-v1/;
@@ -206,7 +233,7 @@ Node like ``cpus`` can be add normally by an overlay node with ``target-path = "
 };
 ```
 
-**Result in device tree file**
+Result in device tree file
 
 ```c
 new_dt_node {
