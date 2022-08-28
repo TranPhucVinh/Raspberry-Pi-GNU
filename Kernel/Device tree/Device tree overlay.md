@@ -128,3 +128,51 @@ dt_overlay_test.dts:8.34-10.6: Warning (unit_address_vs_reg): /fragment@0/__over
 ```
 
 However, ``reg`` value can't be setup randomly or used the existed one from other node, as this will still give compilation error when compilding with ``dtc``.
+
+## Overlay device tree add value to other target
+
+Add overlay node to another path, like ``reserved-memory``:
+
+```c
+/dts-v1/;
+/plugin/;
+/ {
+    compatible = "brcm,bcm2835";
+    fragment@0 {
+		target-path = "/reserved-memory";
+		__overlay__ {
+			new_dt_node {
+				compatible = "compatible_string";
+			};
+        };
+	};
+};
+```
+
+After inserting, ``reserved-memory`` will be (node ``new_dt_node`` is added):
+
+```c
+reserved-memory {
+		ranges;
+		#address-cells = <0x01>;
+		#size-cells = <0x01>;
+		phandle = <0x36>;
+
+		new_dt_node {
+				compatible = "compatible_string";
+				phandle = <0x94>;
+		};
+
+		linux,cma {
+				reusable;
+				compatible = "shared-dma-pool";
+				size = <0x10000000>;
+				phandle = <0x37>;
+				linux,cma-default;
+		};
+};
+```
+
+Notice that, node ``new_dt_node`` now has ``phandle = <0x94>``.
+
+Node like ``cpus`` can be add normally by an overlay node with ``target-path = "/cpus"``. After inserting, it will have ``phandle = <0x96>``.
