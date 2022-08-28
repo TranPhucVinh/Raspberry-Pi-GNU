@@ -176,3 +176,59 @@ reserved-memory {
 Notice that, node ``new_dt_node`` now has ``phandle = <0x94>``.
 
 Node like ``cpus`` can be add normally by an overlay node with ``target-path = "/cpus"``. After inserting, it will have ``phandle = <0x96>``.
+
+## Add multiple fragments in overlay device tree
+
+**Overlay dts**
+
+```c
+/dts-v1/;
+/plugin/;
+/ {
+    compatible = "brcm,bcm2835";
+    fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			new_dt_node {
+				compatible = "compatible_string";
+			};
+        };
+	};
+
+	fragment@1 {
+		target-path = "/reserved-memory";
+		__overlay__ {
+			new_dt_node {
+				compatible = "compatible_string";
+			};
+        };
+	};
+};
+```
+
+**Result**
+
+```c
+new_dt_node {
+        compatible = "compatible_string";
+};
+
+reserved-memory {
+        ranges;
+        #address-cells = <0x01>;
+        #size-cells = <0x01>;
+        phandle = <0x36>;
+
+        new_dt_node {
+                        compatible = "compatible_string";
+        };
+
+        linux,cma {
+                        reusable;
+                        compatible = "shared-dma-pool";
+                        size = <0x10000000>;
+                        phandle = <0x37>;
+                        linux,cma-default;
+        };
+};
+```
