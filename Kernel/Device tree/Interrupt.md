@@ -1,10 +1,12 @@
-## Properties
+# Properties
 
 * ``interrupt-parent`` is a phandle that points to the interrupt controller for the current node.
 * ``interrupts``: A general value depends on type of the ``interrupt-parent``. E.g with with ``interrupt-parent`` is ``gpio``, then the ``interrupts`` has the GPIO number as one of its properties.
 
 * ``#interrupt-cells`` indicates the number of cells in the interrupts property for the interrupts managed by the
 selected interrupt controller.
+
+## Interrupt implementation for platform driver
 
 ## GPIO interrupt
 
@@ -104,4 +106,4 @@ sudo busybox devmem 0x3f200000 w 0x200 	#Set output for GPIO 3
 
 ### Get interrupt number by name
 
-Program get_interrupt_by_name.c
+Program [get_interrupt_by_name.c](get_interrupt_by_name.c)
