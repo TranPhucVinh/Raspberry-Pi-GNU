@@ -6,7 +6,7 @@
 * ``#interrupt-cells`` indicates the number of cells in the interrupts property for the interrupts managed by the
 selected interrupt controller.
 
-## Interrupt implementation for platform driver
+# Interrupt implementation for platform driver
 
 ## GPIO interrupt
 
