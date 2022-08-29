@@ -6,6 +6,62 @@
 * ``#interrupt-cells`` indicates the number of cells in the interrupts property for the interrupts managed by the
 selected interrupt controller.
 
+## interrupt-controller
+
+``interrupt-controller`` msut be set with valid properties for parsing. If adding a new interrupt-controller as an overlay node like this:
+
+```c
+/dts-v1/;
+/plugin/;
+/ {
+    compatible = "brcm,bcm2835";
+    fragment@0 {
+                target-path = "/";
+                __overlay__ {
+                        new_interrupt_controller_node {
+                                compatible = "new_interrupt_controller_node";
+                                #interrupt-cells = <0x01>;
+                                interrupt-controller;
+                        };
+        };
+        };
+};
+```
+
+Then add an overlay node to point to that interrupt-controller:
+
+```c
+/dts-v1/;
+/plugin/;
+/ {
+	compatible = "brcm,bcm2835";
+	fragment@0 {
+        target-path = "/";
+		__overlay__ {
+			new_dt_node {
+				compatible = "compatible_string";
+                interrupt-parent = <&new_interrupt_controller_node>;
+                interrupts   = <199>;
+			};
+		};
+	};
+};
+```
+
+There will be error when running ``dtoverlay``:
+
+```sh
+pi@raspberrypi:~/Raspbian_Kernel_Module $ sudo dtoverlay new_node.dtbo
+* Failed to apply overlay '2_new_node' (kernel)
+```
+
+Error in ``dmesg``:
+
+```
+[ 3395.762453] OF: resolver: node label 'new_interrupt_controller_node' not found in live devicetree symbols table
+[ 3395.762484] OF: resolver: overlay phandle fixup failed: -22
+```
+
 # Interrupt implementation for platform driver
 
 ## GPIO interrupt
