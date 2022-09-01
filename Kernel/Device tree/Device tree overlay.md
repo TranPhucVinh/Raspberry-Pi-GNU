@@ -181,7 +181,7 @@ Node like ``cpus`` can be add normally by an overlay node with ``target-path = "
 
 **Overlay dts with path "/"**
 
-```json
+```sh
 /dts-v1/;
 /plugin/;
 / {
