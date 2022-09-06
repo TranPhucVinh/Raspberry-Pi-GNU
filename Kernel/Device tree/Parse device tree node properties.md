@@ -55,7 +55,7 @@ Linux support kernel API for CRUD operations to device tree nodes in a single bo
 
 Features: Change string properties of any node in the device tree by single operations. This example is intended for comprehensive and easy to understand the device tree changeset overlay operations.
 
-Program: [update_property_for_overlay_device_tree_by_single_functions.c](update_property_for_overlay_device_tree_by_single_functions.c)
+Program: [update_property_for_node_by_single_functions.c](update_property_for_node_by_single_functions.c)
 
 Before change:
 
@@ -89,7 +89,7 @@ With the kernel module program above, as using the overlay device tree node with
 
 Features: Seperated the device tree changeset overlay operations by function ``update_node_properties()`` to update the node properties and revert to the original device tree by function ``revert_to_origrin_device_tree()``. This program is intended for functions inheritance for other kernel modules.
 
-Program: [update_property_for_overlay_device_tree_by_seperated_functions.c](update_property_for_overlay_device_tree_by_seperated_functions.c)
+Program: [update_property_for_node_by_seperated_functions.c](update_property_for_node_by_seperated_functions.c)
 
 ### Change array properties
 
