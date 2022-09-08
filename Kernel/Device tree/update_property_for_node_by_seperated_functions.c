@@ -4,7 +4,7 @@
 #include <linux/slab.h>
 
 #define NODE_TYPE    "new_dt_node"
-#define COMP_STR     "compatible"
+#define PROP_VAL     "compatible"
 #define UPDATE_VAL   "new_compatible_string"
 
 DEFINE_MUTEX(of_mutex);
@@ -58,8 +58,8 @@ void revert_to_origrin_device_tree(struct of_changeset *ocs){
 int init_module(void)
 {
 	mutex_init(&of_mutex);
-    ocs = kmalloc(sizeof(struct of_changeset*), GFP_KERNEL);
-	update_node_properties(ocs, NODE_TYPE, COMP_STR, UPDATE_VAL);	
+    ocs = kmalloc(sizeof(struct of_changeset), GFP_KERNEL);
+	update_node_properties(ocs, NODE_TYPE, PROP_VAL, UPDATE_VAL);	
 	return 0;
 }
 
