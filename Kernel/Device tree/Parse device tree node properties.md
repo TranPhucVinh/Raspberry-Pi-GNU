@@ -131,3 +131,52 @@ The result will be:
 ```c
 int_array =  <0x5000000 0x6000000 0x7000000 0x8000000>;
 ```
+
+### Change int property
+
+Change a single int value of a node property, like ``int_val_1`` in the overlay node above:
+
+Change ``int_val_1`` by function ``update_node_properties()``:
+
+```c
+#define NODE_TYPE    "new_dt_node"
+#define PROP_VAL     "int_val_1"
+
+int change_value = 456;
+
+int init_module(void)
+{
+	mutex_init(&of_mutex);
+    ocs = kmalloc(sizeof(struct of_changeset), GFP_KERNEL);
+	update_node_properties(ocs, NODE_TYPE, PROP_VAL, &change_value);
+	return 0;
+}
+
+int update_node_properties(struct of_changeset *ocs, const char* node_type, const char* property_name, int *update_value){
+	struct device_node  *dev_node;
+	struct property  	*prop;
+
+	dev_node = of_find_node_by_type(NULL, node_type);
+	
+	//Init of_changset objects
+	of_changeset_init(ocs);
+
+	prop = kmalloc(sizeof(struct property), GFP_KERNEL);
+	prop->name = kstrdup(property_name, GFP_KERNEL);//property name
+	prop->value = update_value;//property value
+	prop->length = sizeof(int);
+
+	of_changeset_update_property(ocs, dev_node, prop);
+	
+	mutex_lock(&of_mutex);
+	int ret = of_changeset_apply(ocs);
+	if(ret < 0) {
+		printk("Unable to update device tree property, ret: %d\n", ret);
+		return -1;
+	}
+	mutex_unlock(&of_mutex);
+	return 0; 
+}
+```
+
+Note: If using this as ``change_value`` is the local variable of ``init_module()``, then ``int_val_1`` will be ``0x00`` (error value). That happen as local variable ``change_value`` will lost its value when getting outside the ``init_module()`` function so it gives no effect in the device tree when viewing it by ``dtc`` command.
