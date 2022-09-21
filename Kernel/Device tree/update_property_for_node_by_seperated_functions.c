@@ -43,6 +43,13 @@ int update_node_properties(struct of_changeset *ocs, const char* node_type, cons
 		return -1;
 	}
 	mutex_unlock(&of_mutex);
+	
+	/*
+		Must not use kfree() for prop inside this function, as prop must still be available after calling update_node_properties in init_module so that this will take effect on the device tree.
+
+		Calling kfree(prop) will cause the OS to freeze
+	*/
+
 	return 0; 
 }
 
