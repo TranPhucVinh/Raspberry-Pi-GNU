@@ -101,3 +101,10 @@ int main(){
 # Device tree
 
 Check [device tree document folder](Device%20tree)
+
+# Platform driver
+
+Platform driver with overlay device tree:
+
+* Platform driver to parse properties of an overlay node: [parse_device_tree_node_properties.c](https://github.com/TranPhucVinh/Raspberry-Pi-C/blob/main/Kernel/Device%20tree/parse_device_tree_node_properties.c)
+* Interrupt implementaion for platform driver and device tree: [Interrupt](https://github.com/TranPhucVinh/Raspberry-Pi-C/blob/main/Kernel/Device%20tree/Interrupt.md)
