@@ -110,16 +110,6 @@ void cleanup_module(void)
 }
 ```
 
-### APIs to update device tree node properties
-
-```c
-void of_changeset_init(struct of_changeset *ocs);
-
-int of_changeset_attach_node(struct of_changeset *ocs, struct device_node *np);
-
-int of_overlay_fdt_apply(const void *overlay_fdt, u32 overlay_fdt_size, int *ovcs_id);
-```
-
 ### of_property_read_u32_array()
 
 Read ``interrupts`` properties from node ``new_dt_node``
