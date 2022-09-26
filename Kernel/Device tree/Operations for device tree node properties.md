@@ -1,15 +1,5 @@
 **General information**: For safety purpose, we will change the property of the added overlay device tree.
 
-## Properties
-
-**Array** in device tree are inside ``<>``, each member is seperated by space. ``,`` is not allowed to used to seperate each member.
-
-E.g: An int array properties inside a devie tree node:
-
-```c
-int_array	 = <1 2 3 4>;
-```
-
 ## Parse properties of an overlay node
 
 Overlay node:

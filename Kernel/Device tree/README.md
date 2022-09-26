@@ -10,13 +10,25 @@ Unpack the device tree to a file: ``(dtc -I fs /sys/firmware/devicetree/base) > 
 
 Check [device tree overlay document](Device%20tree%20overlay.md).
 
-## Parse device node properties
+## Data type
 
-Check [parse device node properties document](Parse%20device%20tree%20node%20properties.md).
+### Array
 
-## Interrupt
+**Array** in device tree are inside ``<>``, each member is seperated by space. ``,`` is not allowed to used to seperate each member.
+
+E.g: An int array properties inside a devie tree node:
+
+```c
+int_array	 = <1 2 3 4>;
+```
+
+### Interrupt
 
 Check [Interrupt document](Interrupt.md).
+
+## Operations for device tree node properties
+
+Check [operations for device tree node properties](Operations%20for%20device%20tree%20node%20properties.md).
 
 # API
 
