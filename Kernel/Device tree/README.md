@@ -122,6 +122,16 @@ void cleanup_module(void)
 }
 ```
 
+### of_find_property()
+
+```c
+struct property *of_find_property(const struct device_node *np, const char *name, int *lenp);
+```
+
+* ``np``: device node
+* ``name``: property name
+* ``lenp``: number of bytes of the property value
+
 ### of_property_read_u32_array()
 
 Read ``interrupts`` properties from node ``new_dt_node``

@@ -54,10 +54,10 @@ int update_node_properties(struct of_changeset *ocs, const char* node_type, cons
 }
 
 /**
- * revert_to_origrin_device_tree - Revert to original device tree setup
+ * revert_to_origin_device_tree - Revert to original device tree setup
  * @ocs:
  */
-void revert_to_origrin_device_tree(struct of_changeset *ocs){
+void revert_to_origin_device_tree(struct of_changeset *ocs){
 	of_changeset_revert(ocs);
 	return;
 }
@@ -72,6 +72,6 @@ int init_module(void)
 
 void cleanup_module(void)
 {
-    revert_to_origrin_device_tree(ocs);
+    revert_to_origin_device_tree(ocs);
 	printk(KERN_INFO "clean up module\n");
 }

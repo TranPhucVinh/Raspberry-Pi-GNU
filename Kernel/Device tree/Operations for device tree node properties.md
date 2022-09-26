@@ -1,6 +1,8 @@
 **General information**: For safety purpose, we will change the property of the added overlay device tree.
 
-## Parse properties of an overlay node
+# Read device tree node properties
+
+Read properties of an overlay node.
 
 Overlay node:
 
@@ -25,25 +27,73 @@ Overlay node:
 };
 ```
 
-With device tree node ``new_dt_node`` is inserted in the device tree, ``probe()`` function in platform driver is called.
+### Using platform driver function
 
-Only a platform driver can be used to parse the properties of a device tree node.
+With device tree node ``new_dt_node`` is inserted in the device tree, ``probe()`` function in platform driver is called.
 
 ``compatible_string`` in ``compatible`` is used by ``struct of_device_id``.
 
 Running ``rmmod`` will call platform driver ``remove()`` function.
 
-Parse all properties of ``new_dt_node``: [parse_device_tree_node_properties.c](parse_device_tree_node_properties.c)
+Read all properties of ``new_dt_node``: [read_device_tree_node_properties.c](read_device_tree_node_properties.c)
 
-## Change property of an added overlay device tree node by a kernel module
+### Using overlay device tree function
 
-Linux support kernel API for CRUD operations to device tree nodes in a single board computer Unix OS.
+Node functions like ``of_find_node_by_type()``, ``of_find_compatible_node()``,... support reading nodes of device tree.
 
-### Change string properties
+Property functions like ``of_find_property()``, ``of_property_read_u32_array()``,... will support reading properties values inside a specific node.
 
-**Change string properties by single operations**
+# Create operation for device tree
 
-Features: Change string properties of any node in the device tree by single operations. This example is intended for comprehensive and easy to understand the device tree changeset overlay operations.
+Add a new property to an overlay node.
+
+```c
+#define COMPATIBLE    	"compatible_string"
+#define PROP_VAL     	"new_property"
+#define ADD_VAL   		"new_property_string"
+
+int add_node_properties(struct of_changeset *ocs, const char* compatible, const char* property_name, const char *value){
+	struct device_node  *dev_node;
+	struct property  	*prop;
+
+	dev_node = of_find_compatible_node(NULL, NULL, compatible);
+	
+	of_changeset_init(ocs);//Init of_changset objects
+
+	prop = kmalloc(sizeof(struct property), GFP_KERNEL);
+	prop->name = kstrdup(property_name, GFP_KERNEL);//property name
+	prop->value = kstrdup(value, GFP_KERNEL);//property value
+	prop->length = strlen(value) + 1;
+
+	of_changeset_add_property(ocs, dev_node, prop);
+	
+	mutex_lock(&of_mutex);
+	int ret = of_changeset_apply(ocs);
+	if(ret < 0) {
+		printk("Unable to apply changset, ret: %d\n", ret);
+		return -1;
+	}
+	mutex_unlock(&of_mutex);
+
+	return 0; 
+}
+
+int init_module(void)
+{
+	mutex_init(&of_mutex);
+    ocs = kmalloc(sizeof(struct of_changeset), GFP_KERNEL);
+	add_node_properties(ocs, COMPATIBLE, PROP_VAL, ADD_VAL);	
+	return 0;
+}
+```
+
+# Update device tree node properties
+
+### Update string properties
+
+**Update string properties by single operations**
+
+Features: Update string properties of any node in the device tree by single operations. This example is intended for comprehensive and easy to understand the device tree changeset overlay operations.
 
 Program: [update_property_for_node_by_single_functions.c](update_property_for_node_by_single_functions.c)
 
@@ -75,13 +125,13 @@ new_dt_node {
 
 With the kernel module program above, as using the overlay device tree node with ``target-path = "/"``, its parent node will be ``NULL``.
 
-**Change string properties by seperated operations**
+**Update string properties by seperated operations**
 
 Features: Seperated the device tree changeset overlay operations by function ``update_node_properties()`` to update the node properties and revert to the original device tree by function ``revert_to_origrin_device_tree()``. This program is intended for functions inheritance for other kernel modules.
 
 Program: [update_property_for_node_by_seperated_functions.c](update_property_for_node_by_seperated_functions.c)
 
-### Change array properties
+### Update array properties
 
 **Feature**: Change ``int_array`` properties in the added overlay node
 
@@ -122,7 +172,7 @@ The result will be:
 int_array =  <0x5000000 0x6000000 0x7000000 0x8000000>;
 ```
 
-### Change int property
+### Update int property
 
 Change a single int value of a node property, like ``int_val_1`` in the overlay node above:
 
