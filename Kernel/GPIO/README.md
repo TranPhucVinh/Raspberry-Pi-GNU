@@ -7,6 +7,7 @@ Kernel module as driver to control GPIO:
 Control GPIO with ``linux/io``:
 
 * [blink_led_with_ioremap.c](blink_led_with_ioremap.c): Blink LED with ``ioremap()``
+* [blink_led_with_devm_ioremap.c](blink_led_with_ioremap.c): Blink LED with ``devm_ioremap()`` (for character device)
 * [blink_led_with_iowrite32.c](blink_led_with_iowrite32.c): Blink LED with ``ioremap()`` and ``iowrite32()``
 * [control_led_with_ioread32.c](control_led_with_ioread32.c): Use button to control the LED. If button is pressed, turn on LED, if not pressed, turn off LED. Using ``ioread32()`` and ``iowrite32()``.
 
@@ -20,6 +21,13 @@ The ``ioremap`` function takes two parameters:
 ```c
 void *ioremap(unsigned long phys_addr, unsigned long size);
 void iounmap(void * addr);
+```
+
+Corresponded functions for character devices:
+
+```c
+void __iomem *devm_ioremap(struct device *dev, resource_size_t offset, resource_size_t size);
+void devm_iounmap(struct device *dev, void __iomem *addr);
 ```
 
 ## Interrupt with GPIO
