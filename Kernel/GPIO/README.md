@@ -98,3 +98,7 @@ void cleanup_module(void)
 ```
 
 After inserting this module, the interrupt name Device name still existed in ``199`` but the interrupt function no longer work.
+
+## Platform driver to control GPIO
+
+Check [this document and source code](https://github.com/TranPhucVinh/Raspberry-Pi-C/blob/main/Kernel/Device%20tree/Device%20tree%20GPIO.md) for a platform driver to control GPIO with GPIO node information parsed device tree overlay.
