@@ -21,6 +21,8 @@ Take this overlay device tree for analysis in API document and in the example to
 
 # API
 
+### GPIOs mapping
+
 GPIOs mappings are defined in the consumer device's node, in a property named ``<function>-gpios``, where ``<function>`` is the function the driver will request through ``gpiod_get()``.
 
 E.g: In [device_tree_gpio_control.c](device_tree_gpio_control.c) source code:
@@ -49,10 +51,8 @@ The ``flags`` parameter is used to optionally specify a direction and initial va
 
 Third parameter of every gpio member (in the overlay device tree) can be defined with ``GPIO_ACTIVE_HIGH`` and ``GPIO_ACTIVE_LOW`` like this:
 
-```json
-led-gpios = <&gpio 2 GPIO_ACTIVE_HIGH>,
-	<&gpio 3 GPIO_ACTIVE_HIGH>, 
-	<&gpio 4 GPIO_ACTIVE_HIGH>;
+```txt
+led-gpios = <&gpio 2 GPIO_ACTIVE_HIGH>, <&gpio 3 GPIO_ACTIVE_HIGH>, <&gpio 4 GPIO_ACTIVE_HIGH>;
 ```
 
 Where:
@@ -67,8 +67,23 @@ GPIO_ACTIVE_HIGH  = 0
 GPIO_ACTIVE_LOW   = 1
 ```
 
-# Control GPIO with GPIO node from device tree overlay
+### Setting Direction
 
-Feature: Blink 3 LED connected to 3 GPIOs. 3 those GPIOs are defined in the overlay device tree
+A GPIO control kernel driver must set GPIO direction before any R/W operation. If no direction-setting flags have been given to ``gpiod_get*()``, this is done by invoking one of the ``gpiod_direction_*()`` functions:
+
+```c
+int gpiod_direction_input(struct gpio_desc *desc);
+int gpiod_direction_output(struct gpio_desc *desc, int value);
+```
+
+A driver can also query the current direction of a GPIO:
+
+```c
+int gpiod_get_direction(const struct gpio_desc *desc)
+```
+
+# Implementation: Control GPIO with GPIO node from device tree overlay
+
+**Feature**: Blink 3 LED connected to 3 GPIOs. 3 those GPIOs are defined in the overlay device tree
 
 Program [device_tree_gpio_control.c](device_tree_gpio_control.c)
