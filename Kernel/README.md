@@ -104,6 +104,26 @@ Check [device tree document folder](Device%20tree)
 
 # Platform driver
 
+## API
+
+### platform_get_irq()
+
+```c
+int platform_get_irq(struct platform_device *dev, unsigned int irq_index)
+```
+
+* ``irq_index``: Index number of the IRQs inside ``interrupts`` property of the device tree node
+
+E.g
+
+```c
+int irq = platform_get_irq(pdev, 0); 
+```
+
+This function will return the ``irq`` number; this number is usable by ``devm_request_irq()`` (``irq`` is then visible in ``/proc/interrupts``). The second argument, ``0``, says that we need the first interrupt specified in the device node. If there is more than one interrupt, we can change this index according to the interrupt we need.
+
+## Examples
+
 Use platform driver to read properties of an overlay node: 
 
 * Feature description:
