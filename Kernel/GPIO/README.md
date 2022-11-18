@@ -74,7 +74,28 @@ void iowrite32(u32 value, void *addr);
 
 # Interrupt with GPIO
 
-### API
+## Fundamental concepts
+
+Flow to register the GPIO for IRQ:
+
+1. Allocate GPIO, for input or output mode
+
+For input
+
+```C
+if(gpio_direction_input(GPIO)){
+  printk("Unable to set GPIO %d to input\n", GPIO);
+}
+```
+
+For output: ``gpio_direction_output(GPIO, 1)``
+
+If using ``gpio_request(GPIO, LABEL)`` only and doesn't call I/O mode setup, ``request_irq()`` in step 3 will fail.
+
+2. Convert GPIO to IRQ: ``irq_number = gpio_to_irq(GPIO)``
+3. Call ``request_irq()``
+
+## API
 
 In Raspbian, every GPIO will have a unique IRQ number. ``gpio_to_irq()`` will return that unique number of each GPIO.
 
@@ -141,6 +162,6 @@ void cleanup_module(void)
 
 After inserting this module, the interrupt name Device name still existed in ``199`` but the interrupt function no longer work.
 
-## Platform driver to control GPIO
+# Platform driver to control GPIO
 
 Check [this document and source code](https://github.com/TranPhucVinh/Raspberry-Pi-C/blob/main/Kernel/Device%20tree/Device%20tree%20GPIO.md) for a platform driver to control GPIO with GPIO node information parsed device tree overlay.
