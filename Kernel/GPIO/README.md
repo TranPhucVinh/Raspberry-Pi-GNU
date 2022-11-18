@@ -1,4 +1,4 @@
-## GPIO control
+# GPIO control
 
 Kernel module as driver to control GPIO:
 * [blink_led.c](blink_led.c): Blink LED by GPIO kernel API and kernel timer setup
@@ -11,26 +11,68 @@ Control GPIO with ``linux/io``:
 * [blink_led_with_iowrite32.c](blink_led_with_iowrite32.c): Blink LED with ``ioremap()`` and ``iowrite32()``
 * [control_led_with_ioread32.c](control_led_with_ioread32.c): Use button to control the LED. If button is pressed, turn on LED, if not pressed, turn off LED. Using ``ioread32()`` and ``iowrite32()``.
 
-### API
+## API
+
+### gpio_* functions
+
+In the latest Linux kernel versions, GPIO allocation before used are no longer require. GPIO output value can be set directly
+
+```c
+int gpio_direction_output(unsigned int gpio, int value);
+void gpio_set_value(unsigned int gpio, int value);
+```
+
+GPIO input value can be get:
+
+```c
+int gpio_get_value(unsigned int gpio);
+```
+
+### IO mapping functions
+
+When access passes though page tables, the kernel must first arrange for the physical address to be visible from your driver, and this usually means that you must call ioremap before doing any I/O. 
+
+```c
+void *ioremap(unsigned long phys_addr, unsigned long size);
+```
 
 The ``ioremap`` function takes two parameters:
 
 * start of the memory region
 * size of the memory region
 
+``ioremap()`` function is used to map the physical address of an I/O device to the kernel virtual address. Kernel creates a page table i.e mapping of virtual address to the physical address requested.
+
+A successful call to ``ioremap()`` returns a kernel virtual address corresponding to start of the requested physical address range
+
 ```c
-void *ioremap(unsigned long phys_addr, unsigned long size);
 void iounmap(void * addr);
 ```
 
-Corresponded functions for character devices:
+Corresponded functions of ``ioremap()`` and ``iounmap()`` for character devices:
 
 ```c
 void __iomem *devm_ioremap(struct device *dev, resource_size_t offset, resource_size_t size);
 void devm_iounmap(struct device *dev, void __iomem *addr);
 ```
 
-## Interrupt with GPIO
+To read from I/O memory, use one of the following:
+
+```c
+unsigned int ioread8(void *addr);
+unsigned int ioread16(void *addr);
+unsigned int ioread32(void *addr);
+```
+
+There is a similar set of functions for writing to I/O memory:
+
+```c
+void iowrite8(u8 value, void *addr);
+void iowrite16(u16 value, void *addr);
+void iowrite32(u32 value, void *addr);
+```
+
+# Interrupt with GPIO
 
 ### API
 
