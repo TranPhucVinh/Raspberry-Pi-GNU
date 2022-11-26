@@ -264,7 +264,7 @@ reserved-memory {
 
 After inserting the new overlay device tree to the existed device tree, we can also easily remove it with option dtoverlay -r
 
-But first, you need to know the name of which overlay you want to remove. You can use **dtoverlay -a** to list out all the existed nodes, the one is loaded manually will have this asterisk sign before its name
+But first, you need to know the name of which overlay you want to remove. You can use ``dtoverlay -a`` to list out all the existed nodes, the one is loaded manually will have this asterisk sign before its name.
 
 ```shell
   spi6-1cs
