@@ -259,3 +259,29 @@ reserved-memory {
         };
 };
 ```
+
+**Overlay dts with 2 different paths**
+
+After inserting the new overlay device tree to the existed device tree, we can also easily remove it with option dtoverlay -r
+
+But first, you need to know the name of which overlay you want to remove. You can use **dtoverlay -a** to list out all the existed nodes, the one is loaded manually will have this asterisk sign before its name
+
+```shell
+  spi6-1cs
+  spi6-2cs
+  ssd1306
+  ssd1306-spi
+  ssd1331-spi
+  ssd1351-spi
+  superaudioboard
+  sx150x
+  tc358743
+  tc358743-audio
+* test_dt
+* test_dt1
+  tinylcd35
+  tpm-slb9670
+  uart0
+```
+
+For example here the test_dt and test_dt1 is the two nodes you previously added. Use ``sudo dtoverlay -r test_dt`` to remove ``test_dt`` node. This is also the name of the dts file when you insert it into the device tree
