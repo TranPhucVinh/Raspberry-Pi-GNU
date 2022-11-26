@@ -260,7 +260,7 @@ reserved-memory {
 };
 ```
 
-**Remove a previously loaded device tree overlay**
+## Remove a previously loaded device tree overlay
 
 After inserting the new overlay device tree to the existed device tree, we can also easily remove it with option dtoverlay -r
 
