@@ -8,7 +8,7 @@ Unpack the device tree to a file: ``(dtc -I fs /sys/firmware/devicetree/base) > 
 
 ## Device tree overlay
 
-Check [device tree overlay document](Device%20tree%20overlay.md).
+A Device tree overlay purpose is to modify the kernel’s live tree. For device tree overlay implementation, check [device tree overlay document](Device%20tree%20overlay.md).
 
 ## Data type
 
