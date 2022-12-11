@@ -24,6 +24,8 @@ Addresses in ARM Linux are:
 
 Bus address for peripherals advertised inside the official document like BCM2835, BCM2837 (e.g ``0x7E000000``) are mapped into the physical address (e.g: physical address starting at ``0x20000000`` for BCM2835, ``0x3f000000`` for BCM2837). Thus a peripheral advertised here at bus address ``0x7Ennnnnn`` is available at physical address ``0x20nnnnnn``. 
 
+# Implementations
+
 ## devmem
 
 ``busybox devmem`` is a tiny CLI utility (in busybox) that does ``mmap()`` in ``/dev/mem``.
@@ -127,4 +129,57 @@ Set output for LED with busy box
 
 ```sh
 sudo busybox devmem 0x3f200000 w 0x00000200
+```
+
+## mmap()
+
+Use [virtual memory function mmap()](https://github.com/TranPhucVinh/C/blob/master/Physical%20layer/Memory/Virtual%20memory.md#mmap) to read physical address value:
+
+**Step 1**: Perform the memory mapping from physical to virtual address
+
+**Step 2**: Read that physical address storage value by ``*`` operator in the mapped virtual address.
+
+### Example
+
+Read the value stored in physical address ``0x3f20000``:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <sys/mman.h>
+#include <stdint.h>
+#include <unistd.h>
+
+#define PHY_ADDR    0x3f20000
+
+uint32_t *gpio;
+
+int main(int argc, char **argv)
+{
+    int fd ;
+    uint32_t* mapping_address;
+    /*
+            open /dev/mem as a bridge for MMU mapping
+            from the physical addresses to virtual address
+    */
+    if ((fd = open("/dev/mem", O_RDWR | O_SYNC) ) < 0) {
+            printf("Unable to open /dev/mem: \n");
+            return 0;
+    }
+
+    printf("open /dev/mem successfully\n");
+
+    //mapping  GPIO base physical address to a virtual address
+    mapping_address = (uint32_t *)mmap(NULL, 4048, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0x3f20000);
+
+    if ((intptr_t)mapping_address < 0){
+            printf("mmap failed: \n");
+            return 0;
+    }
+    printf("mmap ok \n");
+    close(fd);
+
+    printf("0x%x\n", *mapping_address);//Read value stored in physcial address 0x3f20000
+}
 ```
