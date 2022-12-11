@@ -18,6 +18,14 @@ Take this overlay device tree for analysis in API document and in the example to
 	};
 };
 ```
+After inserting the new device tree node will be:
+
+```
+new_dt_node {
+                led-gpios = <0x07 0x02 0x00 0x07 0x03 0x00 0x07 0x04 0x00>;
+                compatible = "compatible_string";
+};
+```
 
 # API
 
