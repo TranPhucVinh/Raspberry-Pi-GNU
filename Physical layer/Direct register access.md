@@ -141,7 +141,7 @@ Use [virtual memory function mmap()](https://github.com/TranPhucVinh/C/blob/mast
 
 ### Example
 
-Read the value stored in physical address ``0x3f20000``:
+Read the value stored in physical address ``PHY_ADDR``:
 
 ```c
 #include <stdio.h>
@@ -171,7 +171,7 @@ int main(int argc, char **argv)
     printf("open /dev/mem successfully\n");
 
     //mapping  GPIO base physical address to a virtual address
-    mapping_address = (uint32_t *)mmap(NULL, 4048, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0x3f20000);
+    mapping_address = (uint32_t *)mmap(NULL, 4048, PROT_READ|PROT_WRITE, MAP_SHARED, fd, PHY_ADDR);
 
     if ((intptr_t)mapping_address < 0){
             printf("mmap failed: \n");
@@ -180,6 +180,6 @@ int main(int argc, char **argv)
     printf("mmap ok \n");
     close(fd);
 
-    printf("0x%x\n", *mapping_address);//Read value stored in physcial address 0x3f20000
+    printf("0x%x\n", *mapping_address);//Read value stored in physcial address PHY_ADDR
 }
 ```
