@@ -12,6 +12,12 @@ Other flag works like ``GCC``, like [-I flag](https://github.com/TranPhucVinh/C/
 
 For CPP source code with CPP lib like ``iostream``, use linker ``stdc++`` like when compiling with GCC: ``arm-linux-gnueabihf-gcc test.cpp -lstdc++``
 
+## arm-linux-gnueabi-g++
+
+Install: ``sudo apt install g++-arm-linux-gnueabi``
+
+Compile: ``arm-linux-gnueabi-g++ main.cpp``
+
 # Github project environment
 
 [Images used in that projects](Images)
