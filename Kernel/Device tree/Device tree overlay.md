@@ -139,7 +139,7 @@ dt_overlay_test.dts:8.34-10.6: Warning (unit_address_vs_reg): /fragment@0/__over
 
 However, ``reg`` value can't be setup randomly or used the existed one from other node, as this will still give compilation error when compilding with ``dtc``.
 
-# Overlay device tree add value to other target
+## Overlay device tree add value to other target
 
 Add overlay node to another path, like ``reserved-memory``:
 
