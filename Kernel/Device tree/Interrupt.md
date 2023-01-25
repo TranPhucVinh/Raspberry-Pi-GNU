@@ -85,7 +85,8 @@ gpio@7e200000 {
 		phandle = <0x4e>;
 		brcm,function = <0x04>;
 	};
-
+	//Other values here
+}
 ```
 
 The properties of GPIO states has ``interrupt-controller`` which infers that it is also an interrupt controller.
