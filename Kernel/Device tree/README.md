@@ -1,6 +1,6 @@
 # Fundamental concepts
 
-In Raspbian or Unix single board computers in general, device tree are opened to read in ``/sys/firmware/devicetree/``.
+In Raspbian or Unix single board computers in general, device tree are opened to be read from userspace in ``/sys/firmware/devicetree/base``
 
 To unpack the device tree and view on terminal: ``dtc -I fs /sys/firmware/devicetree/base``
 
