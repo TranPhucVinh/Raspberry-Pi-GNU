@@ -1,4 +1,4 @@
-## Create an overlay device tree node
+# Create an overlay device tree node
 
 Create an overlay device tree with node name ``new_dt_node`` from file ``dt_overlay_test.dts``:
 
@@ -86,7 +86,7 @@ After inserting the overlay device tree above, node ``new_dt_node`` will appear:
   edt-ft5406
 ```
 
-**Add an overlay node with label**
+## Add an overlay node with label
 
 ```
 /dts-v1/;
@@ -139,7 +139,7 @@ dt_overlay_test.dts:8.34-10.6: Warning (unit_address_vs_reg): /fragment@0/__over
 
 However, ``reg`` value can't be setup randomly or used the existed one from other node, as this will still give compilation error when compilding with ``dtc``.
 
-## Overlay device tree add value to other target
+# Overlay device tree add value to other target
 
 Add overlay node to another path, like ``reserved-memory``:
 
@@ -270,6 +270,11 @@ reserved-memory {
 };
 ```
 
-## Remove the inserted device tree overlay nodes
+# Read all device tree nodes, include device tree overlay nodes
+
+Check [dtoverlay -a]() command implementation in [Create an overlay device tree node]()
+
+# Remove the inserted device tree overlay nodes
 
 To remove all the inserted device tree overlay nodes from file ``dt_overlay_test.dts``: ``sudo dtoverlay -r dt_overlay_test``.
+
