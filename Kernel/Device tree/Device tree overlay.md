@@ -270,11 +270,10 @@ reserved-memory {
 };
 ```
 
-# Read all device tree nodes, include device tree overlay nodes
+# Read all device tree nodes, included device tree overlay nodes
 
-Check [dtoverlay -a]() command implementation in [Create an overlay device tree node]()
+Check [dtoverlay -a](#create-an-overlay-device-tree-node) command implementation in [Create an overlay device tree node](#create-an-overlay-device-tree-node)
 
 # Remove the inserted device tree overlay nodes
 
 To remove all the inserted device tree overlay nodes from file ``dt_overlay_test.dts``: ``sudo dtoverlay -r dt_overlay_test``.
-
