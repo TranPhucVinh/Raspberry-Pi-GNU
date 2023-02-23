@@ -39,9 +39,9 @@ Read all properties of ``new_dt_node``: [read_device_tree_node_properties.c](rea
 
 ## Using overlay device tree function
 
-Node functions like ``of_find_node_by_type()``, ``of_find_compatible_node()``,... support reading nodes of device tree.
+Node functions like [of_find_node_by_type()](https://github.com/TranPhucVinh/Raspberry-Pi-C/tree/main/Kernel/Device%20tree#of_find_node_by_type), of_find_compatible_node(),... support reading nodes of device tree.
 
-Property functions like ``of_find_property()``, ``of_property_read_u32_array()``,... will support reading properties values inside a specific node.
+Property functions like [of_find_property()](https://github.com/TranPhucVinh/Raspberry-Pi-C/tree/main/Kernel/Device%20tree#of_find_property), [of_property_read_u32_array()](https://github.com/TranPhucVinh/Raspberry-Pi-C/tree/main/Kernel/Device%20tree#of_property_read_u32_array),... will support reading properties values inside a specific node.
 
 # Create operation for device tree
 
