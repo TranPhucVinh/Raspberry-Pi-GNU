@@ -1,4 +1,18 @@
-**General information**: For safety purpose, we will change the property of the added overlay device tree so that no built-in device tree properties are effected.
+# General information
+
+For safety purpose, we will change the property of the added overlay device tree so that no built-in device tree properties are effected.
+
+General define for Create, Update and Delete
+
+```c
+#include <linux/module.h>
+#include <linux/kernel.h>
+#include <linux/of.h>
+#include <linux/slab.h> //for kmalloc()
+
+DEFINE_MUTEX(of_mutex);
+struct of_changeset *ocs;
+```
 
 # Read device tree node properties
 
