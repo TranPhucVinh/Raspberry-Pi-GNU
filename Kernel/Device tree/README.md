@@ -29,10 +29,10 @@ Check [Interrupt document](Interrupt.md).
 ## Operations for device tree node properties
 
 [Operations for device tree node properties](Operations%20for%20device%20tree%20node%20properties.md) includes:
-* [Read device tree node properties]() by [using platform driver function]() and [using overlay device tree function]()
-* [Create operation for device tree](): Add a new property to an overlay node
-* [Update device tree node properties]() with various types: string, int and array
-* [Delete operation for device tree](): Remove property and remove/detach a node
+* [Read device tree node properties](Operations%20for%20device%20tree%20node%20properties.md#read-device-tree-node-properties) by [using platform driver function](Operations%20for%20device%20tree%20node%20properties.md#using-platform-driver-function) and [using overlay device tree function](Operations%20for%20device%20tree%20node%20properties.md#using-overlay-device-tree-function)
+* [Create operation for device tree](Operations%20for%20device%20tree%20node%20properties.md#create-operation-for-device-tree): Add a new property to an overlay node
+* [Update device tree node properties](Update%20device%20tree%20node%20properties.md) with various types: string, int and array
+* [Delete operation for device tree](Operations%20for%20device%20tree%20node%20properties.md#delete-operation-for-device-tree): Remove property and remove/detach a node
 
 # API
 
