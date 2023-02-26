@@ -1,6 +1,8 @@
 # Compiler
 
-WiringPi library: ``gcc main.c -lwiringPi``
+``WiringPi`` is a C/C++ library for Raspberry Pi.
+
+Compile: ``gcc main.c -lwiringPi``
 
 ## arm-linux-gnueabihf-gcc
 
