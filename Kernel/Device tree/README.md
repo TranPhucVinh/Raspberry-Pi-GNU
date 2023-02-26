@@ -6,6 +6,10 @@ To unpack the device tree and view on terminal: ``dtc -I fs /sys/firmware/device
 
 Unpack the device tree to a file: ``(dtc -I fs /sys/firmware/devicetree/base) > device_tree.md``
 
+## Device tree files
+
+* ``.dts``: device tree source files for board-level definitions
+
 ## Device tree overlay
 
 A device tree overlay purpose is to modify the kernel’s live tree. For device tree overlay implementation, check [device tree overlay document](Device%20tree%20overlay.md).
