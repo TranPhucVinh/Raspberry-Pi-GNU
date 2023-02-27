@@ -86,6 +86,18 @@ After inserting the overlay device tree above, node ``new_dt_node`` will appear:
   edt-ft5406
 ```
 
+**Note**
+
+For Raspberry Pi 3B+, ``compatible = "brcm,bcm2837"`` can be used to add an overlay node:
+
+```
+/dts-v1/;
+/plugin/;
+/ {
+    compatible = "brcm,bcm2837";
+    //Other part like dt_overlay_test.dts above
+```
+
 ## Add an overlay node with label
 
 ```
