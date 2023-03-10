@@ -127,6 +127,16 @@ int init_module(void)
 
 Note that the ``size`` parameter to read must be fixed to the existed size of the property. E.g: As ``interrupts`` array size is ``6`` but use array size ``100`` to read, then there will be error ``EOVERFLOW`` (``75``).
 
+# kbasename()
+
+``kbasename()`` will get the fill name of a node, which is identical to ``dev_node->full_name`` 
+
+```c
+dev_node = of_find_compatible_node(NULL, NULL, "simple-bus");
+printk("kbasename: %s\n", kbasename(dev_node->full_name));//serial@e0000000
+printk("full_name: %s\n", dev_node->full_name);//serial@e0000000
+```
+
 # for_each_child_of_node()
 
 ``for_each_child_of_node()`` will list out all child nodes inside a parent node. ``for_each_child_of_node()`` is a macro
