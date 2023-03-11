@@ -38,9 +38,10 @@ Check [Interrupt document](Interrupt.md).
 * [Update device tree node properties](Update%20device%20tree%20node%20properties.md) with various types: string, int and array
 * [Delete operation for device tree](Operations%20for%20device%20tree%20node%20properties.md#delete-operation-for-device-tree): Remove property and remove/detach a node
 
-# API
+# [API](API.md)
 
 * [All device tree struct](API.md#struct)
+* [of_find_compatible_node()](API.md#of_find_compatible_node)
 * [of_find_node_by_type()](API.md#of_find_node_by_type)
 * [of_find_property()](API.md#of_find_property)
 * [of_property_read_u32_array()](API.md#of_property_read_u32_array)

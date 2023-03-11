@@ -49,36 +49,49 @@ struct list_head {
 	struct list_head *next, *prev;
 };
 ```
-
-# of_find_node_by_type()
+# of_find_compatible_node()
 
 ```c
-struct device_node *of_find_node_by_type(struct device_node *from, const char *type);
+struct device_node *of_find_compatible_node(struct device_node *from, const char *type, const char *compat);
 ```
 
-Find a node by its ``device_type`` property
+* ``from``: if ``NULL``, search the entire device tree
+* ``type``: node type
 
-* ``from``: If ``NULL``, search the entire device tree
-* ``type``: ``device_type`` propery value
+If ``from=NULL`` and ``type=NULL``, ``of_find_compatible_node()`` will return the first ``device_node`` it encounters in the device tree while there are still more ``device_node`` with the same ``compat`` in the device tree.
 
-## Find a node device with ``device_type`` is ``serial`` in a kernel module
+This is the setback of ``of_find_compatible_node()`` when trying to get all nodes with the same ``compat`` but none of them as ``type``, as only one ``device_node`` is returned.
+
+## Find a node device with compatible string ``COMPATIBLE``
 
 ```c
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/of.h>
-#include <linux/slab.h> //for kmalloc()
+#include <linux/slab.h>
 
 MODULE_LICENSE("GPL");
+
+#define COMPATIBLE    	"compatible_string"
+#define TYPE			NULL
+#define FROM_NODE		NULL	// Node for of_find_compatible_node() to find from
 
 struct device_node *dev_node;
 
 int init_module(void)
 {
-	dev_node = (struct device_node *)kmalloc(sizeof(struct device_node), GFP_KERNEL);
-	dev_node = of_find_node_by_type(NULL, "memory");
-	printk("name: %s\n", dev_node->name);//memory
-	printk("full_name: %s\n", dev_node->full_name);//memory@0
+	dev_node = kmalloc(sizeof(struct device_node), GFP_KERNEL);
+	dev_node = of_find_compatible_node(FROM_NODE, TYPE, COMPATIBLE);
+
+	// There must be error handler with dev_node == NULL for the case 
+	// no compatible string is found.
+	// When there is no node with compatible string is found, accessing it
+	// with dev_node->name and dev_node->full_name cause the board to reset
+	if (dev_node == NULL) printk("No node has compatible string %s\n", COMPATIBLE);
+	else {
+		printk("name: %s\n", dev_node->name);
+		printk("full_name: %s\n", dev_node->full_name);
+	}
 	return 0;
 }
 
@@ -87,6 +100,14 @@ void cleanup_module(void)
 	printk(KERN_INFO "clean up module\n");
 }
 ```
+
+# of_find_node_by_type()
+
+```c
+struct device_node *of_find_node_by_type(struct device_node *from, const char *type);
+```
+
+Find a node by its ``device_type`` property
 
 # of_find_property()
 
