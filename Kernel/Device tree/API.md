@@ -101,6 +101,10 @@ void cleanup_module(void)
 }
 ```
 
+## Find all nodes with compatible string ``COMPATIBLE``
+
+To find all nodes with the compatible string, [recursive function](https://github.com/TranPhucVinh/C/blob/master/Introduction/Function/README.md#recursive-function) must be used. Check [find_all_nodes_with_comp_str.c](find_all_nodes_with_comp_str.c) for this implementation.
+
 # of_find_node_by_type()
 
 ```c
