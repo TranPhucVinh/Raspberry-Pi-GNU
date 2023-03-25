@@ -43,7 +43,7 @@ For kernel module insert and remove, check [Kernel document in C](https://github
 
 In 12th February 2022, with Raspbian installed from ``2021-10-30-raspios-bullseye-armhf.img``, the module will be ``5.10.63-v7+``. After installing the kernel header for Raspbian, there won't be ``build`` folder inside ``/lib/modules/5.10.17-v7+``.
 
-# Kernel module that store Raspbian configruation
+# Kernel module that store Raspbian configuration
 
 To get the configuration of Raspbian, insert the ``configs`` kernel module.
 
