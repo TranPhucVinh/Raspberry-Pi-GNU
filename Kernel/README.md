@@ -37,13 +37,21 @@ clean:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
 ```    
 
-For kernel module insert and remove, check ``README.md`` in ``C/Kernel/`` as their implementations are identical.
+[raspbian_kernel_module.c](raspbian_kernel_module.c): The very first kernel module built on Raspbian
+
+For kernel module insert and remove, check [Kernel document in C](https://github.com/TranPhucVinh/C/tree/master/Kernel/Loadable%20kernel%20module) as their implementations are identical.
 
 In 12th February 2022, with Raspbian installed from ``2021-10-30-raspios-bullseye-armhf.img``, the module will be ``5.10.63-v7+``. After installing the kernel header for Raspbian, there won't be ``build`` folder inside ``/lib/modules/5.10.17-v7+``.
 
-**Examples**
+# Kernel module that store Raspbian configruation
 
-* ``raspbian_kernel_module.c``: The very first kernel module built on Raspbian
+To get the configuration of Raspbian, insert the ``configs`` kernel module.
+
+```sh
+sudo modprobe configs #Insert the configs kernel module
+```
+
+After successfully inserting this module, file ``config.gz``, which store the Raspbian configuration, will be exported to ``/proc``.
 
 # GPIO driver
 
