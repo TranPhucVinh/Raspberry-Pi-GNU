@@ -40,6 +40,7 @@ Check [Interrupt document](Interrupt.md).
 * [Create operation for device tree](Operations%20for%20device%20tree%20node%20properties.md#create-operation-for-device-tree): Add a new property to an overlay node
 * [Update device tree node properties](Update%20device%20tree%20node%20properties.md) with various types: string, int and array
 * [Delete operation for device tree](Operations%20for%20device%20tree%20node%20properties.md#delete-operation-for-device-tree): Remove property and remove/detach a node
+* [Add a new node to device tree by dtsi file modification]()
 
 # [API](API.md)
 
