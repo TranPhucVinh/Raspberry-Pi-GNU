@@ -1,3 +1,34 @@
+# [Install and config]()
+
+Install and config document includes:
+
+* [Manually download Raspbian OS]()
+* [Using Raspberry Pi Imager]()
+* [First time boot](): [Connect to WiFi in first time boot](), [connect with USB in first time boot](), connect LAN cable to router, connect with USB then setup by Putty
+* [VNC]()
+
+## Keyboard setup
+
+By default, when running the for the first time, the keyboard type is configured to be UK type so that ``|``, ``#``,... can't be typed. User need to configure the keyboard to English (US) type.
+
+**Step 1**: ``sudo dpkg-reconfigure keyboard-configuration``. Tab ```Configuring keyboard-configuration`` will appear.
+
+**Step 2**: In ``Keyboard model`` tab, let all options default
+
+**Step 3**: In ``Keyboard layout`` tab, choose ``Other``, then choose ``English (UK)``.
+
+**Step 4**: In ``Key to function as AltGr`` tab, let all options default
+
+**Step 5**: In ``Compose key`` tab, let all options default
+
+After successfully setting up, reboot the board to take effect.
+
+# Binary file
+
+Error ``cannot execute binary file: Exec format error``
+
+This error happens as running an executable file compiled for an ARM architecture on an x86-64 architecture. Like running file ``a.out`` compiled in Ubuntu 16.04 on Raspberry Pi 3B+.
+
 # Compiler
 
 ``WiringPi`` is a C/C++ library for Raspberry Pi.
