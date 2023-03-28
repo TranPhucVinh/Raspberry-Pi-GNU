@@ -51,7 +51,7 @@ To get the configuration of Raspbian, insert the ``configs`` kernel module.
 sudo modprobe configs #Insert the configs kernel module
 ```
 
-After successfully inserting this module, file ``config.gz``, which stores/zips the file ``config``, will be exported to ``/proc``.
+After successfully inserting this module, file ``config.gz``, which stores/zips file ``config`` (only 1 file), will be exported to ``/proc``.
 
 File ``config`` stores  configuration flag when building. 
 
