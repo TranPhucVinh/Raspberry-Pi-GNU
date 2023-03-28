@@ -1,3 +1,22 @@
+# Raspbian firmware
+
+* bootcode.bin: GPU bootloader
+* start*.elf (start.elf, start4.elf,...), fixup*.dat (fixup.dat, fixup4.dat): GPU firmwares
+
+# Raspbian boot flow
+
+**Step 1**: Start on-chip boot ROM
+
+**Step 2**: Run bootcode.bin amd Enables SDRAM and loads Stage 3
+
+**Step 3**: Run ``loader.bin`` and load ``start.elf``
+
+**Step 4**: ``start.elf`` loads ``kernel.img``. It then also reads ``config.txt``, ``cmdline.txt`` and ``bcm2835.dtb``.
+
+**Step 5**: ``kernel.img`` is then run on the ARM.
+
+**Note**: Everything is run on the GPU until ``kernel.img`` is loaded on the ARM.
+
 # Loadable kernel module
 
 By default, modules stored in ``/lib/modules`` has no ``Makefile`` to build.
