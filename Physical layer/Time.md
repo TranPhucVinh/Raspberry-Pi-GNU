@@ -19,4 +19,4 @@ hwclock: Cannot access the Hardware Clock via any known method.
 
 Those log are printed out as device files ``/dev/rtc``, ``/dev/rtc0`` and ``/dev/misc/rtc`` are not existed in Raspberry Pi 3B+ board. 
 
-That's why we need the external RTC module. To read time with ``hwclock`` command by DS1307 module, check [DS1307 module document](I2C.md#DS1307).
+That's why we need the external RTC module. To read time with ``hwclock`` command by DS1307 module, check [DS1307 module document](../Sensors%20and%20Modules/DS1307.md) which also requires the insertion of the DS1307 Raspbian built-in kernel module.
