@@ -1,6 +1,9 @@
 # Overview
 
-C-based software for Raspbian of Rasperry Pi
+Raspberry Pi GNU implementation with:
+
+* C-based embedded software
+* Bash script
 
 # Environment
 
