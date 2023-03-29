@@ -17,9 +17,9 @@ A device tree overlay purpose is to modify the kernel’s live tree. Device tree
 * [Read all device tree nodes, included device tree overlay nodes](Device%20tree%20overlay.md#remove-the-inserted-device-tree-overlay-nodes)
 * [Remove the inserted device tree overlay nodes](Device%20tree%20overlay.md#remove-the-inserted-device-tree-overlay-nodes)
 
-## Data type
+# Data type
 
-### Array
+## Array
 
 **Array** in device tree are inside ``<>``, each member is seperated by space. ``,`` is not allowed to used to seperate each member.
 
@@ -29,11 +29,12 @@ E.g: An int array properties inside a devie tree node:
 int_array	 = <1 2 3 4>;
 ```
 
-### Interrupt
+## [Interrupt](Interrupt.md)
 
-Check [Interrupt document](Interrupt.md).
+* [Device tree interrupt properties](Interrupt.md#properties): ``interrupts``, ``interrupt-parent``, ``interrupt-cells`` and ``interrupt-controller``
+* [Interrupt implementation for platform driver](Interrupt.md#interrupt-implementation-for-platform-driver): [GPIO interrupt](Interrupt.md#gpio-interrupt), [get interrupt number by name](Interrupt.md#get-interrupt-number-by-name)
 
-## Operations for device tree node properties
+# Operations for device tree node properties
 
 [Operations for device tree node properties](Operations%20for%20device%20tree%20node%20properties.md) includes:
 * [Read device tree node properties](Operations%20for%20device%20tree%20node%20properties.md#read-device-tree-node-properties) by [using platform driver function](Operations%20for%20device%20tree%20node%20properties.md#using-platform-driver-function) and [using overlay device tree function](Operations%20for%20device%20tree%20node%20properties.md#using-overlay-device-tree-function)

@@ -1,0 +1,73 @@
+[ 2181.756397] Platform driver parsing device tree node properties
+[ 2181.756969] IRQ number is 200
+[ 2181.757000] ------------[ cut here ]------------
+[ 2181.757008] WARNING: CPU: 3 PID: 1600 at drivers/gpio/gpiolib.c:3235 gpiochip_enable_irq+0x7c/0xa4
+[ 2181.757044] Modules linked in: raspbian_kernel_module(O+) cmac algif_hash aes_arm_bs crypto_simd cryptd algif_skcipher af_alg bnep hci_uart btbcm bluetooth ecdh_generic ecc 8021q garp stp llc snd_soc_hdmi_codec brcmfmac brcmutil vc4 cec sha256_generic drm_kms_helper cfg80211 rfkill snd_soc_core snd_compress snd_pcm_dmaengine syscopyarea sysfillrect sysimgblt fb_sys_fops raspberrypi_hwmon i2c_bcm2835 bcm2835_codec(C) bcm2835_v4l2(C) v4l2_mem2mem bcm2835_isp(C) snd_bcm2835(C) bcm2835_mmal_vchiq(C) videobuf2_dma_contig videobuf2_vmalloc snd_pcm videobuf2_memops videobuf2_v4l2 videobuf2_common snd_timer snd videodev mc vc_sm_cma(C) fixed uio_pdrv_genirq uio i2c_dev fuse drm drm_panel_orientation_quirks backlight ip_tables x_tables ipv6 [last unloaded: raspbian_kernel_module]
+[ 2181.757462] CPU: 3 PID: 1600 Comm: insmod Tainted: G        WC O      5.15.32-v7+ #1538
+[ 2181.757479] Hardware name: BCM2835
+[ 2181.757488] Backtrace: 
+[ 2181.757501] [<80a3cb94>] (dump_backtrace) from [<80a3cddc>] (show_stack+0x20/0x24)
+[ 2181.757534]  r7:00000ca3 r6:80d175cc r5:00000080 r4:60000093
+[ 2181.757543] [<80a3cdbc>] (show_stack) from [<80a41314>] (dump_stack_lvl+0x70/0x94)
+[ 2181.757569] [<80a412a4>] (dump_stack_lvl) from [<80a41350>] (dump_stack+0x18/0x1c)
+[ 2181.757601]  r7:00000ca3 r6:00000009 r5:806a5fec r4:80d58804
+[ 2181.757609] [<80a41338>] (dump_stack) from [<8011f908>] (__warn+0xfc/0x114)
+[ 2181.757636] [<8011f80c>] (__warn) from [<80a3d394>] (warn_slowpath_fmt+0x70/0xd8)
+[ 2181.757666]  r7:00000ca3 r6:80d58804 r5:80f05008 r4:00000000
+[ 2181.757674] [<80a3d328>] (warn_slowpath_fmt) from [<806a5fec>] (gpiochip_enable_irq+0x7c/0xa4)
+[ 2181.757708]  r9:869a866c r8:00000000 r7:00000000 r6:869a8618 r5:81c7c540 r4:81c5a848
+[ 2181.757717] [<806a5f70>] (gpiochip_enable_irq) from [<806a607c>] (gpiochip_irq_enable+0x28/0x38)
+[ 2181.757748]  r5:81c7c540 r4:869a8618
+[ 2181.757755] [<806a6054>] (gpiochip_irq_enable) from [<8018e624>] (irq_enable+0x48/0x78)
+[ 2181.757786]  r5:00000000 r4:869a8600
+[ 2181.757794] [<8018e5dc>] (irq_enable) from [<8018e6d4>] (__irq_startup+0x80/0xbc)
+[ 2181.757823]  r5:00000000 r4:869a8600
+[ 2181.757831] [<8018e654>] (__irq_startup) from [<8018e7e8>] (irq_startup+0xd8/0x184)
+[ 2181.757863]  r7:00000000 r6:00000001 r5:869a8600 r4:00000000
+[ 2181.757871] [<8018e710>] (irq_startup) from [<8018b790>] (__setup_irq+0x7f0/0x8a0)
+[ 2181.757906]  r9:869a866c r8:869a86cc r7:000000c8 r6:00000000 r5:86bf2740 r4:869a8600
+[ 2181.757915] [<8018afa0>] (__setup_irq) from [<8018b938>] (request_threaded_irq+0xf8/0x170)
+[ 2181.757948]  r10:869a8618 r9:00000000 r8:000000c8 r7:00000081 r6:869a8600 r5:00000000
+[ 2181.757958]  r4:86bf2740
+[ 2181.757964] [<8018b840>] (request_threaded_irq) from [<8018f6b0>] (devm_request_threaded_irq+0x80/0xd4)
+[ 2181.758001]  r10:7f3410d0 r9:00000000 r8:7f3400fc r7:816b9410 r6:000000c8 r5:8699c9c0
+[ 2181.758012]  r4:7f3410d8 r3:00000081
+[ 2181.758020] [<8018f630>] (devm_request_threaded_irq) from [<7f340080>] (dt_probe+0x80/0xc0 [raspbian_kernel_module])
+[ 2181.758068]  r10:80f05008 r9:7f342200 r8:0000002c r7:816b9410 r6:7f342014 r5:00000000
+[ 2181.758078]  r4:7f342440
+[ 2181.758085] [<7f340000>] (dt_probe [raspbian_kernel_module]) from [<80739230>] (platform_probe+0x6c/0xc8)
+[ 2181.758125]  r5:00000000 r4:816b9410
+[ 2181.758132] [<807391c4>] (platform_probe) from [<80736bfc>] (really_probe+0x160/0x328)
+[ 2181.758163]  r7:816b9410 r6:7f342014 r5:00000000 r4:816b9410
+[ 2181.758171] [<80736a9c>] (really_probe) from [<80736e58>] (__driver_probe_device+0x94/0xf4)
+[ 2181.758200]  r7:816b9410 r6:7f342014 r5:7f342014 r4:816b9410
+[ 2181.758208] [<80736dc4>] (__driver_probe_device) from [<80736efc>] (driver_probe_device+0x44/0xd4)
+[ 2181.758235]  r5:810b2d00 r4:810b2cfc
+[ 2181.758242] [<80736eb8>] (driver_probe_device) from [<80737354>] (__driver_attach+0x80/0x100)
+[ 2181.758275]  r9:7f342200 r8:00000000 r7:807372d4 r6:7f342014 r5:816b9410 r4:00000000
+[ 2181.758283] [<807372d4>] (__driver_attach) from [<80734bbc>] (bus_for_each_dev+0x84/0xc4)
+[ 2181.758318]  r7:807372d4 r6:7f342014 r5:80f05008 r4:816f7eb4
+[ 2181.758326] [<80734b38>] (bus_for_each_dev) from [<807364d8>] (driver_attach+0x2c/0x30)
+[ 2181.758360]  r7:00000000 r6:8699cf00 r5:80ff1ce8 r4:7f342014
+[ 2181.758368] [<807364ac>] (driver_attach) from [<80735e0c>] (bus_add_driver+0x1c8/0x1e8)
+[ 2181.758390] [<80735c44>] (bus_add_driver) from [<80737a60>] (driver_register+0x84/0x118)
+[ 2181.758419]  r7:00000002 r6:7f340160 r5:80f05008 r4:7f342014
+[ 2181.758427] [<807379dc>] (driver_register) from [<80738f34>] (__platform_driver_register+0x2c/0x34)
+[ 2181.758456]  r5:80f05008 r4:7f342200
+[ 2181.758463] [<80738f08>] (__platform_driver_register) from [<7f340194>] (init_module+0x34/0xea0 [raspbian_kernel_module])
+[ 2181.758499] [<7f340160>] (init_module [raspbian_kernel_module]) from [<801021e4>] (do_one_initcall+0x50/0x244)
+[ 2181.758534] [<80102194>] (do_one_initcall) from [<801cada4>] (do_init_module+0x54/0x23c)
+[ 2181.758569]  r8:8699c248 r7:00000002 r6:86bf2a80 r5:00000002 r4:7f342200
+[ 2181.758577] [<801cad50>] (do_init_module) from [<801cd5c4>] (load_module+0x24b8/0x2840)
+[ 2181.758606]  r6:8699c200 r5:00000002 r4:873cff30
+[ 2181.758614] [<801cb10c>] (load_module) from [<801cdbc8>] (sys_finit_module+0xc8/0xfc)
+[ 2181.758648]  r10:0000017b r9:873ce000 r8:80100244 r7:00000003 r6:0002de04 r5:00000000
+[ 2181.758658]  r4:80f05008
+[ 2181.758665] [<801cdb00>] (sys_finit_module) from [<80100040>] (ret_fast_syscall+0x0/0x1c)
+[ 2181.758689] Exception stack(0x873cffa8 to 0x873cfff0)
+[ 2181.758706] ffa0:                   00000000 00000002 00000003 0002de04 00000000 76f3b074
+[ 2181.758723] ffc0: 00000000 00000002 5bd4f100 0000017b 0181ac88 00000002 7eae67b4 00000000
+[ 2181.758737] ffe0: 7eae65e0 7eae65d0 00023bc0 76c349e0
+[ 2181.758751]  r7:0000017b r6:5bd4f100 r5:00000002 r4:00000000
+[ 2181.758760] ---[ end trace e5b7571630126791 ]---
+[ 2181.758850] Request interrupt number 200 successfully

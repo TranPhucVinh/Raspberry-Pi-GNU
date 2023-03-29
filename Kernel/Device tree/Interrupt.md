@@ -2,9 +2,9 @@
 
 * ``interrupt-parent`` is a phandle that points to the interrupt controller for the current node.
 * ``interrupts``: A general value depends on type of the ``interrupt-parent``. E.g with with ``interrupt-parent`` is ``gpio``, then the ``interrupts`` has the GPIO number as one of its properties.
-
 * ``#interrupt-cells`` indicates the number of cells in the interrupts property for the interrupts managed by the
 selected interrupt controller.
+* [interrupt-controller](#interrupt-controller)
 
 ## interrupt-controller
 
@@ -16,15 +16,15 @@ selected interrupt controller.
 / {
     compatible = "brcm,bcm2835";
     fragment@0 {
-                target-path = "/";
-                __overlay__ {
-                        new_interrupt_controller_node {
-                                compatible = "new_interrupt_controller_node";
-                                #interrupt-cells = <0x01>;
-                                interrupt-controller;
-                        };
+		target-path = "/";
+		__overlay__ {
+			new_interrupt_controller_node {
+					compatible = "new_interrupt_controller_node";
+					#interrupt-cells = <0x01>;
+					interrupt-controller;
+			};
         };
-        };
+	};
 };
 ```
 
@@ -111,7 +111,7 @@ Add GPIO interrupt to an overlay device tree
 };
 ```
 
-Or [modify file bcm2710-rpi-3-b.dts with a new dtsi file, like my_dtsi.dtsi to add a new node](Add%20a20new20node20to20device20tree20by20dtsi20file modification.md):
+Or [modify file bcm2710-rpi-3-b.dts with a new dtsi file, like my_dtsi.dtsi to add a new node](Add%20a20new20node20to20device20tree20by20dtsi20file%20modification.md):
 
 ```c
 / {
@@ -176,8 +176,10 @@ sudo busybox devmem 0x3f200000 w 0x200 	#Set output for GPIO 3
 ```
 **Result**: The IRQ is registered successfully then perform the IRQ handler normally but there are memory issue when parsing the device tree to get the IRQ number. Check [platform_driver_interrupt_dmesg_log.txt](platform_driver_interrupt_dmesg_log.txt) for that memory issue
 
+Using ``devm_request_threaded_irq()`` and ``request_irq()`` in [platform_driver_interrupt_dmesg_log.txt](platform_driver_interrupt_dmesg_log.txt) still cause that memory issue.
+
 ## Get interrupt number by name
 
-Program [get_interrupt_by_name.c](get_interrupt_by_name.c)
+Program [get_interrupt_by_name.c](get_interrupt_by_name.c) gets interrupt number by name by using ``platform_get_irq_byname()`` function.
 
-**Result**: Program works normally like [GPIO interrupt]() with [the same memory issue](platform_driver_interrupt_dmesg_log.txt) when parsing the device tree to get the IRQ number.
+**Result**: Program works normally like [GPIO interrupt](#gpio-interrupt) with [the same memory issue](platform_driver_interrupt_dmesg_log.txt) when parsing the device tree to get the IRQ number.
