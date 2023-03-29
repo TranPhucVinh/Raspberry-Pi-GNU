@@ -152,6 +152,21 @@ int init_module(void)
 
 Note that the ``size`` parameter to read must be fixed to the existed size of the property. E.g: As ``interrupts`` array size is ``6`` but use array size ``100`` to read, then there will be error ``EOVERFLOW`` (``75``).
 
+# of_node_get()
+
+```c
+struct device_node *of_node_get(struct device_node *node)
+```
+Increment [refcount](https://github.com/TranPhucVinh/C/tree/master/Kernel/Character%20device/Character%20device%20operations#kobject-and-refcount) of a node
+
+# of_node_put()
+
+```c
+void of_node_put(struct device_node *node)
+```
+
+Decrement [refcount](https://github.com/TranPhucVinh/C/tree/master/Kernel/Character%20device/Character%20device%20operations#kobject-and-refcount) of a node
+
 # kbasename()
 
 ``kbasename()`` will get the fill name of a node, which is identical to ``dev_node->full_name`` 
