@@ -111,7 +111,7 @@ Add GPIO interrupt to an overlay device tree
 };
 ```
 
-Or [modify file bcm2710-rpi-3-b.dts with a new dtsi file, like my_dtsi.dtsi to add a new node](Add%20a20new20node20to20device20tree20by20dtsi20file%20modification.md):
+Or [modify file bcm2710-rpi-3-b.dts with a new dtsi file, like my_dtsi.dtsi, to add a new node](Add%20a20new20node20to20device20tree20by20dtsi20file%20modification.md):
 
 ```c
 / {
