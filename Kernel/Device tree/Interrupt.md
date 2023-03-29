@@ -111,6 +111,20 @@ Add GPIO interrupt to an overlay device tree
 };
 ```
 
+Or [modify file bcm2710-rpi-3-b.dts with a new dtsi file, like my_dtsi.dtsi to add a new node](Add%20a20new20node20to20device20tree20by20dtsi20file modification.md):
+
+```c
+/ {
+	compatible = "brcm,bcm2835";
+    new_dt_node {
+        compatible = "compatible_string";
+        interrupt-parent = <&gpio>;
+        interrupts   = <2 1 3 1>;
+        interrupt-names = "gpio_2_irq", "gpio_3_irq";
+    };
+};
+```
+
 As ``#interrupt-cells`` is ``0x02``, so every GPIO interrupt need 2 values. In this example:
 
 * ``3``: GPIO pin number of Raspberry that wished to be converted to IRQ number
@@ -160,7 +174,10 @@ This setup operation can be done by ``busybox devmem``. So run this ``devmem`` c
 ```sh
 sudo busybox devmem 0x3f200000 w 0x200 	#Set output for GPIO 3
 ```
+**Result**: The IRQ is registered successfully then perform the IRQ handler normally but there are memory issue when parsing the device tree to get the IRQ number. Check [platform_driver_interrupt_dmesg_log.txt](platform_driver_interrupt_dmesg_log.txt) for that memory issue
 
 ## Get interrupt number by name
 
 Program [get_interrupt_by_name.c](get_interrupt_by_name.c)
+
+**Result**: Program works normally like [GPIO interrupt]() with [the same memory issue](platform_driver_interrupt_dmesg_log.txt) when parsing the device tree to get the IRQ number.
