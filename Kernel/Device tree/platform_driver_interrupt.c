@@ -6,7 +6,7 @@
 #include <linux/of_device.h>
 #include <linux/interrupt.h>
 
-#define IRQ_INDEX   0//IRQ index 0 will get the first IRQ num specified in interrupts fields
+#define IRQ_INDEX   1//IRQ index 1 will get the second IRQ num specified in interrupts fields
 
 #define THREAD_FN           NULL
 #define INTERRUPT_NAME      "GPIO_3_IRQ"
