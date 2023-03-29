@@ -129,3 +129,12 @@ The result will be:
 ```c
 int_array =  <0x5000000 0x6000000 0x7000000 0x8000000>;
 ```
+# Update [refcount](https://github.com/TranPhucVinh/C/tree/master/Kernel/Character%20device/Character%20device%20operations#kobject-and-refcount) of a device tree node
+
+Find a node by its compatible string, then:
+
+* Print out its current [refcount](https://github.com/TranPhucVinh/C/tree/master/Kernel/Character%20device/Character%20device%20operations#kobject-and-refcount) value
+* Increase its refcount by 1 by ``of_node_get()``
+* Decrease its refcount by 1 by ``of_node_put()``
+
+Program: [update_refcount.c](update_refcount.c)

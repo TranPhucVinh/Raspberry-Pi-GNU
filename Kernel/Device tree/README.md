@@ -39,7 +39,7 @@ int_array	 = <1 2 3 4>;
 [Operations for device tree node properties](Operations%20for%20device%20tree%20node%20properties.md) includes:
 * [Read device tree node properties](Operations%20for%20device%20tree%20node%20properties.md#read-device-tree-node-properties) by [using platform driver function](Operations%20for%20device%20tree%20node%20properties.md#using-platform-driver-function) and [using overlay device tree function](Operations%20for%20device%20tree%20node%20properties.md#using-overlay-device-tree-function)
 * [Create operation for device tree](Operations%20for%20device%20tree%20node%20properties.md#create-operation-for-device-tree): Add a new property to an overlay node
-* [Update device tree node properties](Update%20device%20tree%20node%20properties.md) with various types: string, int and array
+* [Update device tree node properties](Update%20device%20tree%20node%20properties.md) with various types: string, int and array; [update refcount of a device tree node]() by [of_node_get()](API.md#of_node_get) and [of_node_put()](API.md#of_node_put)
 * [Delete operation for device tree](Operations%20for%20device%20tree%20node%20properties.md#delete-operation-for-device-tree): Remove property and remove/detach a node
 * [Add a new node to device tree by dtsi file modification]()
 
@@ -50,4 +50,5 @@ int_array	 = <1 2 3 4>;
 * [of_find_node_by_type()](API.md#of_find_node_by_type)
 * [of_find_property()](API.md#of_find_property)
 * [of_property_read_u32_array()](API.md#of_property_read_u32_array)
+* [of_node_get()]() and [of_node_put()]()
 * [for_each_child_of_node()](API.md#for_each_child_of_node)
