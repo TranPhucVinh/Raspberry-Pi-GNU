@@ -16,6 +16,7 @@ A device tree overlay purpose is to modify the kernel’s live tree. Device tree
 * [Create an overlay device tree node](Device%20tree%20overlay.md#create-an-overlay-device-tree-node): [Add an overlay node with label](Device%20tree%20overlay.md#add-an-overlay-node-with-label), [overlay device tree add value to other target](Device%20tree%20overlay.md#overlay-device-tree-add-value-to-other-target) and [add multiple fragments in overlay device tree](Device%20tree%20overlay.md#add-multiple-fragments-in-overlay-device-tree)
 * [Read all device tree nodes, included device tree overlay nodes](Device%20tree%20overlay.md#remove-the-inserted-device-tree-overlay-nodes)
 * [Remove the inserted device tree overlay nodes](Device%20tree%20overlay.md#remove-the-inserted-device-tree-overlay-nodes)
+* [Using device tree overlay for GPIO control by kernel API](Device%20tree%20GPIO.md)
 
 # Data type
 
