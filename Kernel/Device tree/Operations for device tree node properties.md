@@ -59,7 +59,11 @@ Property functions like [of_find_property()](https://github.com/TranPhucVinh/Ras
 
 # Create operation for device tree
 
-Add a new property to an overlay node.
+## Add a new node
+
+Add a new node to the device tree by a kernel module requires complicated setup and still can't be implemented. Use the [dtoverlay command](Device%20tree%20overlay.md#create-an-overlay-device-tree-node) or [modify the dtsi file](Add%20a%20new%20node%20to%20device%20tree%20by%20dtsi%20file%20modification.md) to add a new node instead.
+
+## Add a new property to an overlay node
 
 ```c
 #define COMPATIBLE    	"compatible_string"
