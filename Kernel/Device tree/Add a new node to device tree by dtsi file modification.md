@@ -1,9 +1,5 @@
 **Precondition**: Ubuntu 20.04 which has GCC 9.4.0 by default
 
-# Overview
-
-The general idea is to build a docker which has the Raspberry Pi board's environment, which wished to add/modify the device tree node.
-
 # Step 1: Clone repositories
 
 Clone https://github.com/raspberrypi/tools into ``~/tool``
