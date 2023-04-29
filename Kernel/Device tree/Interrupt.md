@@ -8,7 +8,7 @@ selected interrupt controller.
 
 ## interrupt-controller
 
-``interrupt-controller`` msut be set with valid properties for parsing. If adding a new interrupt-controller as an overlay node like this:
+``interrupt-controller`` must be set with valid properties for parsing. If adding a new ``interrupt-controller`` as an overlay node like this:
 
 ```c
 /dts-v1/;
@@ -62,11 +62,9 @@ Error in ``dmesg``:
 [ 3395.762484] OF: resolver: overlay phandle fixup failed: -22
 ```
 
-# Interrupt implementation for platform driver
+# Implement GPIO interrupt for platform driver
 
-## GPIO interrupt
-
-GPIO nodes in device tree with interrups properties:
+GPIO nodes in device tree with interrupts properties:
 
 ```c
 gpio@7e200000 {
@@ -91,7 +89,7 @@ gpio@7e200000 {
 
 The properties of GPIO states has ``interrupt-controller`` which infers that it is also an interrupt controller.
 
-Add GPIO interrupt to an overlay device tree
+Add GPIO interrupt to [an overlay device tree](Device%20tree%20overlay.md)
 
 ```c
 /dts-v1/;
@@ -111,19 +109,7 @@ Add GPIO interrupt to an overlay device tree
 };
 ```
 
-Or [modify file bcm2710-rpi-3-b.dts with a new dtsi file, like my_dtsi.dtsi, to add a new node](Add%20a20new20node20to20device20tree20by20dtsi20file%20modification.md):
-
-```c
-/ {
-	compatible = "brcm,bcm2835";
-    new_dt_node {
-        compatible = "compatible_string";
-        interrupt-parent = <&gpio>;
-        interrupts   = <2 1 3 1>;
-        interrupt-names = "gpio_2_irq", "gpio_3_irq";
-    };
-};
-```
+Or [modify file bcm2710-rpi-3-b.dts with a new dtsi file, like my_dtsi.dtsi, to add a new node](Add%20a20new20node20to20device20tree20by20dtsi20file%20modification.md).
 
 As ``#interrupt-cells`` is ``0x02``, so every GPIO interrupt need 2 values. In this example:
 
@@ -154,29 +140,18 @@ IRQ flag values are defined in ``linux/interrupt.h``
 
 **Feature**
 
-1. Platform driver gets IRQ number from GPIO 3 that is registered in device tree overlay
+1. Platform driver gets IRQ number from GPIO 3 that is registered in device tree overlay. As being GPIO interrupt, i.e **external interrupt**, **GPIO 3 must be register as input**.
 2. Register to that IRQ and trigger those IRQ from userspace, IRQ function handler will print out how many times that IRQ is triggered
+3. **Trigger interrupt**: As GPIO 3 is input, interrupt must be triggered by hardware, i.e 
 
 **Program**: [platform_driver_interrupt.c](platform_driver_interrupt.c)
 
-**Notice**
-
-Before ``isnmod`` the platform_driver_interrupt kernel module, register that mapped to GPIO 3 must be allocated and set to a mode like input or output mode. This is mapped to the operation ``gpio_direction_output(GPIO, 1)``. Without this setup operation, there will be error:
-
-```
-[25064.080814] gpio gpiochip0: (pinctrl-bcm2835): gpiochip_lock_as_irq: cannot get GPIO direction
-[25064.080831] gpio gpiochip0: (pinctrl-bcm2835): unable to lock HW IRQ 3 for IRQ
-[25064.080844] genirq: Failed to request resources for GPIO_3_IRQ (irq 200) on irqchip pinctrl-bcm2835
-```
-
-This setup operation can be done by ``busybox devmem``. So run this ``devmem`` command:
+**Notice**: If register GPIO 3 as input, like setting with ``devmem`` like this:
 
 ```sh
 sudo busybox devmem 0x3f200000 w 0x200 	#Set output for GPIO 3
 ```
-**Result**: The IRQ is registered successfully then perform the IRQ handler normally but there are memory issue when parsing the device tree to get the IRQ number. Check [platform_driver_interrupt_dmesg_log.txt](platform_driver_interrupt_dmesg_log.txt) for that memory issue
-
-Using ``devm_request_threaded_irq()`` and ``request_irq()`` in [platform_driver_interrupt_dmesg_log.txt](platform_driver_interrupt_dmesg_log.txt) still cause that memory issue.
+Then the IRQ is registered successfully then perform the IRQ handler normally (by devmem write GPIO HIGH/LOW) but there are memory issue when parsing the device tree to get the IRQ number. Check [platform_driver_interrupt_dmesg_log.txt](platform_driver_interrupt_dmesg_log.txt) for that memory issue
 
 ## Get interrupt number by name
 

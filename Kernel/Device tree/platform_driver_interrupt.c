@@ -5,12 +5,15 @@
 #include <linux/platform_device.h>
 #include <linux/of_device.h>
 #include <linux/interrupt.h>
+#include <linux/gpio.h>
 
-#define IRQ_INDEX   1//IRQ index 1 will get the second IRQ num specified in interrupts fields
+#define IRQ_INDEX   0//IRQ index 1 will get the second IRQ num specified in interrupts fields
 
 #define THREAD_FN           NULL
 #define INTERRUPT_NAME      "GPIO_3_IRQ"
 #define INTERRUPT_ID    	"DEV_ID" //DEV_ID must not be NULL, if using NULL for DEv_ID, request_irq() will fail
+
+#define	IRQ_GPIO			3
 
 MODULE_LICENSE("GPL");
 
@@ -47,12 +50,17 @@ irq_handler_t irq_handler(unsigned int irq, void* dev_id, struct pt_regs *regs){
 }
 
 static int dt_probe(struct platform_device *pdev) {
+	// As using GPIO for interrupt, i.e external interrupt, that GPIO must be input
+	if(gpio_direction_input(IRQ_GPIO)){
+	  printk("Unable to set GPIO %d to input\n", IRQ_GPIO);
+	}
+
     dev = &pdev->dev;
     irq_number = platform_get_irq(pdev, IRQ_INDEX);
     if (irq_number < 0) printk("Unable to get IRQ number in platform device\n");
     else printk("IRQ number is %d\n", irq_number);
 
-     if (devm_request_threaded_irq(dev, irq_number, (irq_handler_t) irq_handler, (irq_handler_t) THREAD_FN, IRQF_TRIGGER_RISING|IRQF_SHARED, INTERRUPT_NAME, INTERRUPT_ID) != 0){
+	if (devm_request_threaded_irq(dev, irq_number, (irq_handler_t) irq_handler, (irq_handler_t) THREAD_FN, IRQF_TRIGGER_RISING|IRQF_SHARED, INTERRUPT_NAME, INTERRUPT_ID) != 0){
         printk("Can't request interrupt number %d\n", irq_number);
         /*
             Return any error to userspace if fail to request_irq()
