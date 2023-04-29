@@ -153,8 +153,25 @@ sudo busybox devmem 0x3f200000 w 0x200 	#Set output for GPIO 3
 ```
 Then the IRQ is registered successfully then perform the IRQ handler normally (by devmem write GPIO HIGH/LOW) but there are memory issue when parsing the device tree to get the IRQ number. Check [platform_driver_interrupt_dmesg_log.txt](platform_driver_interrupt_dmesg_log.txt) for that memory issue
 
-## Get interrupt number by name
+# Get interrupt number by name by platform_get_irq_byname()
 
-Program [get_interrupt_by_name.c](get_interrupt_by_name.c) gets interrupt number by name by using ``platform_get_irq_byname()`` function.
+```
+/dts-v1/;
+/plugin/;
+/ {
+	compatible = "brcm,bcm2837";
+	fragment@0 {
+        target-path = "/";
+		__overlay__ {
+			new_dt_node {
+				compatible = "compatible_string";
+                interrupt-parent = <&gpio>;
+                interrupts   = <3 1>, <2 1>;
+				interrupt-names = "gpio_3_irq", "gpio_2_irq";
+			};
+		};
+	};
+};
+```
 
-**Result**: Program works normally like [GPIO interrupt](#gpio-interrupt) with [the same memory issue](platform_driver_interrupt_dmesg_log.txt) when parsing the device tree to get the IRQ number.
+Program [get_interrupt_by_name.c](get_interrupt_by_name.c) gets interrupt number by name by using ``platform_get_irq_byname()`` function for GPIO 2 and GPIO 3

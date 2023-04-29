@@ -5,10 +5,14 @@
 #include <linux/platform_device.h>
 #include <linux/of_device.h>
 #include <linux/interrupt.h>
+#include <linux/gpio.h>
 
 #define THREAD_FN           NULL
 #define INTERRUPT_NAME      "GPIO_IRQ"
 #define INTERRUPT_ID    	"INTERRUPT_ID" //DEV_ID must not be NULL, if using NULL for DEv_ID, request_irq() will fail
+
+#define	IRQ_GPIO_2			2
+#define	IRQ_GPIO_3			3
 
 MODULE_LICENSE("GPL");
 
@@ -40,19 +44,22 @@ struct device *dev;
 
 irq_handler_t gio_2_irq_handler(unsigned int irq, void* dev_id, struct pt_regs *regs){
     gpio_2_irq_times += 1;
-	printk("Device ID %s; interrupt occured %d times\n", (char*)dev_id, gpio_2_irq_times);
+	printk("GPIO %d has interrupt occured %d times\n", IRQ_GPIO_2, gpio_2_irq_times);
     return (irq_handler_t) IRQ_HANDLED;
 }
 
 irq_handler_t gio_3_irq_handler(unsigned int irq, void* dev_id, struct pt_regs *regs){
     gpio_3_irq_times += 1;
-	printk("Device ID %s; interrupt occured %d times\n", (char*)dev_id, gpio_3_irq_times);
+	printk("GPIO %d has interrupt occured %d times\n", IRQ_GPIO_3, gpio_3_irq_times);
     return (irq_handler_t) IRQ_HANDLED;
 }
 
 static int dt_probe(struct platform_device *pdev) {
     dev = &pdev->dev;
 
+	if(gpio_direction_input(IRQ_GPIO_2)){
+	  printk("Unable to set GPIO %d to input\n", IRQ_GPIO_2);
+	}
 	gpio_2_irq = platform_get_irq_byname(pdev, "gpio_2_irq");
     if (gpio_2_irq < 0) printk("Unable to get GPIO 2 IRQ in platform device\n");
     else printk("GPIO 2 IRQ number is %d\n", gpio_2_irq);
@@ -62,6 +69,9 @@ static int dt_probe(struct platform_device *pdev) {
         return -ENXIO;
     } else printk("Request interrupt number %d successfully\n", gpio_2_irq);
 
+	if(gpio_direction_input(IRQ_GPIO_3)){
+	  printk("Unable to set GPIO %d to input\n", IRQ_GPIO_3);
+	}
 	gpio_3_irq = platform_get_irq_byname(pdev, "gpio_3_irq");
     if (gpio_3_irq < 0) printk("Unable to get GPIO 3 IRQ in platform device\n");
     else printk("GPIO 3 IRQ number is %d\n", gpio_3_irq);
