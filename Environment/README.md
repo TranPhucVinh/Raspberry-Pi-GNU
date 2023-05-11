@@ -11,7 +11,7 @@ Install and config document includes:
 
 By default, when running the for the first time, the keyboard type is configured to be UK type so that ``|``, ``#``,... can't be typed. User need to configure the keyboard to English (US) type.
 
-**Step 1**: ``sudo dpkg-reconfigure keyboard-configuration``. Tab ```Configuring keyboard-configuration`` will appear.
+**Step 1**: ``sudo dpkg-reconfigure keyboard-configuration``. Tab ``Configuring keyboard-configuration`` will appear.
 
 **Step 2**: In ``Keyboard model`` tab, let all options default
 
