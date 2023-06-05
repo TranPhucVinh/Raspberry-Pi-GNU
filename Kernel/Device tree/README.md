@@ -1,5 +1,7 @@
 # Fundamental concepts
 
+A devicetree (also written device tree, full name **Open Firmware Device Tree**, abbreviated **dt**) is a data structure describing the hardware components of a particular computer so that the operating system's kernel can use and manage those components, including the CPU or CPUs, the memory, the buses and the peripherals. With device tree supported, the operating system doesn't need to hard code its machine details. Structurally, the device tree is a tree with named nodes, and nodes may have an arbitrary number of named properties encapsulating arbitrary data.
+
 In Raspbian or Unix single board computers in general, device tree are opened to be read from **userspace** in ``/sys/firmware/devicetree/base``
 
 To unpack the device tree and view on terminal: ``dtc -I fs /sys/firmware/devicetree/base``
