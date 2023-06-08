@@ -63,8 +63,8 @@ If ``from=NULL`` and ``type=NULL``, ``of_find_compatible_node()`` will return th
 This is the setback of ``of_find_compatible_node()`` when trying to get all nodes with the same ``compat`` but none of them as ``type``, as only one ``device_node`` is returned.
 
 Implementations:
-* [Find a node device with compatible string ``COMPATIBLE``](Read%20device%20tree%20operations.md#)
-* [Find all nodes with compatible string ``COMPATIBLE`` by using recursive](Read%20device%20tree%20operations.md#)
+* [Find a node device with compatible string ``COMPATIBLE``](Read%20device%20tree%20node%20operations.md#of_find_compatible_node-to-find-a-node-device-with-compatible-string-compatible)
+* [Find all nodes with compatible string ``COMPATIBLE`` by using recursive](Read%20device%20tree%20node%20operations.md#of_find_compatible_node-to-find-all-nodes-with-compatible-string-compatible-by-using-recursive)
 
 # of_find_node_by_type()
 
@@ -88,7 +88,7 @@ struct property *of_find_property(const struct device_node *np, const char *name
 ```c
 int of_property_read_u32_array(const struct device_node *np, const char *propname, u32 *out_values, size_t sz);
 ```
-Implementation: [Read ``interrupts`` properties from node ``new_dt_node``](Read%20device%20tree%20operations.md#)
+Implementation: [Read ``interrupts`` properties from node ``new_dt_node``](Read%20device%20tree%20node%20operations.md#of_property_read_u32_array)
 
 # of_node_get()
 
@@ -123,4 +123,4 @@ printk("full_name: %s\n", dev_node->full_name);//serial@e0000000
 for_each_child_of_node(parent, child)
 ```
 
-Implementation: [Find a node with compatile string ``simple-bus`` and print out the ``name`` and ``full_name`` of all of its child nodes](Read%20device%20tree%20operations.md#)
+Implementation: [Find a node with compatile string ``simple-bus`` and print out the ``name`` and ``full_name`` of all of its child nodes](Read%20device%20tree%20node%20operations.md#for_each_child_of_node)
