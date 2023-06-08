@@ -37,7 +37,7 @@ int_array	 = <1 2 3 4>;
 * [Device tree interrupt properties](Interrupt.md#properties): ``interrupts``, ``interrupt-parent``, ``interrupt-cells`` and ``interrupt-controller``
 * [Interrupt implementation for platform driver](Interrupt.md#interrupt-implementation-for-platform-driver): [GPIO interrupt](Interrupt.md#gpio-interrupt), [get interrupt number by name](Interrupt.md#get-interrupt-number-by-name)
 
-# Operations for device tree node properties
+# [Operations for device tree node properties](Operations%20for%20device%20tree%20node%20properties.md)
 
 [Operations for device tree node properties](Operations%20for%20device%20tree%20node%20properties.md) includes:
 * [Read device tree node properties](Operations%20for%20device%20tree%20node%20properties.md#read-device-tree-node-properties) by [using platform driver function](Operations%20for%20device%20tree%20node%20properties.md#using-platform-driver-function) and [using overlay device tree function](Operations%20for%20device%20tree%20node%20properties.md#using-overlay-device-tree-function)

@@ -49,13 +49,13 @@ With device tree node ``new_dt_node`` is inserted in the device tree, ``probe()`
 
 Running ``rmmod`` will call platform driver ``remove()`` function.
 
-Read all properties of ``new_dt_node``: [read_device_tree_node_properties.c](read_device_tree_node_properties.c)
+Read all properties of ``new_dt_node``: [platform_driver_read_dt_node_properties.c](platform_driver_read_dt_node_properties.c)
 
 ## Using overlay device tree function
 
-Node functions like [of_find_node_by_type()](https://github.com/TranPhucVinh/Raspberry-Pi-C/tree/main/Kernel/Device%20tree#of_find_node_by_type), of_find_compatible_node(),... support reading nodes of device tree.
+Node functions like [of_find_node_by_type()](API.md#of_find_node_by_type), of_find_compatible_node(),... support reading nodes of device tree.
 
-Property functions like [of_find_property()](https://github.com/TranPhucVinh/Raspberry-Pi-C/tree/main/Kernel/Device%20tree#of_find_property), [of_property_read_u32_array()](https://github.com/TranPhucVinh/Raspberry-Pi-C/tree/main/Kernel/Device%20tree#of_property_read_u32_array),... will support reading properties values inside a specific node.
+Property functions like [of_find_property()](API.md#of_find_property), [of_property_read_u32_array()](API.md#of_property_read_u32_array),... will support reading properties values inside a specific node.
 
 # Create operation for device tree
 
@@ -105,7 +105,7 @@ int init_module(void)
 }
 ```
 
-# [Update device tree node properties]()
+# [Update device tree node properties](Update%20device%20tree%20node%20properties.md)
 
 # Delete operation for device tree
 
