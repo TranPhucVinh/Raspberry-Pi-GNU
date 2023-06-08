@@ -1,3 +1,31 @@
+# of_find_property()
+``of_find_property()`` can only be used to read string value of a property:
+
+```c
+fixedregulator@0 {
+	compatible = "regulator-fixed";
+	phandle = <0x2>;
+	regulator-name = "VCCPINT";
+};
+```
+
+```c
+#define COMPATIBLE    	"regulator-fixed"
+#define PROP			"regulator-name"
+
+MODULE_LICENSE("GPL");
+int init_module(void)
+{
+	struct device_node  *dev_node;
+	struct property  	*prop;
+
+	dev_node = of_find_compatible_node(NULL, NULL, COMPATIBLE);
+	prop = of_find_property(dev_node, PROP, NULL);
+	printk("%s %s\n", prop->name, prop->value);//regulator-name VCCPINT
+	return 0;
+}
+```
+``of_find_property()`` can't be used to read int value of a property, like ``phandle = <0x2>``, as this property is treated as an [array](README.md#array). Reading it by ``of_find_property()`` results in garbage value, use [of_property_read_u32_array()](API.md#of_property_read_u32_array) instead.
 # of_find_compatible_node() to find a node device with compatible string ``COMPATIBLE``
 
 ```c

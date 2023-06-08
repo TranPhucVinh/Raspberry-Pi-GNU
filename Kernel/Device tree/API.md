@@ -72,7 +72,7 @@ Implementations:
 struct device_node *of_find_node_by_type(struct device_node *from, const char *type);
 ```
 
-Find a node by its ``device_type`` property
+Find a node by its [device_type](README.md#device_type) property
 
 # of_find_property()
 
@@ -84,6 +84,7 @@ struct property *of_find_property(const struct device_node *np, const char *name
 * ``name``: property name
 * ``lenp``: number of bytes of the property value
 
+Implement: [of_find_property() to read string value of a property](Read%20device%20tree%20node%20operations.md#of_find_property)
 # of_property_read_u32_array()
 ```c
 int of_property_read_u32_array(const struct device_node *np, const char *propname, u32 *out_values, size_t sz);

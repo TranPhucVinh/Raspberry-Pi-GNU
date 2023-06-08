@@ -31,11 +31,16 @@ E.g: An int array properties inside a devie tree node:
 ```c
 int_array	 = <1 2 3 4>;
 ```
+All properties with a single int value, e.g ``phandle = <0x2>`` are always array so they must be read by [of_property_read_u32_array()](API.md#of_property_read_u32_array) function, using [of_find_property()](API.md#of_find_property) to read them result in garbage value.
 
 ## [Interrupt](Interrupt.md)
 
 * [Device tree interrupt properties](Interrupt.md#properties): ``interrupts``, ``interrupt-parent``, ``interrupt-cells`` and ``interrupt-controller``
 * [Interrupt implementation for platform driver](Interrupt.md#interrupt-implementation-for-platform-driver): [GPIO interrupt](Interrupt.md#gpio-interrupt), [get interrupt number by name](Interrupt.md#get-interrupt-number-by-name)
+
+## device_type
+
+Use [of_find_node_by_type()](API.md#of_find_node_by_type) to find a node by its ``device_type`` property.
 
 # [Operations for device tree node properties](Operations%20for%20device%20tree%20node%20properties.md)
 
