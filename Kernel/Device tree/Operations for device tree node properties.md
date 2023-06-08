@@ -14,7 +14,7 @@ DEFINE_MUTEX(of_mutex);
 struct of_changeset *ocs;
 ```
 
-# Read device tree node properties
+# [Read device tree node properties](Read%20device%20tree%20node%20operations.md)
 
 Read properties of an overlay node.
 
