@@ -50,7 +50,7 @@ Use [of_find_node_by_type()](API.md#of_find_node_by_type) to find a node by its 
 * [Update device tree node properties](Update%20device%20tree%20node%20properties.md) with various types: string, int and array; [update refcount of a device tree node](Update%20device%20tree%20node%20properties.md#update-refcount-of-a-device-tree-node) by [of_node_get()](API.md#of_node_get) and [of_node_put()](API.md#of_node_put)
 * [Delete operation for device tree](Operations%20for%20device%20tree%20node%20properties.md#delete-operation-for-device-tree): Remove property and remove/detach a node
 * [Add a new node to device tree by dtsi file modification]()
-
+* [Remove a property of a node and add a new empty property (i.e property without any value)](Operations%20for%20device%20tree%20node%20properties.md#remove-a-property-of-a-node-and-add-a-new-empty-property-ie-property-without-any-value)
 # [API](API.md)
 
 * [All device tree struct](API.md#struct)

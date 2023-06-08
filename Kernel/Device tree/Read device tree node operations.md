@@ -86,7 +86,7 @@ int init_module(void)
 {
 	dev_node = kzalloc(sizeof(struct device_node), GFP_KERNEL);
 
-	// Setting with kzallo() won't set dev_node to NULL
+	// Setting with kzalloc() won't set dev_node to NULL
 	// so set dev_node to NULL for recursive call
 	dev_node = NULL;
 	printk("Init is empty now\n");
