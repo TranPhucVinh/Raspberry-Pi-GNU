@@ -4,6 +4,12 @@ A devicetree (also written device tree, full name **Open Firmware Device Tree**,
 
 In Raspbian or Unix single board computers in general, device tree are opened to be read from **userspace** in ``/sys/firmware/devicetree/base``
 
+## dtc command
+
+dtc command stands for **Device tree compiler**
+
+Install (especially on Other Linux Distro like Ubuntu): ``sudo apt install device-tree-compiler``
+
 To unpack the device tree and view on terminal: ``dtc -I fs /sys/firmware/devicetree/base``
 
 Unpack the device tree to a file: ``(dtc -I fs /sys/firmware/devicetree/base) > device_tree.md``
