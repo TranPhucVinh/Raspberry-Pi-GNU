@@ -86,4 +86,4 @@ main() {
 
 ### Slave
 
-Check Slave program in ``Example 1`` of ``AVR-Arduino-framework/Physical layer/I2C/Examples part 1.md``.
+[Arduino I2C slave program](https://github.com/TranPhucVinh/AVR-Arduino-framework/blob/master/Physical%20layer/Wired%20communication/I2C/Examples.md#slave) for [Master sends data, Slave receives data](https://github.com/TranPhucVinh/AVR-Arduino-framework/blob/master/Physical%20layer/Wired%20communication/I2C/Examples.md#master-sends-data-slave-receives-data).
