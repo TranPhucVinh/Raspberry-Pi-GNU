@@ -27,6 +27,8 @@ The secondary UART, also known as PL011 UART (``ttyAMA0``), is not normally pres
 
 Raspberry Pi 3 has 2 I2C port: I2C1 with pins GPIO3 (SCL.1) and GPIO2 (SDA.1) and I2C0.
 
+By default I2C devices are disabled, they have to be enabled manually through ``raspi-config``.
+
 For implementing I2C with Bash script with sensors and modules, check [I2C document](I2C.md).
 
 # ADC
