@@ -30,9 +30,16 @@ Error ``cannot execute binary file: Exec format error``
 This error happens as running an executable file compiled for an ARM architecture on an x86-64 architecture. Like running file ``a.out`` compiled in Ubuntu 16.04 on Raspberry Pi 3B+.
 
 # Compiler
-
+## WiringPi
 ``WiringPi`` is a C/C++ library for Raspberry Pi.
 
+Install:
+```sh
+$ git clone https://github.com/WiringPi/WiringPi.git
+$ cd WiringPi
+$~/WiringPi: ./build # Run ./build to setup WiringPi
+```
+After running ``build`` successfully, WiringPi is ready system-wide.
 Compile: ``gcc main.c -lwiringPi``
 
 ## arm-linux-gnueabihf-gcc
