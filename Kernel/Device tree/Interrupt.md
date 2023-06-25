@@ -142,7 +142,7 @@ IRQ flag values are defined in ``linux/interrupt.h``
 
 1. Platform driver gets IRQ number from GPIO 3 that is registered in device tree overlay. As being GPIO interrupt, i.e **external interrupt**, **GPIO 3 must be register as input**.
 2. Register to that IRQ and trigger those IRQ from userspace, IRQ function handler will print out how many times that IRQ is triggered
-3. **Trigger interrupt**: As GPIO 3 is input, interrupt must be triggered by hardware, i.e 
+3. **Trigger interrupt**: As GPIO 3 is input, interrupt must be triggered by hardware, i.e using button to turn on/off GPIO 3
 
 **Program**: [platform_driver_interrupt.c](platform_driver_interrupt.c)
 
