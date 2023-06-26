@@ -14,7 +14,7 @@ Default ``username`` is ``pi`` and password is ``raspberry``.
 
 In Ubuntu 16.04, install ``rpi-imager``: ``snap install rpi-imager``
 
-After successfully installed, run command ``rpi-imager``. Desktop app ``rpi-imager`` will appear, then choose the OS to install to the SD card.
+After successfully installed, run command ``rpi-imager``. Desktop app ``rpi-imager`` will appear, then choose the OS wished to flashed. However, it will fail to flash the OS into the SD card after writting 100%.
 
 # First time boot
 
