@@ -32,8 +32,12 @@ File ``artifacts.tar.gz`` stores:
 
 # Step 2. Build the Docker image on host machine
 
-- First and the most crucial step is to put the **artifacts.tar.gz** generated in step 1 before inside the [util]() folder of [on_ubuntu]().
+- First and the most crucial step is to put the **artifacts.tar.gz** generated in step 1 before inside the [util](on_ubuntu/util) folder of [on_ubuntu](on_ubuntu).
 - After that, run the script [run.sh](on_ubuntu/run.sh) with 1 parameter which is the **name** of the docker that wished to create, e.g ``docker_for_raspbian_cross_compiler``. Wait for the whole process to finish which takes arround 30 minutes depends on the host machine.
+
+**run.sh** mains steps are:
+* Cloning [raspberrypi/linux](https://github.com/raspberrypi/linux) repository, the kernel source tree for Raspberry Pi which provides kernel builds.
+* Building a docker, from [Dockerfile](on_ubuntu/Dockerfile), from the [raspberrypi/linux](https://github.com/raspberrypi/linux) repository
 
 Docker images before running run.sh
 
