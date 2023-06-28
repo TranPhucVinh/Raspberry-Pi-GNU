@@ -1,6 +1,6 @@
-This tutorial is intend to build a Raspbian kernel module from Ubuntu PC,
+This tutorial is intended to build a Raspbian kernel module from Ubuntu PC,
 
-The general idea of this is to create a docker on that Ubuntu PC which has the environment of Raspberry Pi board wished to insert the kernel module on.
+The general idea is to create a docker on that Ubuntu PC which has the environment of Raspberry Pi board that wished to insert the kernel module on.
 
 # Document folder structure
 
