@@ -37,7 +37,7 @@ File ``artifacts.tar.gz`` stores:
 
 **run.sh** mains steps are:
 * Cloning [raspberrypi/linux](https://github.com/raspberrypi/linux) repository, the kernel source tree for Raspberry Pi which provides kernel builds.
-* Building a docker, from [Dockerfile](on_ubuntu/Dockerfile), from the [raspberrypi/linux](https://github.com/raspberrypi/linux) repository
+* Building a docker, by [Dockerfile](on_ubuntu/Dockerfile), from the [raspberrypi/linux](https://github.com/raspberrypi/linux) repository
 
 Docker images before running run.sh
 
