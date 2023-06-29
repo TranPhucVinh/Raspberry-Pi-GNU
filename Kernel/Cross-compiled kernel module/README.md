@@ -24,9 +24,9 @@ All the files is put into two seperated folder **on_raspi** and **on_ubuntu**. A
 
 # Step 1. Get the Raspberry Pi board configuration parameters
 
-Run the script [get_infos.sh](on_raspi/get_infos.sh) with sudo privilege on **Raspberry Pi** which is wished to insert the kernel module on. The output is a [artifacts.tar.gz]() file, which is outputed inside the ``on_raspi`` folder. Save this file somewhere else for the later use.
+Run the script [get_infos.sh](on_raspi/get_infos.sh) with sudo privilege on **Raspberry Pi** which is wished to insert the kernel module on. The output is a **artifacts.tar.gz** file, which is outputed inside the ``on_raspi`` folder. Save this file somewhere else for the later use.
 
-File ``artifacts.tar.gz`` stores:
+File **artifacts.tar.gz** stores:
 * Hash value of current git repo built the current Raspbian
 * Current Raspbian repo config params
 
