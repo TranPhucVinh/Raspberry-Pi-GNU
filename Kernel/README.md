@@ -45,7 +45,7 @@ For kernel module insert and remove, check [Kernel document in C](https://github
 
 In 12th February 2022, with Raspbian installed from ``2021-10-30-raspios-bullseye-armhf.img``, the module will be ``5.10.63-v7+``. After installing the kernel header for Raspbian, there won't be ``build`` folder inside ``/lib/modules/5.10.17-v7+``.
 
-# Kernel module that store Raspbian configuration
+# [KConfig](https://github.com/TranPhucVinh/C/blob/master/Kernel/KBuild.md): configs kernel module which stores Raspbian configuration
 
 To get the configuration of Raspbian, insert the ``configs`` kernel module.
 
@@ -55,7 +55,13 @@ sudo modprobe configs #Insert the configs kernel module
 
 After successfully inserting this module, file ``config.gz``, which stores/zips file ``config`` (only 1 file), will be exported to ``/proc``.
 
-File ``config`` stores  configuration flag when building. 
+File ``config`` stores the configuration flags (CONFIG_*) when building:
+```
+CONFIG_CC_VERSION_TEXT="arm-linux-gnueabihf-gcc-8 (Ubuntu/Linaro 8.4.0-3ubuntu1) 8.4.0"
+CONFIG_CC_IS_GCC=y
+CONFIG_GCC_VERSION=80400
+...
+```
 
 # GPIO driver
 
