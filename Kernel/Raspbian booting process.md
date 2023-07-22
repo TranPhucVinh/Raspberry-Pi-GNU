@@ -5,4 +5,4 @@ The Raspbian booting process includes:
 * **Step 4**: **start.elf** loads **kernel.img**. It then also reads **config.txt**, **cmdline.txt** and **device tree binary files**.
 * **Step 5**: ``kernel.img`` is then run on the ARM.
 
-**Note**: It's very important to note that on Raspbian, everything is run on the GPU until ``kernel.img`` is loaded on the ARM.
+**Note**: It's very important to note that on Raspbian, everything runs on the GPU until ``kernel.img`` is loaded on the ARM.
