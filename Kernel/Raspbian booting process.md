@@ -6,3 +6,5 @@ The Raspbian booting process includes:
 * **Step 5**: ``kernel.img`` is then run on the ARM.
 
 **Note**: It's very important to note that on Raspbian, everything runs on the GPU until ``kernel.img`` is loaded on the ARM.
+
+It can also be noted that the booting process of Raspbian **doesn't require a Uboot to load kernel.img** as in **step 4**, **start.elf**, which is the GPU firmware, loads **kernel.img**.
