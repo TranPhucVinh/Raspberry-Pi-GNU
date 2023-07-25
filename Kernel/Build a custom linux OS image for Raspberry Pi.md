@@ -17,7 +17,6 @@ sudo apt install git bc bison flex libssl-dev make libc6-dev libncurses5-dev
 sudo apt install crossbuild-essential-armhf
 sudo apt install crossbuild-essential-arm64
 ```
-
 - Connect the USB-UART TTL device to Raspbian and open a terminal port for interracting with boot process later on.
 
 # Format bootfs and rootfs
@@ -86,7 +85,7 @@ git clone https://github.com/u-boot/u-boot --depth=1
 ```sh
 make rpi_3_b_plus_defconfig ARCH=arm CROSS_COMPILE=aarch64-linux-gnu-
 ```
-- Setting the autoboot delay time in u-boot config to 10 second to easily enter the u-boot console if needed
+- Setting the autoboot delay time in u-boot config to 10 seconds to easily enter the u-boot console if needed
 ```sh
 make menuconfig ARCH=arm CROSS_COMPILE=aarch64-linux-gnu-
 -> go to Boot options->Autoboot options->delay
@@ -95,7 +94,9 @@ make menuconfig ARCH=arm CROSS_COMPILE=aarch64-linux-gnu-
 ```sh
 make -j$(nproc) ARCH=arm CROSS_COMPILE=aarch64-linux-gnu-
 ```
-After successfully building, file ``u-boot.bin`` will be created inside the previously cloned ``u-boot`` repository.
+After successfully building:
+* ``u-boot.bin`` will be created inside the previously cloned ``u-boot`` repository
+* ``mkimage`` will be created inside ``u-boot/tools``
 - Copy the ``u-boot.bin`` to the bootfs partition of the SD card.
 
 - Inside the bootfs partition of the SD card, create ```config.txt``` with the following content:
