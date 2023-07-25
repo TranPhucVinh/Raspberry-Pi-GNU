@@ -7,7 +7,7 @@ Steps will include:
 x. Create a bootable rootfs OS
 x. Combine everything together and boot the RasPI to the completed OS
 
-For Create a bootable rootfs OS: we will use either of the tool buildroot/yocto/busybox to create a customize rootfs.
+To create a bootable rootfs, we will use either of the tool like busybox.
 
 # Essential packages
 
