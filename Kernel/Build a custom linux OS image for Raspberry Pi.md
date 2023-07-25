@@ -77,7 +77,7 @@ However, since we would like to use the open source u-boot, we need to configure
 
 Here's the boot process of RaspberryPI
 
-All the bootloader file of RaspberryPI can be found here https://github.com/raspberrypi/firmware/tree/master/boot, we can download some key files which is ```bootcode.bin```, ```fixup.dat```, ```start.elf``` in the master branch. Copy all those 3 files to the bootfs partition of the SD card.
+All the bootloader files of Raspbian are available in the [Raspberry Pi firmware Github repository](https://github.com/raspberrypi/firmware/tree/master/boot). We need to download those 3 files ``bootcode.bin``, ``fixup.dat`` and ``start.elf`` in the master branch. Copy all those 3 files to the bootfs partition of the SD card.
 
 Our next step is to build the ```u-boot.bin``` image.
 - Clone the u-boot repo: 
