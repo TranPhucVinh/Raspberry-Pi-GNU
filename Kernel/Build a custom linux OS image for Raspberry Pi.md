@@ -118,3 +118,5 @@ Now, the bootfs partition of the SD card will include all those files:
 **rootfs partition of the SD card now is still empty**
 
 If everything works fine, once you plug in the SD card and turn on the board, we can boot into u-boot. Access to its CLI by the USB/UART setup.
+
+For all commands of Uboot, check [uboot.txt](uboot.txt) file.
