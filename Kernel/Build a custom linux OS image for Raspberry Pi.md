@@ -81,7 +81,7 @@ Our next step is to build the ``u-boot.bin`` (the binary compiled U-Boot bootloa
 ```sh
 git clone https://github.com/u-boot/u-boot --depth=1
 ```
-- ``cd`` into the u-boot directory and specify the compiler/build configuration:
+- ``cd`` into the ``u-boot`` directory and specify the compiler/build configuration:
 ```sh
 make rpi_3_b_plus_defconfig ARCH=arm CROSS_COMPILE=aarch64-linux-gnu-
 ```
