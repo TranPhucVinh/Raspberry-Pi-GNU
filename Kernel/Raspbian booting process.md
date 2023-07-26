@@ -18,4 +18,4 @@ The Raspberry Pi uses a configuration file instead of the BIOS in a conventional
 **Property value**:
 
 * ``enable_uart``: ``enable_uart=1`` requests that the kernel creates a serial console, accessible using GPIOs 14 and 15 (pins 8 and 10 on the 40-pin header)
-* ``kernel`` will specify the boot partition to use when loading the kernel. The default value on the Raspberry Pi 3 and 3+ is ``kernel7.img``, while other Raspberry Pi board takes different kernel image like kernel.img, kernel8.img,...
+* ``kernel`` will specify the boot partition to use when loading the kernel. The default value on the Raspberry Pi 3 and 3+ is ``kernel7.img``, while other Raspberry Pi board takes different kernel image like kernel.img, kernel8.img,... In Raspberry Pi 3 and 3+ config.txt, ``kernel`` is not specified so it will take its default value.
