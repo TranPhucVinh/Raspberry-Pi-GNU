@@ -67,8 +67,10 @@ include $(srctree)/arch/$(SRCARCH)/Makefile
 After running ``make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image modules dtbs``, ``Image`` (kernel image) and device tree file ``bcm2710-rpi-3-b.dtb`` will be available:
 * ``Image`` will be available in ``arch/arm64/boot``
 * ``bcm2710-rpi-3-b.dtb`` will be available in ``arch/arm64/boot/dts/broadcom/``
+* 
+Where ``Image`` is the generic Linux kernel binary image file.
 
-- Now copy those 2 files to the bootfs partition of the SD card.
+Now copy those 2 files to the bootfs partition of the SD card.
 # Setup Uboot for Raspbian
 Raspberry Pi has its own proprietary bootloader, which is loaded by the ROM code and is capable of loading the kernel. This is what happen when you use the comercial Raspbian. It's worth mentioning from the [Raspbian booting process](Raspbian%20booting%20process.md) that in **step 4**, **start.elf** read **[config.txt](#configtxt)** to get the booting information like which kernel image file to load,... **start.elf** will then load the kernel image, like **kernel.img**. It then also reads **cmdline.txt** and **device tree binary files**.
 
