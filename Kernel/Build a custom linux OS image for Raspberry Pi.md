@@ -67,7 +67,7 @@ include $(srctree)/arch/$(SRCARCH)/Makefile
 After running ``make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image modules dtbs``, ``Image`` (kernel image) and device tree file ``bcm2710-rpi-3-b.dtb`` will be available:
 * ``Image`` will be available in ``arch/arm64/boot``
 * ``bcm2710-rpi-3-b.dtb`` will be available in ``arch/arm64/boot/dts/broadcom/``
-* 
+
 Where ``Image`` is the generic Linux kernel binary image file.
 
 Now copy those 2 files to the bootfs partition of the SD card.
