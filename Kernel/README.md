@@ -116,9 +116,7 @@ int main(){
 }
 ```
 
-# Device tree
-
-Check [device tree document folder](Device%20tree)
+# [Device tree](Device%20tree)
 
 # Platform driver
 
