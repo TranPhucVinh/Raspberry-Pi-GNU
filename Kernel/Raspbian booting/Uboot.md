@@ -38,3 +38,13 @@ The argument 'initrd' is optional and specifies the address	of an initrd in memo
 The optional parameter ':size' allows specifying the size of a RAW initrd.
 
 Since booting a Linux kernel requires a flat device-tree, a third argument providing the address of the device-tree blob is required. To boot a kernel with a device-tree blob but without an initrd image, use a ``-`` for the initrd argument.
+# mkimage
+
+```sh
+mkimage [-options] image  
+```
+* ``-A``: architecture
+* ``-O``: operating system
+* ``-T``: image type
+* ``-C``: compression type
+* ``-d``: specify the image data file

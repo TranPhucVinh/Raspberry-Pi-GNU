@@ -25,7 +25,7 @@ First of all, create a folder to perform the whole booting process setup, like `
 Use [fdisk](https://github.com/TranPhucVinh/Linux-Shell/blob/master/Physical%20layer/File%20system/fdisk.md) to format bootfs and rootfs partitions of SD card.
 # Build a customize RasPI kernel image and hardware device tree
 
-- First clone the Raspberry kernel source tree inside the working directory ``Raspbian_booting``, we use the stable ```rpi-5.15.y``` branch in this topic.
+- First clone the Raspberry kernel source tree inside the working directory ``Raspbian_booting``, we use the stable ``rpi-5.15.y`` branch in this topic.
 ```sh
 git clone -b rpi-5.15.y --depth=1 https://github.com/raspberrypi/linux
 ```
@@ -94,13 +94,13 @@ make rpi_3_b_plus_defconfig ARCH=arm CROSS_COMPILE=aarch64-linux-gnu-
 make menuconfig ARCH=arm CROSS_COMPILE=aarch64-linux-gnu-
 -> go to Boot options->Autoboot options->delay
 ```
-- Build the uboot image
+- Build the [uboot](Uboot.md) image
 ```sh
 make -j$(nproc) ARCH=arm CROSS_COMPILE=aarch64-linux-gnu-
 ```
 After successfully building:
 * ``u-boot.bin`` will be created inside the previously cloned ``u-boot`` repository
-* ``mkimage`` will be created inside ``u-boot/tools``
+* [mkimage](Uboot.md#mkimage) will be created inside ``u-boot/tools``
 - Copy the ``u-boot.bin`` to the bootfs partition of the SD card.
 
 - Inside the bootfs partition of the SD card (bootfs folder), create ```config.txt``` with the following content:
