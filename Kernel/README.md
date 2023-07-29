@@ -1,5 +1,7 @@
-# [Raspbian booting process](Raspbian%20booting%20process.md)
+# [Raspbian booting](Raspbian%20booting)
 
+* [Raspbian booting process](Raspbian%20booting/Raspbian%20booting%20process.md)
+* [Build a custom linux OS image for Raspberry Pi]()
 # Loadable kernel module
 
 By default, modules stored in ``/lib/modules`` has no ``Makefile`` to build.

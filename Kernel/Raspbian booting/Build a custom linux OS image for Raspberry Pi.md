@@ -71,7 +71,7 @@ After running ``make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Imag
 Where ``Image`` is the generic Linux kernel binary image file.
 
 Now copy those 2 files to the bootfs partition of the SD card.
-# Setup Uboot for Raspbian
+# Setup [Uboot](Uboot.md) for Raspbian
 Raspberry Pi has its own proprietary bootloader, which is loaded by the ROM code and is capable of loading the kernel. This is what happen when you use the comercial Raspbian. It's worth mentioning from the [Raspbian booting process](Raspbian%20booting%20process.md) that in **step 4**, **start.elf** read **[config.txt](#configtxt)** to get the booting information like which kernel image file to load,... **start.elf** will then load the kernel image, like **kernel.img**. It then also reads **cmdline.txt** and **device tree binary files**.
 
 However, since we would like to use the open source u-boot, we need to configure the Raspberry Pi boot loader to load u-boot and then let u-boot load the kernel. The booting step in step 4 now will be: **start.elf** loads **uboot**, **uboot** then loads **kernel.img**. The left steps are unchanged.
@@ -121,5 +121,3 @@ Now, the bootfs partition of the SD card will include all those files:
 **rootfs partition of the SD card now is still empty**
 
 If everything works fine, once you plug in the SD card and turn on the board, we can boot into u-boot. Access to its CLI by the USB/UART setup.
-
-For all commands of Uboot, check [uboot.txt](uboot.txt) file.
