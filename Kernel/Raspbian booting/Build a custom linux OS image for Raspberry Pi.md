@@ -17,13 +17,15 @@ sudo apt install git bc bison flex libssl-dev make libc6-dev libncurses5-dev
 sudo apt install crossbuild-essential-armhf
 sudo apt install crossbuild-essential-arm64
 ```
-- Connect the USB-UART TTL device to Raspbian and open a terminal port for interracting with boot process later on.
+- Connect the USB-UART TTL device to Raspbian and open a terminal port for interacting with boot process later on.
 
 # Format bootfs and rootfs
+First of all, create a folder to perform the whole booting process setup, like ``Raspbian_booting``. Inside ``Raspbian_booting``, create 2 folder ``bootfs`` and ``rootfs`` for the creation of 2 file systems of the same name.
+
 Use [fdisk](https://github.com/TranPhucVinh/Linux-Shell/blob/master/Physical%20layer/File%20system/fdisk.md) to format bootfs and rootfs partitions of SD card.
 # Build a customize RasPI kernel image and hardware device tree
 
-- First clone the Raspberry kernel repo, we use the stable ```rpi-5.15.y``` branch in this topic.
+- First clone the Raspberry kernel source tree inside the working directory ``Raspbian_booting``, we use the stable ```rpi-5.15.y``` branch in this topic.
 ```sh
 git clone -b rpi-5.15.y --depth=1 https://github.com/raspberrypi/linux
 ```
@@ -70,7 +72,7 @@ After running ``make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Imag
 
 Where ``Image`` is the generic Linux kernel binary image file.
 
-Now copy those 2 files to the bootfs partition of the SD card.
+Now copy those 2 files to the bootfs partition of the SD card (bootfs folder).
 # Setup [Uboot](Uboot.md) for Raspbian
 Raspberry Pi has its own proprietary bootloader, which is loaded by the ROM code and is capable of loading the kernel. This is what happen when you use the comercial Raspbian. It's worth mentioning from the [Raspbian booting process](Raspbian%20booting%20process.md) that in **step 4**, **start.elf** read **[config.txt](#configtxt)** to get the booting information like which kernel image file to load,... **start.elf** will then load the kernel image, like **kernel.img**. It then also reads **cmdline.txt** and **device tree binary files**.
 
@@ -101,14 +103,14 @@ After successfully building:
 * ``mkimage`` will be created inside ``u-boot/tools``
 - Copy the ``u-boot.bin`` to the bootfs partition of the SD card.
 
-- Inside the bootfs partition of the SD card, create ```config.txt``` with the following content:
+- Inside the bootfs partition of the SD card (bootfs folder), create ```config.txt``` with the following content:
 ```sh
 enable_uart=1
 kernel=u-boot.bin
 arm_64bit=1
 device_tree=bcm2710-rpi-3-b.dtb
 ```
-Now, the bootfs partition of the SD card will include all those files:
+Now, the bootfs partition of the SD card (bootfs folder) will include all those files:
 
 * ``Image``
 * ``bcm2710-rpi-3-b.dtb``
