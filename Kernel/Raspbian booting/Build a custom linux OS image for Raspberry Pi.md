@@ -4,10 +4,8 @@ Steps will include:
 
 1. Raspbian kernel image and device tree built from [Official Raspberry Linux repository, branch rpi-5.15.y for Linux 5.15](https://github.com/raspberrypi/linux)
 2. Booting from U-boot (instead of using Raspberry proprietary bootloader)
-x. Create a bootable rootfs OS
-x. Combine everything together and boot the RasPI to the completed OS
-
-To create a bootable rootfs, we will use either of the tool like busybox.
+3. Create rootfs partition by using busybox.
+4. Combine everything together and boot the RasPI to the completed OS
 
 # Essential packages
 
