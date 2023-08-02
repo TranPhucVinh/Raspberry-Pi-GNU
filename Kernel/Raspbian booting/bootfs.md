@@ -1,29 +1,6 @@
-# Features
+# Build a customize Raspberry Pi kernel image and hardware device tree
 
-Steps will include:
-
-1. Raspbian kernel image and device tree built from [Official Raspberry Linux repository, branch rpi-5.15.y for Linux 5.15](https://github.com/raspberrypi/linux)
-2. Booting from U-boot (instead of using Raspberry proprietary bootloader)
-3. Create rootfs partition by using busybox.
-4. Combine everything together and boot the RasPI to the completed OS
-
-# Essential packages
-
-- Download these tools that necessary for build process later
-```sh
-sudo apt install git bc bison flex libssl-dev make libc6-dev libncurses5-dev
-sudo apt install crossbuild-essential-armhf
-sudo apt install crossbuild-essential-arm64
-```
-- Connect the USB-UART TTL device to Raspbian and open a terminal port for interacting with boot process later on.
-
-# Format bootfs and rootfs
-First of all, create a folder to perform the whole booting process setup, like ``Raspbian_booting``. Inside ``Raspbian_booting``, create 2 folder ``bootfs`` and ``rootfs`` for the creation of 2 file systems of the same name.
-
-Use [fdisk](https://github.com/TranPhucVinh/Linux-Shell/blob/master/Physical%20layer/File%20system/fdisk.md) to format bootfs and rootfs partitions of SD card.
-# Build a customize RasPI kernel image and hardware device tree
-
-- First clone the Raspberry kernel source tree inside the working directory ``Raspbian_booting``, we use the stable ``rpi-5.15.y`` branch in this topic.
+- Clone the Raspberry kernel source tree inside the working directory ``Raspbian_booting``, we use the stable ``rpi-5.15.y`` branch.
 ```sh
 git clone -b rpi-5.15.y --depth=1 https://github.com/raspberrypi/linux
 ```
@@ -121,3 +98,63 @@ Now, the bootfs partition of the SD card (bootfs folder) will include all those 
 **rootfs partition of the SD card now is still empty**
 
 If everything works fine, once you plug in the SD card and turn on the board, we can boot into u-boot. Access to its CLI by the USB/UART setup.
+# Uboot script to boot the kernel image
+
+After booting from u-boot, the Raspbian then needs to boot the kernel image and then rootfs.
+
+We need to configure the u-boot so that it can pass the correct kernel commandline and device tree binary to kernel.
+
+We use script ``boot_cmd.txt`` (inside ``u-boot/tools``) as the u-boot script with some predefine command
+
+## Step 1: Load kernel image
+
+At first, we need to call [fatload](https://github.com/TranPhucVinh/Raspberry-Pi-GNU/blob/main/Kernel/Raspbian%20booting/Uboot.md#fatlooad) to load the kernel image.
+
+List available mmc devices by ``mmc list``:
+```
+U-Boot> mmc list
+mmc@7e202000: 0 (SD)
+mmc@7e300000: 1
+U-Boot> 
+```
+From that we can see we have 2 MMC device, with MMC device 0 is our Raspbian SD card.
+
+Then, we need to define which part of the MMC SD card which stores the bootfs partition. Use ``mmc part`` to list available partition on current MMC SD card
+```
+U-Boot> mmc part
+
+Partition Map for MMC device 0  --   Partition Type: DOS
+
+Part			Start 		Sector		Num 		Sectors	UUID		Type
+  1				2048      	204800    	32dcba99-01	0b
+  2				206848    	30909440  	32dcba99-02	83
+```
+From the previous step to set up the SD card partition for bootfs and rootfs, we can see that in the current MMC SD card, part 1 is the bootfs and part 2 is the rootfs.
+## Step 2: pass kernel command line parameters by [bootargs](https://github.com/TranPhucVinh/Raspberry-Pi-GNU/blob/main/Kernel/Raspbian%20booting/Uboot.md#bootargs)
+## Step 3: Start booting Linux kernel image by [booti](https://github.com/TranPhucVinh/Raspberry-Pi-GNU/blob/main/Kernel/Raspbian%20booting/Uboot.md#booti)
+## Step 4: Finish the script
+
+Finally, our boot_cmd.txt script inside ``u-boot/tools`` will be:
+```sh
+$ cat boot_cmd.txt 
+fatload mmc 0:1 ${kernel_addr_r} Image
+setenv bootargs "8250.nr_uarts=1 root=/dev/mmcblk0p2 rootwait console=ttyS0,115200n8"
+booti ${kernel_addr_r} - ${fdt_addr}
+```
+Where:
+* ``fatload mmc 0:1 \${kernel_addr_r} Image``: Load the kernel image from partition 1 (boot partition) into memory.
+* [bootargs](https://github.com/TranPhucVinh/Raspberry-Pi-GNU/blob/main/Kernel/Raspbian%20booting/Uboot.md#bootargs)
+* [booti](https://github.com/TranPhucVinh/Raspberry-Pi-GNU/blob/main/Kernel/Raspbian%20booting/Uboot.md#booti)
+
+Then run [mkimage](https://github.com/TranPhucVinh/Raspberry-Pi-GNU/blob/main/Kernel/Raspbian%20booting/Uboot.md#mkimage) inside the u-boot repo location to output to ``boot.scr``:
+```sh
+vinhtran@hostname:/u-boot/tools:$ ./mkimage -A arm64 -O linux -T script -C none -d boot_cmd.txt boot.scr
+```
+
+- Copy the boot.scr to the bootfs partition, all files inside that partition folder now are:
+
+```sh
+username@hostname:~/Raspbian_booting/bootfs$ ls
+bcm2710-rpi-3-b.dtb  bootcode.bin  boot.scr  fixup.dat  Image  start.elf  u-boot.bin
+```
+Finally, copy that bootfs folder to the bootfs partition of the SD card
