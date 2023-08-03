@@ -17,7 +17,8 @@ Unpack the device tree to a file: ``(dtc -I fs /sys/firmware/devicetree/base) > 
 ## Device tree files
 
 * ``.dts``: device tree source files for board-level definitions
-
+* ``.dtsi``: device tree source include files
+* ``.dtb``: Blob file as the device tree source is compiled into the binary format
 ## [Device tree overlay](Device%20tree%20overlay.md)
 
 A device tree overlay purpose is to modify the kernel’s live tree. Device tree overlay implementation includes:
