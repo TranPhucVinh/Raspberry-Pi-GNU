@@ -18,7 +18,7 @@ Unpack the device tree to a file: ``(dtc -I fs /sys/firmware/devicetree/base) > 
 
 * ``.dts``: device tree source files for board-level definitions
 * ``.dtsi``: device tree source include files
-* ``.dtb``: Blob file as the device tree source is compiled into the binary format
+* ``.dtb``: Blob file as the device tree source is compiled into the binary format. The format of the data in the ``.dtb`` blob file is commonly referred to as a **Flattened Device Tree (FDT)**. The FDT is accessed in the raw form during the very early phases of boot, but is expanded into a kernel internal data structure known as the **Expanded Device Tree (EDT)** for more efficient access for later phases of the boot and after the system has completed booting.
 ## [Device tree overlay](Device%20tree%20overlay.md)
 
 A device tree overlay purpose is to modify the kernel’s live tree. Device tree overlay implementation includes:
