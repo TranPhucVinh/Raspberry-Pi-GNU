@@ -21,7 +21,11 @@ Unpack the device tree to a file: ``(dtc -I fs /sys/firmware/devicetree/base) > 
 * ``.dtb``: Blob file as the device tree source is compiled into the binary format. The format of the data in the ``.dtb`` blob file is commonly referred to as a **Flattened Device Tree (FDT)**. The FDT is accessed in the raw form during the very early phases of boot, but is expanded into a kernel internal data structure known as the **Expanded Device Tree (EDT)** for more efficient access for later phases of the boot and after the system has completed booting.
 ## [Device tree overlay](Device%20tree%20overlay.md)
 
-A device tree overlay purpose is to modify the kernel’s live tree. Device tree overlay implementation includes:
+A device tree overlay (enables a central device tree blob to be overlaid on the device tree. A bootloader using device tree overlay can maintain the system-on-chip (SoC) device tree and dynamically overlay a device-specific device tree, adding nodes to the tree and making changes to properties in the existing tree.
+
+In short, a device tree overlay purpose is to modify the kernel’s live tree. 
+
+Device tree overlay implementation includes:
 * [Create an overlay device tree node](Device%20tree%20overlay.md#create-an-overlay-device-tree-node): [Add an overlay node with label](Device%20tree%20overlay.md#add-an-overlay-node-with-label), [overlay device tree add value to other target](Device%20tree%20overlay.md#overlay-device-tree-add-value-to-other-target) and [add multiple fragments in overlay device tree](Device%20tree%20overlay.md#add-multiple-fragments-in-overlay-device-tree)
 * [Read all device tree nodes, included device tree overlay nodes](Device%20tree%20overlay.md#remove-the-inserted-device-tree-overlay-nodes)
 * [Remove the inserted device tree overlay nodes](Device%20tree%20overlay.md#remove-the-inserted-device-tree-overlay-nodes)
