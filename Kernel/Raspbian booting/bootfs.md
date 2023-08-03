@@ -78,13 +78,18 @@ After successfully building:
 * [mkimage](Uboot.md#mkimage) will be created inside ``u-boot/tools``
 - Copy the ``u-boot.bin`` to the bootfs partition of the SD card.
 
-- Inside the bootfs partition of the SD card (bootfs folder), create ```config.txt``` with the following content:
+- Inside the bootfs partition of the SD card (bootfs folder), create ``config.txt`` with the following content:
 ```sh
 enable_uart=1
 kernel=u-boot.bin
 arm_64bit=1
 device_tree=bcm2710-rpi-3-b.dtb
 ```
+* ``enable_uart=1``: Enable the the uart to be used by ``u-boot.bin``
+* ``kernel=u-boot.bin`` gives the kernel name to be loaded which is u-boot.bin in our case
+* ``arm_64bit=1`` forces the kernel loading system to assume a 64-bit kernel, starts the processors up in 64-bit mode.
+* ``device_tree`` specifies the name of the ``.dtb`` file to be loaded.
+
 Now, the bootfs partition of the SD card (bootfs folder) will include all those files:
 
 * ``Image``
