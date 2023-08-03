@@ -65,7 +65,7 @@ bin  linuxrc  sbin  usr
 
 When kernel start to load the rootfs, it will try to find a starting point to load up services that needed for linux. There are several init methods that used in linux: ``SysV``, ``systemd``, ``openRC``, ...
 
-For busybox, they no longer support ``systemd`` init which is the wide known init mechanism although it's a quite controlversial topic in the linux community whether to use it or not. However, busybox natively supports ``SysV`` init and that is what we're using today.
+For busybox, they no longer support [Systemd](https://github.com/TranPhucVinh/Linux-Shell/blob/master/Physical%20layer/Systemd.md) init which is a widely used init mechanism although it's a quite controlversial topic in the linux community whether to use it or not. However, busybox natively supports ``SysV`` init and that is what we're using today.
 
 [Refer to SysV init specification](https://docs.oracle.com/cd/E19683-01/817-3814/6mjcp0qge/index.html) for more details on run level and file structure. This tutorial just go through some basic implementation so that we could have a functional linux terminal when boot into OS.
 
