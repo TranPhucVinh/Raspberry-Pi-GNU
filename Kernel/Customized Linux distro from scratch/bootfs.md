@@ -30,6 +30,7 @@ After running ``make bcmrpi3_defconfig ARCH=arm64 CROSS_COMPILE=aarch64-linux-gn
 make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image modules dtbs
 ```
 Running this ``make`` will take a while.
+
 **Note**: If not setting ``.config`` file in the step above, user has to manually choose Y/N for thousands of configuration like compiler, kernel modules, kernel drivers,... when running this ``make`` command.
 
 Target ``Image`` is defined in [linux/arch/arm64/Makefile](https://github.com/raspberrypi/linux/blob/rpi-5.15.y/arch/arm64/Makefile)
