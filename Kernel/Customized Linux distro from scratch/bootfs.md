@@ -1,10 +1,11 @@
-# Build a customize Raspberry Pi kernel image and hardware device tree
-
+# Build a customized Raspberry Pi kernel image and hardware device tree
+## Clone the official Raspberry linux repository
 - Clone the Raspberry kernel source tree inside the working directory ``Raspbian_booting``, we use the stable ``rpi-5.15.y`` branch.
 ```sh
 git clone -b rpi-5.15.y --depth=1 https://github.com/raspberrypi/linux
 ```
-- Specify the compiler/kernel-ver/build-configuration
+## Specify the compiler/kernel-ver/build-configuration
+Specify the compiler/kernel-ver/build-configuration by creating ``.config`` file.  ``.config`` is the file to tell which configuration, e.g compiler, kernel modules, kernel drivers,... needed to be included:
 ```sh
 cd linux
 make bcmrpi3_defconfig ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
@@ -22,13 +23,15 @@ include $(srctree)/scripts/Kbuild.include # This include is for $(build)
 ```Makefile
 build := -f $(if $(KBUILD_SRC),$(srctree)/)scripts/Makefile.build obj
 ```
-After running ``make bcmrpi3_defconfig ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-``, ``.config`` is created. ``.config`` is the file to tell which configuration, e.g kernel modules, kernel drivers,... needed to be included.
+After running ``make bcmrpi3_defconfig ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-``, ``.config`` is created.
 
-- Build the kernel image/device tree/device modules. It will take a while
+## Build the kernel image/device tree/device modules
 ```sh
 make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image modules dtbs
 ```
-**Note**: If not setting ``.config`` file in the step above, user has to manually choose Y/N for thousands of configuration like kernel modules, kernel drivers,... when running this ``make`` command.
+Running this ``make`` will take a while.
+**Note**: If not setting ``.config`` file in the step above, user has to manually choose Y/N for thousands of configuration like compiler, kernel modules, kernel drivers,... when running this ``make`` command.
+
 Target ``Image`` is defined in [linux/arch/arm64/Makefile](https://github.com/raspberrypi/linux/blob/rpi-5.15.y/arch/arm64/Makefile)
 
 ```Makefile
