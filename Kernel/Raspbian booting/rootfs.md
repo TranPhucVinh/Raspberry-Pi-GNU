@@ -7,25 +7,11 @@ Step will include:
 1. Setup and build the busybox Github repo
 2. Create a install script to put all the material in rootfs partition.
 
-## 1. Build all Raspbian kernel module inside the  Raspbian linux repo
+## 1. Build all Raspbian kernel module inside the Raspbian linux repo
 ```sh
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=.
 ```
-**Note** 
-
-1. Before running this command, there is no folder ``modules`` created inside ``lib`` folder.
-2. As the top-level Makefile of the Raspbian ``linux`` repository is intented to be run on the Raspbian, when running this command in the current working PC:
-
-```sh
-make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install #INSTALL_MOD_PATH is not specified
-```
-It will try to create a folder ``modules`` in ``/lib/`` of the current working PC which will result in this error:
-
-```
- mkdir: cannot create directory ‘/lib/modules/5.15.92-v8+’: Permission denied
-```
-
-After running this make command, folder modules, which include all kernel modules of the current Raspbian version, is created inside the ``lib`` folder of the Raspbian ``linux`` repo. That's why we need to set ``INSTALL_MOD_PATH=.``.
+Before running this ``make`` command, there is no folder ``modules`` created inside ``lib`` folder. After running this make command, folder modules, which include all kernel modules of the current Raspbian version, is created inside the ``lib`` folder of the Raspbian ``linux`` repo. That's why we need to set ``INSTALL_MOD_PATH=.``.
 
 ## 2. Setup and build busybox repository
 
