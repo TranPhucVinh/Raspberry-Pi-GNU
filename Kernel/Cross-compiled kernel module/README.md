@@ -1,13 +1,39 @@
 This tutorial is intended to build a Raspbian kernel module from Ubuntu PC,
 
-The general idea is to create a docker on that Ubuntu PC which has the environment of Raspberry Pi board that wished to insert the kernel module on.
+The general idea is to create a docker on that Ubuntu PC which has the environment of Raspberry Pi board that wished to insert the kernel module on. This method is mandatory to build a single cross-compiler kernel module. 
 
+Create a single kernel module, ``raspbian_kernel_driver``, like this inside ``linux``, with ``linux`` is the official Raspbian linux repository:
+```sh
+raspbian_kernel_driver
+├── Makefile
+└── main.c
+```
+``Makefile``:
+```Makefile
+obj-m := main.o
+DIR := "../lib/modules/5.15.92-v8+/build"
+
+all:
+	make -C $(DIR) M=$(PWD) modules
+
+clean:
+	make -C $(DIR) M=$(PWD) clean
+```
+Then running this Makefile results in error:
+```c
+In file included from <command-line>:0:0:
+././include/linux/compiler_types.h:99:10: fatal error: asm/compiler.h: No such file or directory
+ #include <asm/compiler.h>
+          ^~~~~~~~~~~~~~~~
+compilation terminated.
+```
+That happens as this Makefile is missing a lot of header files including. So **using docker for a cross-compiled kernel module is mandatory**.
 # Document folder structure
 
 ```sh
 ├── on_raspi
 │   └── get_infos.sh
-└── on_ubuntu
+├── on_ubuntu
 │    ├── Dockerfile
 │    ├── run.sh
 │    └── util
@@ -15,7 +41,7 @@ The general idea is to create a docker on that Ubuntu PC which has the environme
 │        ├── build.sh
 │        └── Makefile
 └── src
-    ├── main.c
+    └── main.c
 ```
 
 All the files is put into two seperated folder **on_raspi** and **on_ubuntu**. As the name implies, the material in **on_raspi** folder must be executed on the Raspberry Pi and vice versa for **on_ubuntu** folder. It's not specific only for Ubuntu so it could be on any other host platforms like other Unix-like as Docker is installed with a suitable version.
