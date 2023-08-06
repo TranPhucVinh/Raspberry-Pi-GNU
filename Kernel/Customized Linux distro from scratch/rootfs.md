@@ -11,7 +11,7 @@ Step will include:
 ```sh
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=.
 ```
-Before running this ``make`` command, there is no folder ``modules`` created inside ``lib`` folder. After running this make command, folder modules, which include all kernel modules of the current Raspbian version, is created inside the ``lib`` folder of the Raspbian ``linux`` repo. That's why we need to set ``INSTALL_MOD_PATH=.``.
+Before running this ``make`` command, there is no folder ``modules`` created inside ``lib`` folder. After running this make command, folder ``modules``, which include all kernel modules of the current Raspbian version, is created inside the ``lib`` folder of the Raspbian ``linux`` repo. That's why we need to set ``INSTALL_MOD_PATH=.``.
 
 ## 2. Setup and build busybox repository
 
