@@ -19,7 +19,7 @@ sudo apt install crossbuild-essential-arm64
 # Format bootfs and rootfs
 First of all, create a folder to perform the whole booting process setup, like ``Raspbian_booting``. Inside ``Raspbian_booting``, create 2 folder ``bootfs`` and ``rootfs`` for the creation of 2 file systems of the same name.
 
-Use [fdisk](https://github.com/TranPhucVinh/Linux-Shell/blob/master/Physical%20layer/File%20system/fdisk.md) to format bootfs and rootfs partitions of SD card.
+Use [fdisk](https://github.com/TranPhucVinh/Linux-Shell/blob/master/Physical%20layer/File%20system/fdisk.md) to format [bootfs into FAT32 format with 100 MiB and rootfs into ext4 format which takes size of the leftover of the SD card](https://github.com/TranPhucVinh/Linux-Shell/blob/master/Physical%20layer/File%20system/fdisk.md#format-partitions-inside-a-sd-card).
 # [Create bootfs file system](bootfs.md)
 
 # [Create rootfs file system](rootfs.md)
