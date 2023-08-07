@@ -82,7 +82,8 @@ make -j$(nproc) ARCH=arm CROSS_COMPILE=aarch64-linux-gnu-
 After successfully building:
 * ``u-boot.bin`` will be created inside the previously cloned ``u-boot`` repository
 * [mkimage](Uboot.md#mkimage) will be created inside ``u-boot/tools``
-- Copy the ``u-boot.bin`` to the bootfs partition of the SD card.
+
+Copy the ``u-boot.bin`` to the bootfs partition of the SD card.
 
 - Inside the bootfs partition of the SD card (bootfs folder), create ``config.txt`` with the following content:
 ```sh
