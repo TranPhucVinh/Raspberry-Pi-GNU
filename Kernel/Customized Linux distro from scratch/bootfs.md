@@ -10,7 +10,7 @@ Specify the compiler/kernel-ver/build-configuration by creating ``.config`` file
 cd linux
 make bcmrpi3_defconfig ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
 ```
-Where target ``bcmrpi3_defconfig`` is defined by wildcard target ``%config`` of [Raspberry Pi Linux top-level Makefile](https://github.com/raspberrypi/linux/blob/rpi-6.1.y/Makefile)
+Where target ``bcmrpi3_defconfig`` is defined by wildcard target ``%config`` of [Raspberry Pi Linux top-level Makefile](https://github.com/raspberrypi/linux/blob/rpi-6.1.y/Makefile). File [bcmrpi3_defconfig](https://github.com/raspberrypi/linux/blob/rpi-5.15.y/arch/arm64/configs/bcmrpi3_defconfig) is defined in [rpi-5.15.y/arch/arm64/configs](https://github.com/raspberrypi/linux/tree/rpi-5.15.y/arch/arm64/configs)
 
 ```Makefile
 include $(srctree)/scripts/Kbuild.include # This include is for $(build)
