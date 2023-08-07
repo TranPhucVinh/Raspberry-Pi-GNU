@@ -68,6 +68,8 @@ git clone https://github.com/u-boot/u-boot --depth=1
 ```sh
 make rpi_3_b_plus_defconfig ARCH=arm CROSS_COMPILE=aarch64-linux-gnu-
 ```
+File [rpi_3_b_plus_defconfig](https://github.com/u-boot/u-boot/blob/master/configs/rpi_3_b_plus_defconfig) is located in [u-boot/configs](https://github.com/u-boot/u-boot/tree/master/configs)
+
 - Setting the autoboot delay time in u-boot config to 10 seconds to easily enter the u-boot console if needed
 ```sh
 make menuconfig ARCH=arm CROSS_COMPILE=aarch64-linux-gnu-
