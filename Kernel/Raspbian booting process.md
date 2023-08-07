@@ -7,7 +7,7 @@ The Raspbian booting process includes:
 
 **Note**: It's very important to note that on Raspbian, everything runs on the GPU until **kernel.img** is loaded on the RAM.
 
-It can also be noted that the booting process of Raspbian **doesn't require a Uboot to load kernel.img** as in **step 4**, **start.elf**, which is the GPU firmware, loads **kernel.img**.
+It can also be noted that the booting process of Raspbian **doesn't require a [Uboot](Customized%20Linux%20distro%20from%20scratch/Uboot.md) to load kernel.img** as in **step 4**, **start.elf**, which is the GPU firmware, loads **kernel.img**.
 # config.txt
 The Raspberry Pi uses a configuration file instead of the BIOS in a conventional PC. The system configuration parameters, which would traditionally be edited and stored using a BIOS, are stored instead in an optional text file named **config.txt**. This is read by the GPU firmware, **start.elf**, before the ARM CPU and Linux are initialised. It must therefore be located on the first (boot) partition of your SD card, alongside **bootcode.bin** and **start.elf**.
 
