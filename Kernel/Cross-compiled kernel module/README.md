@@ -1,8 +1,8 @@
 This tutorial is intended to build a Raspbian kernel module from Ubuntu PC,
 
-The general idea is to create a docker on that Ubuntu PC which has the environment of Raspberry Pi board that wished to insert the kernel module on. This method is mandatory to build a single cross-compiler kernel module. 
+The general idea is to create a docker on that Ubuntu PC which has the environment of Raspberry Pi board that wished to insert the kernel module on. This method is mandatory to build a single cross-compiler kernel module for Raspbian. 
 
-Create a single kernel module, ``raspbian_kernel_driver``, like this inside ``linux``, with ``linux`` is the official Raspbian linux repository:
+Create a single kernel module, ``raspbian_kernel_driver`` right inside the ``linux`` Raspbian repository:
 ```sh
 raspbian_kernel_driver
 ├── Makefile
@@ -10,24 +10,30 @@ raspbian_kernel_driver
 ```
 ``Makefile``:
 ```Makefile
-obj-m := main.o
-DIR := "../lib/modules/5.15.92-v8+/build"
+obj-m += main.o
+DIR := $(HOME)/linux #Path to the top-level Makefile, which is used to build the kernel
 
 all:
-	make -C $(DIR) M=$(PWD) modules
-
+	make -C $(DIR) M=$(PWD) ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- modules
 clean:
 	make -C $(DIR) M=$(PWD) clean
 ```
 Then running this Makefile results in error:
 ```c
-In file included from <command-line>:0:0:
-././include/linux/compiler_types.h:99:10: fatal error: asm/compiler.h: No such file or directory
- #include <asm/compiler.h>
-          ^~~~~~~~~~~~~~~~
-compilation terminated.
+make -C /home/linux  M=/home/linux/raspbian_kernel_driver ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- modules
+make[1]: Entering directory '/home/linux'
+warning: the compiler differs from the one used to build the kernel
+  The kernel was built by: aarch64-linux-gnu-gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+  You are using:           arm-linux-gnueabihf-gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+  CC [M]  /home/linux/raspbian_kernel_driver/main.o
+cc1: error: plugin arm_ssp_per_task_plugin should be specified before ‘-fplugin-arg-arm_ssp_per_task_plugin-tso=’ in the command line
+cc1: error: plugin arm_ssp_per_task_plugin should be specified before ‘-fplugin-arg-arm_ssp_per_task_plugin-offset=’ in the command line
+make[2]: *** [scripts/Makefile.build:289: /home/linux/raspbian_kernel_driver/main.o] Error 1
+make[1]: *** [Makefile:1903: /home/linux/raspbian_kernel_driver] Error 2
+make[1]: Leaving directory '/home/linux'
+make: *** [Makefile:5: all] Error 2
 ```
-That happens as this Makefile is missing a lot of header files including. So **using docker for a cross-compiled kernel module is mandatory**.
+That happens as this Makefile is missing a lot of header files including. So **using docker for a cross-compiled kernel module is mandatory for Raspbian**.
 # Document folder structure
 
 ```sh
