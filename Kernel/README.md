@@ -3,6 +3,8 @@
 * [Raspbian booting process](Raspbian%20booting%20process.md)
 # Loadable kernel module
 
+## LKM built on Raspbian
+
 By default, modules stored in ``/lib/modules`` has no ``Makefile`` to build.
 
 For example ``uname -r`` has ``5.10.17-v7+``
@@ -45,7 +47,9 @@ clean:
 For kernel module insert and remove, check [Kernel document in C](https://github.com/TranPhucVinh/C/tree/master/Kernel/Loadable%20kernel%20module) as their implementations are identical.
 
 In 12th February 2022, with Raspbian installed from ``2021-10-30-raspios-bullseye-armhf.img``, the module will be ``5.10.63-v7+``. Before installing the kernel header for Raspbian, there won't be ``build`` folder inside ``/lib/modules/5.10.17-v7+``.
+## [Cross-compiled LKM](Cross-compiled%20kernel%20module)
 
+**Note**: ``make oldconfig`` in Raspbian ``linux`` repo will read the existing .config file that was used for an old kernel and prompts the user for options in the current kernel source that are not found in the file. This is useful when taking an existing configuration and moving it to a new kernel.
 # [KConfig](https://github.com/TranPhucVinh/C/blob/master/Kernel/KBuild.md): configs kernel module which stores Raspbian configuration
 
 To get the configuration of Raspbian, insert the ``configs`` kernel module.
