@@ -34,11 +34,11 @@ make menuconfig
 
 - Then, build the busybox:
 ```sh
-$ make -j$(nproc) ARCH="arm64" LDFLAGS="--static" CROSS_COMPILE="aarch64-linux-gnu-"
+make -j$(nproc) ARCH="arm64" LDFLAGS="--static" CROSS_COMPILE="aarch64-linux-gnu-"
 ```
 Once done, run this command to install the material in folder ``_install``
 ```sh
-$ sudo make -j$(nproc) ARCH="arm64" LDFLAGS="--static" CROSS_COMPILE="aarch64-linux-gnu-" install
+sudo make -j$(nproc) ARCH="arm64" LDFLAGS="--static" CROSS_COMPILE="aarch64-linux-gnu-" install
 ```
 
 After building successfully, folder ``_install`` will be created inside the busybox repo.
