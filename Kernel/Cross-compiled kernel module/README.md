@@ -1,39 +1,74 @@
-This tutorial is intended to build a Raspbian kernel module from Ubuntu PC,
+# Build with the Raspbian [linux](https://github.com/raspberrypi/linux) repository which includes the current commit hash on the board
 
-The general idea is to create a docker on that Ubuntu PC which has the environment of Raspberry Pi board that wished to insert the kernel module on. This method is mandatory to build a single cross-compiler kernel module for Raspbian. 
+The general idea is to get the commit hash of the Raspbian [linux](https://github.com/raspberrypi/linux) repository, as the **kernel hash**, i.e the Raspbian [linux](https://github.com/raspberrypi/linux) repository "version", which is used to build the Raspbian image to be deployed on the board. Then clone the Raspbian [linux](https://github.com/raspberrypi/linux) repository at this commit to build the kernel module.
 
-Create a single kernel module, ``raspbian_kernel_driver`` right inside the ``linux`` Raspbian repository:
+**Note**: When build the kernel module in the mismatch **kernel hash** Raspbian [linux](https://github.com/raspberrypi/linux) repository, there will be error **Invalid kernel format**.
+
+## Step 1: Get the kernel hash
+
+Access to the Raspberry Pi board and run the following command to get the firmware hash:
 ```sh
-raspbian_kernel_driver
-├── Makefile
-└── main.c
+FIRMWARE_HASH=$(zgrep "* firmware as of" /usr/share/doc/raspberrypi-bootloader/changelog.Debian.gz | head -1 | awk '{ print $5 }')
+echo $FIRMWARE_HASH
 ```
-``Makefile``:
+
+With that ``FIRMWARE_HASH`` value, go to ``https://raw.github.com/raspberrypi/firmware/<FIRMWARE_HASH>/extra/git_hash`` to get the commit hash of the Raspbian [linux](https://github.com/raspberrypi/linux) repository which is used to build the Raspbian image to be deployed on the board. This link will return only the kernel hash (the commit hash of the Raspbian [linux](https://github.com/raspberrypi/linux) repository, which is used to build the Raspbian image to be deployed on the board).
+
+## Step 2: Clone the Raspbian [linux](https://github.com/raspberrypi/linux) repository at the previously achieved kernel hash
+
+In order to save space and time, we just need to clone the Raspbian [linux](https://github.com/raspberrypi/linux) repository at only kernel hash we previously in step 1 from the Raspberry Pi. This can be achived by shallow clone the repository with ``--depth=1``:
+
+```sh
+$ mkdir raspbian_linux # make the directory to store the Raspbian linux repository
+$ cd raspbian_linux/ # go to that directory
+$ git init # then init .git in that dir
+$ git remote add origin git@github.com:raspberrypi/linux.git #git remote add origin <url>
+$ git checkout FETCH_HEAD
+```
+## Step 3: Get the current Raspberry board config params
+
+[Insert the configs kernel module to get the current configuration of Raspbian](https://github.com/TranPhucVinh/Raspberry-Pi-GNU/blob/bcfe052d396373da2658d2fec8faaaefd4fe85e8/Kernel/README.md#kconfig-configs-kernel-module-which-stores-raspbian-configuration):
+```sh
+sudo modprobe configs #Insert the configs kernel module
+```
+Then SCP ``/proc/config.gz`` from Raspberry to the current working folder:
+```sh
+username@hostname:~/pwd$ scp pi@192.168.1.8:/proc/config.gz .
+```
+```sh
+username@hostname:~/pwd$ gunzip config.gz
+```
+Then ``config`` will be available.
+
+Move ``config`` into ``raspbian_linux`` then rename it ``.config``.
+## Step 4: Build the whole raspbian_linux folder
+
+```sh
+make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- -j$(nproc)
+```
+## Step 5: Build the cross-compiled kernel module
+
+Inside ``raspbian_linux``, at the top-level, create the folder for the cross-compiled kernel module which includes 2 files:
+* ``main.c``: Kernel module source code
+* ``Makefile``: Makefile to build that kernel module
+
 ```Makefile
 obj-m += main.o
-DIR := $(HOME)/linux #Path to the top-level Makefile, which is used to build the kernel
+DIR := $(HOME)/pwd/raspbian_linux #Path to the top-level Makefile of raspbian_linux, which is used to build the kernel
 
 all:
 	make -C $(DIR) M=$(PWD) ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- modules
 clean:
 	make -C $(DIR) M=$(PWD) clean
 ```
-Then running this Makefile results in error:
-```c
-make -C /home/linux  M=/home/linux/raspbian_kernel_driver ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- modules
-make[1]: Entering directory '/home/linux'
-warning: the compiler differs from the one used to build the kernel
-  The kernel was built by: aarch64-linux-gnu-gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
-  You are using:           arm-linux-gnueabihf-gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
-  CC [M]  /home/linux/raspbian_kernel_driver/main.o
-cc1: error: plugin arm_ssp_per_task_plugin should be specified before ‘-fplugin-arg-arm_ssp_per_task_plugin-tso=’ in the command line
-cc1: error: plugin arm_ssp_per_task_plugin should be specified before ‘-fplugin-arg-arm_ssp_per_task_plugin-offset=’ in the command line
-make[2]: *** [scripts/Makefile.build:289: /home/linux/raspbian_kernel_driver/main.o] Error 1
-make[1]: *** [Makefile:1903: /home/linux/raspbian_kernel_driver] Error 2
-make[1]: Leaving directory '/home/linux'
-make: *** [Makefile:5: all] Error 2
-```
-That happens as this Makefile is missing a lot of header files including. So **using docker for a cross-compiled kernel module is mandatory for Raspbian**.
+
+Creating that kernel module folder at this location will take advantages of the top-level Makefile to build it.
+
+Finally, build that kernel module and insert it into the Raspbian board.
+
+# Build with docker which contains the Raspbian environment included the commit hash
+The general idea is to create a docker on that Ubuntu PC which has the environment of Raspberry Pi board that wished to insert the kernel module on. This will simply based on the idea of [Build with the Raspbian linux repository which includes the current commit hash on the board]().
+
 # Document folder structure
 
 ```sh
@@ -60,7 +95,7 @@ Run the script [get_infos.sh](on_raspi/get_infos.sh) with sudo privilege on **Ra
 
 File **artifacts.tar.gz** stores:
 * Hash value of current git repo built the current Raspbian
-* Current Raspbian repo config params
+* Current Raspberry board config params
 
 # Step 2. Build the Docker image on host machine
 
