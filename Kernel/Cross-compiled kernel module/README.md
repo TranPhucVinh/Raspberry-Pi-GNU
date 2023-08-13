@@ -2,7 +2,7 @@
 
 The general idea is to get the commit hash of the Raspbian [linux](https://github.com/raspberrypi/linux) repository, as the **kernel hash**, i.e the Raspbian [linux](https://github.com/raspberrypi/linux) repository "version", which is used to build the Raspbian image to be deployed on the board. Then clone the Raspbian [linux](https://github.com/raspberrypi/linux) repository at this commit to build the kernel module.
 
-**Note**: When build the kernel module in the mismatch **kernel hash** Raspbian [linux](https://github.com/raspberrypi/linux) repository, there will be error **Invalid kernel format**.
+**Note**: When build the kernel module in the mismatch **kernel hash** Raspbian [linux](https://github.com/raspberrypi/linux) repository, there will be error **Invalid kernel symbol**.
 
 ## Step 1: Get the kernel hash
 
@@ -46,6 +46,7 @@ Move ``config`` into ``raspbian_linux`` then rename it ``.config``.
 ```sh
 make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- -j$(nproc)
 ```
+**Note**: Building the whole kernel will add the valid symbol into the repo environment during the build process, which will then solve the ``Invalid kernel symbol`` issue. Must not replace the newly built ``Image`` output from that build into the currently running Raspbian board as the 
 ## Step 5: Build the cross-compiled kernel module
 
 Inside ``raspbian_linux``, at the top-level, create the folder for the cross-compiled kernel module which includes 2 files:
