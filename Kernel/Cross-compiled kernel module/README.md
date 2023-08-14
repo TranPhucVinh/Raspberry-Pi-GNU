@@ -46,7 +46,7 @@ Move ``config`` into ``raspbian_linux`` then rename it ``.config``.
 ```sh
 make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- -j$(nproc)
 ```
-**Note**: Building the whole kernel will add the valid symbol into the repo environment during the build process, which will then solve the ``Invalid kernel symbol`` issue. Must not replace the newly built ``Image`` output from that build into the currently running Raspbian board as the 
+**Note**: Building the whole kernel will add the valid symbol into the repo environment during the build process, which will then solve the ``Invalid kernel symbol`` issue. There's no need to replace the newly built ``Image`` output from that build into the currently running Raspbian board (for step 5) as this build step has already solved the ``Invalid kernel symbol`` issue.
 ## Step 5: Build the cross-compiled kernel module
 
 Inside ``raspbian_linux``, at the top-level, create the folder for the cross-compiled kernel module which includes 2 files:
