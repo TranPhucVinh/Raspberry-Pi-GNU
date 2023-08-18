@@ -116,7 +116,7 @@ After booting from u-boot, the Raspbian then needs to boot the kernel image and 
 
 We need to configure the u-boot so that it can pass the correct kernel commandline and device tree binary to kernel.
 
-We use script ``boot_cmd.txt`` (inside ``u-boot/tools``) as the u-boot script with some predefine command
+We use script ``boot_cmd.txt`` (inside ``u-boot/tools``) as the u-boot script with some predefine command. To write this script, we need to take the following steps.
 
 ## Step 1: Load kernel image
 
