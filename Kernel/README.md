@@ -69,8 +69,7 @@ CONFIG_GCC_VERSION=80400
 ```
 
 # GPIO driver
-
-Check [GPIO folder](GPIO)
+[GPIO folder](GPIO)
 
 # I2C driver
 
