@@ -110,4 +110,14 @@ Our final ``rootfs`` folder will include:
 username@hostname:~/Raspbian_booting/rootfs$ ls
 bin  dev  etc  lib  linuxrc  proc  sbin  sys  usr
 ```
-Finally, copy that rootfs folder to the rootfs partition of the SD card. Along with the [bootfs parition previously setup](bootfs.md), Raspberry Pi board now is able to be booted by the customized Linux OS on that SD card.
+Finally, copy that rootfs folder to the rootfs partition of the SD card. Along with the [bootfs partition previously setup](bootfs.md), Raspberry Pi board now is able to be booted by the customized Linux OS on that SD card.
+
+With the customized Linux OS booted successfuly, [rcS](https://github.com/TranPhucVinh/Linux-Shell/tree/master/Physical%20layer/Init%20script#rcs) file now is:
+```sh
+#!/bin/sh
+mount -t proc none /proc
+mount -o remount,rw /
+mount -t sysfs none /sys
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+mdev -s
+```
