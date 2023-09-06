@@ -33,7 +33,7 @@ booti [addr [initrd[:size]] [fdt]]
 ```
 - boot Linux flat or compressed 'Image' stored at 'addr'
 
-The argument 'initrd' is optional and specifies the address	of an initrd in memory. 
+The argument 'initrd' is optional and specifies the address of an initrd in memory. 
 
 The optional parameter ':size' allows specifying the size of a RAW initrd.
 
