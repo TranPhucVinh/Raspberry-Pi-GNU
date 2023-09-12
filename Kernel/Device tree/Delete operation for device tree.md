@@ -94,7 +94,7 @@ int init_module(void)
 **Note**: A node can only be removed whenever there is no kernel module accessing to it.
 # Remove a property of a node and add a new empty property (i.e property without any value)
 
-Program: [remove_and_add_a_new_node.c](remove_and_add_a_new_node.c)
+Program: [remove_and_add_a_new_prop.c](remove_and_add_a_new_prop.c)
 
 Original node:
 
@@ -105,7 +105,7 @@ gpio-restart {
         priority = <0xc8>;
 };
 ```
-Node after running [remove_and_add_a_new_node.c](remove_and_add_a_new_node.c):
+Node after running [remove_and_add_a_new_prop.c](remove_and_add_a_new_prop.c):
 ```
 gpio-restart {
 		gpios = <0x4 0xf 0x1>;
