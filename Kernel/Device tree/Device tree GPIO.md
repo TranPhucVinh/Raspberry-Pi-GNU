@@ -33,6 +33,8 @@ new_dt_node {
 
 GPIOs mappings are defined in the consumer device's node, in a property named ``<function>-gpios``, where ``<function>`` is the function the driver will request through ``gpiod_get()``.
 
+So with ``led-gpios = <&gpio 2 0>, <&gpio 3 0>, <&gpio 4 0>``, GPIO number ``2``, ``3`` and ``4`` will be active LOW, i.e writing logic LOW to it will turn that GPIO on.
+
 E.g: In [device_tree_gpio_control.c](device_tree_gpio_control.c) source code:
 
 ```c
