@@ -49,7 +49,7 @@ With device tree node ``new_dt_node`` is inserted in the device tree, ``probe()`
 
 Running ``rmmod`` will call platform driver ``remove()`` function.
 
-Read all properties of ``new_dt_node``: [platform_driver_read_dt_node_properties.c](platform_driver_read_dt_node_properties.c)
+Read all properties of ``new_dt_node``: [platform_driver_read_dt_node_properties.c](src/platform_driver_read_dt_node_properties.c)
 
 ## Using overlay device tree function
 
