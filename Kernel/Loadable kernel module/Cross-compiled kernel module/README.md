@@ -67,10 +67,10 @@ Creating that kernel module folder at this location will take advantages of the 
 
 Finally, build that kernel module and insert it into the Raspbian board.
 
-# Build with docker which contains the Raspbian environment included the commit hash
+# Build with docker which contains the Raspbian environment including the commit hash
 The general idea is to create a docker on that Ubuntu PC which has the environment of Raspberry Pi board that wished to insert the kernel module on. This will simply based on the idea of [Build with the Raspbian linux repository which includes the current commit hash on the board]().
 
-# Document folder structure
+## Document folder structure
 
 ```sh
 ├── on_raspi
@@ -90,7 +90,7 @@ All the files is put into two seperated folder **on_raspi** and **on_ubuntu**. A
 
 ``src`` is a folder to store kernel module source code, like ``main.c`` in this example.
 
-# Step 1. Get the Raspberry Pi board configuration parameters
+## Step 1. Get the Raspberry Pi board configuration parameters
 
 Run the script [get_infos.sh](on_raspi/get_infos.sh) with sudo privilege on **Raspberry Pi** which is wished to insert the kernel module on. The output is a **artifacts.tar.gz** file, which is outputed inside the ``on_raspi`` folder. Save this file somewhere else for the later use.
 
@@ -98,7 +98,7 @@ File **artifacts.tar.gz** stores:
 * Hash value of current git repo built the current Raspbian
 * Current Raspberry board config params
 
-# Step 2. Build the Docker image on host machine
+## Step 2. Build the Docker image on host machine
 
 - First and the most crucial step is to put the **artifacts.tar.gz** generated in step 1 before inside the [util](on_ubuntu/util) folder of [on_ubuntu](on_ubuntu).
 - After that, run the script [run.sh](on_ubuntu/run.sh) with 1 parameter which is the **name** of the docker that wished to create, e.g ``docker_for_raspbian_cross_compiler``. Wait for the whole process to finish which takes arround 30 minutes depends on the host machine.
@@ -127,7 +127,7 @@ ubuntu                               18.04               3941d3b032a8        10 
 ubuntu                               latest              2dc39ba059dc        6 months ago        77.8MB
 hello-world                          latest              feb5d9fea6a5        18 months ago       13.3kB
 ```
-# Step 3. Build cross-compile kernel modules
+## Step 3. Build cross-compile kernel modules
 
 Go to the folder where you keep your source code. Execute the below command
 
