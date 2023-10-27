@@ -85,13 +85,12 @@ int  _FUNCTIONSET;
 int i2c_fd;//I2C file descriptor
 
 void write_4bits(uint8_t value, int func);
-int  write_8bits(uint8_t value);
+void i2c_write_8bits(uint8_t data);
 void lcd_write_char(char character);
 void lcd_write_string(char *string);
 void set_cursor(int column, int row);
 
 int i2c_bus_start(const char *i2c_bus, int slave_addr);
-void i2c_write_8bits(uint8_t data);
 
 int main(int argc, char *argv[]) {
     if (i2c_bus_start(I2C_BUS, PCF8574) == -1) exit(0);
@@ -100,6 +99,22 @@ int main(int argc, char *argv[]) {
     _DISPLAYCTRL 	= DISPLAYCTRL_DB3 | DISPLAYCTRL_DISPLAYON | DISPLAYCTRL_CURSOROFF | DISPLAYCTRL_BLINKOFF;
     _ENTRYMODE 	    = ENTRYMODE_DB2 | ENTRYMODE_INCREMENTS | ENTRYMODE_SHIFTDECREMENT; 
     _CURSORSHIFT 	= CURSORSHIFT_DB4 | CURSORSHIFT_MOVE_LEFT | CURSORSHIFT_DISPLAY_LEFT;
+
+    /*
+        Reset function
+        On LCD module HD44780U with PCF8574, reset function is initialized by instruction, not Internal Reset Circuit
+    */ 
+    i2c_write_8bits(0b00110100); // D7=0, D6=0, D5=1, D4=1, BL=0, EN=1, RW=0, RS=0    
+    i2c_write_8bits(0b00110000); // D7=0, D6=0, D5=1, D4=1, BL=0, EN=0, RW=0, RS=0
+    usleep(1);
+    i2c_write_8bits(0b00110100);
+    i2c_write_8bits(0b00110000);
+    usleep(1);
+    i2c_write_8bits(0b00110100);
+    i2c_write_8bits(0b00110000); // 8-bit mode init complete
+    usleep(1);
+    i2c_write_8bits(0b00100100); //
+    i2c_write_8bits(0b00100000); // switched now to 4-bit mode
 
     write_4bits(_FUNCTIONSET, USER_COMMAND);
     write_4bits(_DISPLAYCTRL, USER_COMMAND);
