@@ -76,6 +76,7 @@ export SPRING_DATASOURCE_PASSWORD=PUT_YOUR_POSTGRESQL_PASSWORD_HERE #Add the Pos
 # Specify partitioning size for timestamp key-value storage. Allowed values: DAYS, MONTHS, YEARS, INDEFINITE.
 export SQL_POSTGRES_TS_KV_PARTITIONING=MONTHS
 ```
+**Note**: Special care for **SPRING_DATASOURCE_PASSWORD** as you have put your PostreSQL password setup before here
 # Step 4. Choose ThingsBoard queue service
 ThingsBoard uses queue services for API calls between micro-services and able to use next queue services: In Memory (default), AWS SQS, Google Pub/Sub or Azure Service Bus.
 
