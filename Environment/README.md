@@ -57,7 +57,9 @@ For CPP source code with CPP lib like ``iostream``, use linker ``stdc++`` like w
 Install: ``sudo apt install g++-arm-linux-gnueabi``
 
 Compile: ``arm-linux-gnueabi-g++ main.cpp``
+## Build automation tool for cross compiler
 
+[CMake setup for cross compiler](https://github.com/TranPhucVinh/C/blob/master/Environment/CMake/C%20program.md#cross-compiler)
 # Github project environment
 
 [Images used in that projects](Images)
