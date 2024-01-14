@@ -31,7 +31,7 @@ Inside the Raspbian ``linux`` repository, go ``drivers`` folder then create ``ra
 raspbian_kernel_driver/
 ├── Kconfig
 ├── Makefile
-├── raspbian_kernel_driver.c
+└── raspbian_kernel_driver.c
 ```
 
 **Kconfig**
