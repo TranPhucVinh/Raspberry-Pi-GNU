@@ -1,5 +1,5 @@
-# [Customized Linux distro from scratch](Customized%20Linux%20distro%20from%20scratch)
 # [Raspbian booting process](Raspbian%20booting%20process.md)
+# [Build Raspbian from scratch](Build%20Raspbian%20from%20scratch)
 # [Loadable kernel module](Loadable%20kernel%20module)
 * [LKM built on Raspbian]()
 * [Cross-compiled LKM]()
