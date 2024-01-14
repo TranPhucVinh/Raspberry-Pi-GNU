@@ -1,5 +1,4 @@
 # [Customized Linux distro from scratch](Customized%20Linux%20distro%20from%20scratch)
-
 # [Raspbian booting process](Raspbian%20booting%20process.md)
 # [Loadable kernel module](Loadable%20kernel%20module)
 * [LKM built on Raspbian]()
@@ -34,9 +33,5 @@ This function will return the ``irq`` number; this number is usable by ``devm_re
 
 ## Implementations
 
-Use platform driver to read properties of an overlay node: 
-
-* Feature description:
-* Source code: [read_device_tree_node_properties.c](https://github.com/TranPhucVinh/Raspberry-Pi-C/blob/main/Kernel/Device%20tree/read_device_tree_node_properties.c)
-
-Interrupt implementation for platform driver and device tree: [Interrupt](https://github.com/TranPhucVinh/Raspberry-Pi-C/blob/main/Kernel/Device%20tree/Interrupt.md)
+* Use platform driver to read properties of an overlay node: [platform_driver_read_dt_node_properties.c](https://github.com/TranPhucVinh/Raspberry-Pi-GNU/blob/main/Kernel/Device%20tree/src/platform_driver_read_dt_node_properties.c)
+* Interrupt implementation for platform driver and device tree: [Interrupt](https://github.com/TranPhucVinh/Raspberry-Pi-C/blob/main/Kernel/Device%20tree/Interrupt.md)
