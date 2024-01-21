@@ -19,7 +19,7 @@ User can SSH enter Raspberry Pi normally with ESP8266 as an Access point
 * Raspberry Pi as HTTP client with multithread:
     * Thread 1: Blink LED
     * Thread 2: Read button status
-    * Thread 3: Send dummy data (button status, frame number and serial device number), to HTTP server
+    * Thread 3: Send data included button status, frame number and serial device number to HTTP server
 * HTTP server runs PHP code to handle data from HTTP client.
 * Server updates data received from Raspberry to database.
 
@@ -28,7 +28,7 @@ User can SSH enter Raspberry Pi normally with ESP8266 as an Access point
 * HTTP Client: [httpClient.c]()
 * HTTP server: [httpServer.php]()
 
-# [HTTP example project](HTTP%20example%20project)
+# [HTTP multithread client to send and receive data](HTTP%20multithread%20client%20to%20send%20and%20receive%20data)
 
 ## Features
 
@@ -39,8 +39,8 @@ User can SSH enter Raspberry Pi normally with ESP8266 as an Access point
 
 3 threads:
 
-* Thread 1: Send data
-* Thread 2: Control LED by button
+* Thread 1: Send data included button status, frame number and serial device number to HTTP server, then read respond to control LED
+* Thread 2: Control LED by button on webpage based on parsing HTTP responsed
 * Thread 3: Blink LED
 
 ## HTTP Server

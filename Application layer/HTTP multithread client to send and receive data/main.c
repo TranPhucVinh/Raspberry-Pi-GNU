@@ -1,39 +1,25 @@
-
-#include<stdio.h> 
-#include<stdlib.h> 
-#include<unistd.h> 
-#include<ctype.h> 
-#include<string.h>
-#include<curl/curl.h> 
-#include<wiringPi.h> 
-#include<pthread.h>
+#include <stdio.h> 
+#include <stdlib.h> 
+#include <unistd.h> 
+#include <ctype.h> 
+#include <string.h>
+#include <curl/curl.h> 
+#include <wiringPi.h> 
+#include <pthread.h>
 
 int delay_value;
 int buttonState = 0;
-/*Kieu du lieu nhan phan hoi*/
+
+/* struct to receive responsed data */
 struct MemoryStruct{
 	char *memory;
 	size_t size;
 };
 
-static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb,void *userp){
-	size_t realsize = size * nmemb;
-	struct MemoryStruct *mem = (struct MemoryStruct *)userp;
-
-	mem->memory = realloc(mem->memory, mem->size + realsize + 1);
-	if(mem->memory == NULL){
-		/*out of memory*/
-		printf("Error: not enough memory (realloc return NULL)\n");
-		return 0;
-	}
-	memcpy(&(mem->memory[mem->size]),contents, realsize);
-	mem->size += realsize;
-	mem->memory[mem->size] = 0;
-	return realsize;
-}
 void *func_thread_curl(void *ptr);
 void *func_thread_blink(void *ptr);
 void *func_thread_button (void *ptr);
+static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb,void *userp);
 
 int main(void){
 	pthread_t thread_curl;//Con tro luong gui du lieu
@@ -61,28 +47,29 @@ int main(void){
 	pthread_join(thread_blink,NULL);
 	pthread_join(thread_button, NULL);
 
-	//Xoa CURL toan cuc truoc khi thoat
+	//Clean up curl to avoid memory leak
 	curl_global_cleanup();
 	exit(0);
 }
 
-/*Ham thuc thi gui du lieu*/
+/*Send data thread*/
 void *func_thread_curl(void *ptr){
-	CURL *curl_handle;//Khoi tao con tro curl
+	CURL *curl_handle;
 	CURLcode res;
 	char message[64];
 	int frame_number = 0;
 	int devSerialnumber = 1989;
 	while(1){
 		struct MemoryStruct chunk;
-		chunk.memory = malloc(1);/*kich thuoc mang se tang theo du lieu nhan duoc*/
+		chunk.memory = malloc(1);
 		chunk.size = 0;
 		snprintf(message,64,"serialnumber=%d&frame=%d&data=%d",devSerialnumber,frame_number, buttonState);
 		frame_number++;
 		printf("[CURL] message: %s\n",message);
-		curl_handle = curl_easy_init();//Khoi dong con tro curl
+		curl_handle = curl_easy_init();//Init curl pointer
+		
 		if(curl_handle){
-			//Thiet lap duong dan len Server
+			//Setup server URL
 			curl_easy_setopt(curl_handle,CURLOPT_URL,"http://192.168.0.27/get_post/get_post.php");
 			//Thiet lap Timeout cho curl 10 giay
 			curl_easy_setopt(curl_handle,CURLOPT_TIMEOUT,10L);
@@ -98,8 +85,8 @@ void *func_thread_curl(void *ptr){
 				printf("[CURL] curl_easy_perform() failed: %s\n",curl_easy_strerror(res));
 			}
 			else{
-				printf("[CURL] Gui du lieu thanh cong\n");
-				printf("[CURL] Phan hoi tu server: [%d bytes] %s\n",chunk.size,chunk.memory);
+				printf("[CURL] Send data successfully\n");
+				printf("[CURL] Responsed from server: [%d bytes] %s\n",chunk.size,chunk.memory);
 				char temp[16];
 				int j=0;
 				for (int i=3;i<chunk.size;i++){
@@ -135,7 +122,7 @@ void *func_thread_blink(void *ptr){
 void *func_thread_button(void *ptr){
 	pinMode(21, INPUT);
 
-	//PUD_OFF: TAT PULL UP.DOWN, PUD_DOWN: PULL DOWN, PUD_UP: PULL UP
+	//PUD_OFF: Turn off PULL UP/DOWN; PUD_DOWN: PULL DOWN; PUD_UP: PULL UP
 	pullUpDnControl(21, PUD_DOWN);
 	while(1){
 		if(digitalRead(11)){
@@ -144,7 +131,22 @@ void *func_thread_button(void *ptr){
 		else {
 			buttonState = 0;
 		}
-	//printf("Button state = %d \n", buttonState);
 		delay(100);
 	}
+}
+
+static size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb,void *userp){
+	size_t realsize = size * nmemb;
+	struct MemoryStruct *mem = (struct MemoryStruct *)userp;
+
+	mem->memory = realloc(mem->memory, mem->size + realsize + 1);
+	if(mem->memory == NULL){
+		/*out of memory*/
+		printf("Error: not enough memory (realloc return NULL)\n");
+		return 0;
+	}
+	memcpy(&(mem->memory[mem->size]),contents, realsize);
+	mem->size += realsize;
+	mem->memory[mem->size] = 0;
+	return realsize;
 }
