@@ -4,22 +4,22 @@
 
 ## SSH with ESP8266 as Access point
 
-User can SSH enter Raspberry Pi normally with ESP8266 as Access point
+User can SSH enter Raspberry Pi normally with ESP8266 as an Access point
 
 * **Step 1**: Set up Access point for ESP8266
 * **Step 2**: Connect your computer to that access point
-* **Step 3**: Set up SSID, Password of the AP for Raspberry Pi in ``/etc/wpa-supplicant/wpa-supplicant.conf``
-* **Step 4**: Using nmap to scan for Raspberry Pi IP: ``nmap -sP 192.168.4.*``. Notice, raspbery pi might not be named in nmap scan result.
+* **Step 3**: Set up SSID, password of the AP for Raspberry Pi in ``/etc/wpa-supplicant/wpa-supplicant.conf``
+* **Step 4**: Using nmap to scan for Raspberry Pi IP: ``nmap -sP 192.168.4.*``. Notice, raspberry pi might not be named in nmap scan result.
 * **Step 5**: SSH to Raspberry Pi from computer: ``ssh pi@192.168.4.x``
 
-# [HTTP client and multithread](HTTP%20client%20and%20multithread)
+# [HTTP multithread client to send data](HTTP%multithread%client%20to%20send%20data)
 
 ## Features
 
 * Raspberry Pi as HTTP client with multithread:
     * Thread 1: Blink LED
     * Thread 2: Read button status
-    * Thread 3: Send data to HTTP server
+    * Thread 3: Send dummy data (button status, frame number and serial device number), to HTTP server
 * HTTP server runs PHP code to handle data from HTTP client.
 * Server updates data received from Raspberry to database.
 
