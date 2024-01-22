@@ -1,4 +1,4 @@
-# Build a customized Raspberry Pi kernel image and hardware device tree
+# Build Raspbian kernel image and device tree
 ## Clone the official Raspberry linux repository
 - Clone the Raspberry kernel source tree inside the working directory ``Raspbian_booting``, we use the stable ``rpi-5.15.y`` branch.
 ```sh
