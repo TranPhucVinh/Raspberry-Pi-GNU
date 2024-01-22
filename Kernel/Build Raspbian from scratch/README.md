@@ -27,6 +27,8 @@ sudo apt install crossbuild-essential-arm64
 - Connect the USB-UART TTL device to Raspbian and open a terminal port for interacting with boot process later on.
 
 ## [Create bootfs file system](bootfs.md)
+* [Build Raspbian kernel image and device tree](bootfs.md#build-raspbian-kernel-image-and-device-tree)
+* [Setup Uboot for Raspbian](bootfs.md#setup-uboot-for-raspbian)
 
 ## [Create rootfs file system](rootfs.md)
 
