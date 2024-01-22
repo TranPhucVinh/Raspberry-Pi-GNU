@@ -9,7 +9,7 @@
 After successfully taking those 3 steps, the Raspberry Pi board with the customized Raspbian can be **booted successfully from USB**, not HDMI (as there is not configured to support HDMI in those steps).
 
 ## Prerequisites
-A storage device, like SD card, which stores a customized Raspbian includes 2 filesystem: [bootfs](bootfs.md) and [rootfs](rootfs.md). So you need to [format bootfs and rootfs]() on that SD card. Then, you need to [install the essential packages]().
+A storage device, like SD card, which stores a customized Raspbian includes 2 filesystem: [bootfs](bootfs.md) and [rootfs](rootfs.md). So you need to [format bootfs and rootfs](#format-bootfs-and-rootfs) on that SD card. Then, you need to [install the essential packages](#install-essential-packages).
 
 ### Format bootfs and rootfs
 First of all, create a folder to perform the whole booting process setup, like ``Raspbian_booting``. Inside ``Raspbian_booting``, create 2 folder ``bootfs`` and ``rootfs`` for the creation of 2 file systems of the same name.
