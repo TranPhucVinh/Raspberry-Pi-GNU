@@ -110,7 +110,7 @@ Our final ``rootfs`` folder will include:
 username@hostname:~/Raspbian_booting/rootfs$ ls
 bin  dev  etc  lib  linuxrc  proc  sbin  sys  usr
 ```
-Finally, copy that rootfs folder to the rootfs partition of the SD card. Along with the [bootfs partition previously setup](bootfs.md), Raspberry Pi board now is able to be **booted by the customized Raspbian on that SD card by USB UART**, not HDMI.
+Finally, copy that rootfs folder to the rootfs partition of the SD card. Along with the [bootfs partition previously setup](bootfs.md), Raspberry Pi board now is able to be **booted by the customized Raspbian on that SD card by USB UART** baudrate 115200, not HDMI.
 
 With the customized Linux OS booted successfuly, [rcS](https://github.com/TranPhucVinh/Linux-Shell/tree/master/Physical%20layer/Init%20script#rcs) file now is:
 ```sh
