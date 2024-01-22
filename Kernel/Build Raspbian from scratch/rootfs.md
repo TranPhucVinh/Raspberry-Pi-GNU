@@ -7,7 +7,7 @@ Step will include:
 1. Setup and build the busybox Github repo
 2. Create a install script to put all the material in rootfs partition.
 
-## 1. Build all Raspbian kernel module inside the Raspbian linux repo
+## 1. Build all Raspbian kernel modules inside the Raspbian linux repo
 ```sh
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=.
 ```
