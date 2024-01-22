@@ -64,7 +64,7 @@ Our next step is to build the ``u-boot.bin`` (the binary compiled U-Boot bootloa
 ```sh
 git clone https://github.com/u-boot/u-boot --depth=1
 ```
-u-boot repo supports popular boards config (included in u-boot source code), e.g Raspbian. In this case when using Raspberry 3B+ board, the Uboot config file is [rpi_3_b_plus_defconfig](https://github.com/u-boot/u-boot/blob/master/configs/rpi_3_b_plus_defconfig).
+**u-boot repo supports popular boards config** (included in u-boot source code), e.g Raspbian. In this case when using Raspberry 3B+ board, the Uboot config file is [rpi_3_b_plus_defconfig](https://github.com/u-boot/u-boot/blob/master/configs/rpi_3_b_plus_defconfig).
 - ``cd`` into the ``u-boot`` directory and specify the compiler/build configuration:
 ```sh
 make rpi_3_b_plus_defconfig ARCH=arm CROSS_COMPILE=aarch64-linux-gnu-
