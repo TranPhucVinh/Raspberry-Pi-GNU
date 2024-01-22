@@ -7,6 +7,8 @@ A storage device, like SD card, which stores a customized Raspbian includes 2 fi
 2. Booting from U-boot (instead of using Raspberry proprietary bootloader)
 3. Create rootfs partition by using busybox.
 
+After successfully taking those 3 steps, the Raspberry Pi board with the customized Raspbian can be booted successfully from USB, not HDMI (as there is not configured to support HDMI in those steps).
+
 ## Essential packages
 
 - Download these tools that necessary for build process later
