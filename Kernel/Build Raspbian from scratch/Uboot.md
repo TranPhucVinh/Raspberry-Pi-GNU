@@ -2,6 +2,19 @@
 
 U-Boot is the standard bootloader for ARM Linux so it is also called ARM U-Boot.
 
+In order to boot the kernel image, uboot need to know your hardware information, which requires those steps and files in Uboot developing:
+* Create the board file
+* Create the board Kconfig file
+* Create the board Makefile
+* Create the board defconfig
+* Create the board header file
+* Source board’s Kconfig in the architecture’s Kconfig
+* Define the TARGET Kconfig option in its CPU’s Kconfig
+
+The most difficult thing here is how to understand the board hardware and describe it into these file. Especially the default config file.
+
+**u-boot repo supports popular boards config** (included in u-boot source code), e.g Raspbian. In this case when using Raspberry 3B+ board, the Uboot config file is [rpi_3_b_plus_defconfig](https://github.com/u-boot/u-boot/blob/master/configs/rpi_3_b_plus_defconfig).
+
 For all commands of Uboot, check [uboot.txt](uboot.txt) file.
 # bootargs
 ``bootargs`` environment parameter is used to pass command line parameter. It'll take those variables:
