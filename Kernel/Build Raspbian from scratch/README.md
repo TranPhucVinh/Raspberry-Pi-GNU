@@ -31,7 +31,10 @@ sudo apt install crossbuild-essential-arm64
 * [Setup Uboot for Raspbian](bootfs.md#setup-uboot-for-raspbian)
 
 ## [Create rootfs file system](rootfs.md)
-
+* [Build all Raspbian kernel modules inside the Raspbian linux repo](rootfs.md#1-build-all-raspbian-kernel-modules-inside-the-raspbian-linux-repo)
+* [Setup and build busybox]()
+* [init with systemd]()
+Along with the [bootfs partition previously setup](bootfs.md), Raspberry Pi board now is able to be **booted by the customized Raspbian on SD card by USB UART**, not HDMI.
 # Create a built-in kernel module and load it into rootfs
 
 Inside the Raspbian ``linux`` repository, go ``drivers`` folder then create ``raspbian_kernel_driver`` folder includes these files
