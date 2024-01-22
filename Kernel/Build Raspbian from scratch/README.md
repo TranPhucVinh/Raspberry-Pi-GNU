@@ -6,7 +6,7 @@
 2. Booting from U-boot (instead of using Raspberry proprietary bootloader)
 3. Create rootfs partition by using busybox.
 
-After successfully taking those 3 steps, the Raspberry Pi board with the customized Raspbian can be **booted successfully from USB**, not HDMI (as there is not configured to support HDMI in those steps).
+After successfully taking those 3 steps, the Raspberry Pi board with the customized Raspbian can be **booted successfully from USB**, not HDMI (as there is not configured to support HDMI in those steps). As being a minimal Linux, this Raspbian doesn't have SSH and netutils package like ping.
 
 ## Prerequisites
 A storage device, like SD card, which stores a customized Raspbian includes 2 filesystem: [bootfs](bootfs.md) and [rootfs](rootfs.md). So you need to [format bootfs and rootfs](#format-bootfs-and-rootfs) on that SD card. Then, you need to [install the essential packages](#install-essential-packages).
