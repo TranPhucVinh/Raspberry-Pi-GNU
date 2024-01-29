@@ -6,7 +6,9 @@
 2. Booting from U-boot (instead of using Raspberry proprietary bootloader)
 3. Create rootfs partition by using busybox.
 
-After successfully taking those 3 steps, the Raspberry Pi board with the customized Raspbian can be **booted successfully from USB**, not HDMI (as there is not configured to support HDMI in those steps). As being a minimal Linux, this Raspbian doesn't have SSH and netutils package like ping.
+After successfully taking those 3 steps, the Raspberry Pi board with the customized Raspbian can be **booted successfully from USB**, not HDMI (as there is not configured to support HDMI in those steps). As being a **minimal Linux**, this Raspbian doesn't have SSH and netutils package like ping. Drivers like **I2C won't be available** either.
+
+As using busybox, TFTP will be supported on this customized Raspbian which will help transferring files.
 
 ## Prerequisites
 A storage device, like SD card, which stores a customized Raspbian includes 2 filesystem: [bootfs](bootfs.md) and [rootfs](rootfs.md). So you need to [format bootfs and rootfs](#format-bootfs-and-rootfs) on that SD card. Then, you need to [install the essential packages](#install-essential-packages).
@@ -36,70 +38,8 @@ sudo apt install crossbuild-essential-arm64
 * [init with systemd]()
 
 Along with the [bootfs partition previously setup](bootfs.md), Raspberry Pi board now is able to be **booted by the customized Raspbian on SD card by USB UART** baudrate 115200, not HDMI.
-# Create a built-in kernel module and load it into rootfs
+# [Implementations](Implementations.md)
 
-Inside the Raspbian ``linux`` repository, go ``drivers`` folder then create ``raspbian_kernel_driver`` folder includes these files
-```sh
-raspbian_kernel_driver/
-├── Kconfig
-├── Makefile
-└── raspbian_kernel_driver.c
-```
-
-**Kconfig**
-```sh
-config RPI_DRIVER
-tristate "Raspbian kernel driver"
-help
-  Raspbian kernel driver
-```
-``tristate`` in Kconfig allows you to compile a feature as **built-in (y)**, **a module (m)** or **not at all (n)**.
-**Makefile**
-```sh
-obj-$(CONFIG_RPI_DRIVER) += raspbian_kernel_driver.o
-```
-[raspbian_kernel_driver.c](https://github.com/TranPhucVinh/Raspberry-Pi-GNU/blob/main/Kernel/raspbian_kernel_module.c)
-
-Now we need to include this kernel module into the top level ``Makefile`` and ``Kconfig`` of the ``drivers`` folder
-
-```sh
-drivers/
-├── Kconfig
-├── Makefile
-├── ...
-```
-Add the following line at the end of the ``Makefile``
-```sh
-obj-$(CONFIG_RPI_DRIVER) 		+= raspbian_kernel_driver/
-```
-For ``Kconfig``, add the following line, make sure it before the ``endmenu`` section
-```sh
-source "drivers/raspbian_kernel_driver/Kconfig"
-```
-Back to top-level of the Raspbian ``linux`` repo. As now, the whole kernel modules/driver has been updated, i.e adding the new raspbian_kernel_driver, new ``.config`` file has to be updated. Run ``make bcmrpi3_defconfig`` for that:
-
-```sh
-make bcmrpi3_defconfig ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
-```
-
-Then we need to include ``raspbian_kernel_driver`` into the module list by running ``make menuconfig``:
-
-```sh
-make menuconfig ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
-```
-
-Then go to ``Device Drivers`` -> scroll down and find option ``Raspbian kernel driver``
-
-Press ``y`` will build the driver later, press ``m`` to build and include it into module install path later on. Here we choose ``m``
-
-Now, rebuild the whole kernel module. This will take a while
-```sh
-make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules
-```
-After that, we install modules into a specific path
-```sh
-make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=<custom path>
-```
-Copy the folder ``modules`` to the /lib inside rootfs partition.
-
-Once the system boot up completely, ``modprobe raspbian_kernel_driver`` to insert the module.
+Implementations on this customized Raspbian include:
+* Setup communication between host PC and the Raspberry Pi board containing this customized Raspbian, then run an a.out program
+* Create a built-in kernel module and load it into rootfs
