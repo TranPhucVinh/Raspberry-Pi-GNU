@@ -10,6 +10,13 @@ ifconfig eth0 192.168.1.15 netmask 255.255.255.0 broadcast 192.168.1.255
 ```
 In this case, IP ``192.168.1.15`` of this customized Raspbian will have the same subnet with the host PC, e.g ``192.168.1.13``
 
+Then assign IP ``192.168.1.15`` to eth0 interface permanently then add it to the routing table by ``route`` command:
+
+```sh
+# ifconfig eth0 up
+# route add -net 192.168.1.0/24 eth0
+```
+
 Then compile ``main.c``, a C source code, in host PC by **aarch64-linux-gnu-gcc** compiler (using [-static](https://github.com/TranPhucVinh/C/blob/master/Environment/GCC%20compiler.md#-static) for [static library](https://github.com/TranPhucVinh/C/blob/master/Environment/Static%20library.md))
 
 ```sh
