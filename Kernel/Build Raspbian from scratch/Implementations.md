@@ -1,6 +1,20 @@
+# View [bootfs](bootfs.md) partition by mounting
+
+```sh
+~ # fdisk -l
+Device       Boot StartCHS    EndCHS        StartLBA     EndLBA    Sectors  Size Id Type
+/dev/mmcblk0p1    64,0,1      1023,3,32         8192     53i2479     524288  256M  c Win95 FAT32 (LBA) # This is the bootfs partition
+/dev/mmcblk0p2    1023,3,32   1023,63,32      532480   31116287   30583808 14.5G 83 Linux
+~ # mkdir /mnt
+~ # mkdir /mnt/boot
+~ # mount /dev/mmcblk0p1 /mnt/boot/
+~ # ls /mnt/boot/
+Image                      config.txt "System Volume Information"  fixup.dat
+bcm2710-rpi-3-b.dtb        start.elf  boot.scr                     u-boot.bin bootcode.bin
+```
 # Setup communication between host PC and the Raspberry Pi board containing this customized Raspbian then run a.out file
 
-Prerequisites:
+**Prerequisites**:
 * Raspberry Pi board and host PC connect to the same network, we will use [TFTP](https://github.com/TranPhucVinh/Linux-Shell/tree/master/Application%20layer#tftp) for file transferring between them.
 * [TFTP server setup on host PC](https://github.com/TranPhucVinh/Linux-Shell/tree/master/Application%20layer#tftp)
 
