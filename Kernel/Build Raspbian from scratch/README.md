@@ -6,7 +6,7 @@
 2. Booting from U-boot (instead of using Raspberry proprietary bootloader)
 3. Create rootfs partition by using busybox.
 
-After successfully taking those 3 steps, the Raspberry Pi board with the customized Raspbian can be **booted successfully from USB**, not HDMI (as there is not configured to support HDMI in those steps). As being a **minimal Linux**, this Raspbian doesn't have SSH and netutils package like ping. Drivers like **I2C won't be available** either.
+After successfully taking those 3 steps, the Raspberry Pi board with the customized Raspbian can be **booted successfully from USB**, not HDMI (as there is no configuration to support HDMI in those steps). As being a **minimal Linux**, this Raspbian doesn't have SSH and netutils package like ping. Drivers like **I2C won't be available** either.
 
 As using busybox, TFTP will be supported on this customized Raspbian which will help transferring files.
 

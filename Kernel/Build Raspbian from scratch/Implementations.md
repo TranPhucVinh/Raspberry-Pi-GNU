@@ -12,10 +12,10 @@ Device       Boot StartCHS    EndCHS        StartLBA     EndLBA    Sectors  Size
 Image                      config.txt "System Volume Information"  fixup.dat
 bcm2710-rpi-3-b.dtb        start.elf  boot.scr                     u-boot.bin bootcode.bin
 ```
-# Setup communication between host PC and the Raspberry Pi board containing this customized Raspbian then run a.out file
+# Setup communication between host PC and the Raspberry Pi board containing this customized Raspbian then run an a.out file
 
 **Prerequisites**:
-* Raspberry Pi board and host PC connect to the same network, we will use [TFTP](https://github.com/TranPhucVinh/Linux-Shell/tree/master/Application%20layer#tftp) for file transferring between them.
+* Raspberry Pi board and host PC connect to the same network, we will use [TFTP](https://github.com/TranPhucVinh/Linux-Shell/tree/master/Application%20layer#tftp) for file transferring between them. Raspberry Pi will then have the network connection through its Ethernet interface.
 * [TFTP server setup on host PC](https://github.com/TranPhucVinh/Linux-Shell/tree/master/Application%20layer#tftp)
 
 As this customized Raspbian doesn't have IP setup by default, we need to setup its IP to have the same subnet with the host PC for TFTP file transferring. Use [ifconfig]():
