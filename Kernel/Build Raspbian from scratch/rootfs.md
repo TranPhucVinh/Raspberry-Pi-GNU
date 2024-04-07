@@ -1,19 +1,18 @@
-# Setup our own rootfs from busybox
+In those steps, we will setup our own rootfs from Busybox.
 
-## Introduction
-With busybox, we can build our minimal custom rootfs which runs on the Raspberry Pi hardware platform.
+With Busybox, we can build our minimal custom rootfs which runs on the Raspberry Pi hardware platform.
 
 Step will include:
 1. Setup and build the busybox Github repo
 2. Create a install script to put all the material in rootfs partition.
 
-## 1. Build all Raspbian kernel modules inside the Raspbian linux repo
+# 1. Build all Raspbian kernel modules inside the Raspbian linux repo
 ```sh
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=.
 ```
 Before running this ``make`` command, there is no folder ``modules`` created inside ``lib`` folder. After running this make command, folder ``modules``, which include all kernel modules of the current Raspbian version, is created inside the ``lib`` folder of the Raspbian ``linux`` repo. That's why we need to set ``INSTALL_MOD_PATH=.``.
 
-## 2. Setup and build busybox repository
+# 2. Setup and build busybox repository
 
 - First clone the busybox repo from master branch
 ```sh
@@ -47,7 +46,7 @@ username@hostname:~/raspbian_booting/busybox$ ls _install/
 bin  linuxrc  sbin  usr
 ```
 
-## 3. Create an install script to put all the material in rootfs partition.
+# 3. Create an install script to put all the material in rootfs partition
 
 When kernel start to load the rootfs, it will try to find a starting point to load up services that needed for linux. There are several init methods that used in linux: ``SysV``, ``systemd``, ``openRC``, ...
 

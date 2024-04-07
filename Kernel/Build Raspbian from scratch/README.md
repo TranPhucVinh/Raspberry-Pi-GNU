@@ -42,5 +42,5 @@ Along with the [bootfs partition previously setup](bootfs.md), Raspberry Pi boar
 
 Implementations on this customized Raspbian include:
 * View bootfs partition by mounting
-* Setup communication between host PC and the Raspberry Pi board containing this customized Raspbian, then run an a.out program
 * Create a built-in kernel module and load it into rootfs
+* [Networking](Networking)

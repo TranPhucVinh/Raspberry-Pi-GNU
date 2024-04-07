@@ -79,3 +79,7 @@ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PAT
 Copy the folder ``modules`` to the /lib inside rootfs partition.
 
 Once the system boot up completely, ``modprobe raspbian_kernel_driver`` to insert the module.
+# [Networking](Networking)
+* [Loopback interface]()
+* Setup communication between host PC and the Raspberry Pi board containing this customized Raspbian then run an a.out file
+* [Internet communication setup on Busbybox](Networking/Internet%20communication.md)
