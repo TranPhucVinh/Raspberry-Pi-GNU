@@ -1,0 +1,1 @@
+Raspberry Pi as SPI master sends string to SPI slave connected on its SPI device, e.g /dev/spidev0.0: [spi_master_tx.c](spi_master_tx.c)
