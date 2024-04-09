@@ -7,15 +7,15 @@
 #include <linux/spi/spidev.h>
 
 #define SPI_DEV    "/dev/spidev0.0"// For /dev/spidev0.0, use GPIO08
+#define SPI_SPEED   500000
 
 int mode    = 0;        // A dummy variable for ioctl() to set write mode to SPI bus
-int speed   = 500000;   // A dummy variable for ioctl() to set SPI master speed
 
 void transfer(int fd, int *tx_buf, size_t len) {
     struct spi_ioc_transfer tr = {
         .tx_buf = (unsigned long)tx_buf,
         .len = len,
-        .speed_hz = speed
+        .speed_hz = SPI_SPEED
     };
 
     // As only define 1 struct spi_ioc_transfer so the totall message to sent is 1
@@ -39,12 +39,7 @@ int main() {
         close(fd);
     }
 
-    if (ioctl(fd, SPI_IOC_WR_MAX_SPEED_HZ, &speed) < 0) {
-        perror("Error when setting SPI speed\n");
-        close(fd);
-    }
-
-    char msg[] = "Hello, World ! from SPI master";
+    char msg[] = "I've updated the speed";
     size_t msg_length = sizeof(msg);
 
     int tx_buf[msg_length];
