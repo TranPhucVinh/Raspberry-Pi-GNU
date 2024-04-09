@@ -6,7 +6,7 @@
 #include <sys/ioctl.h>
 #include <linux/spi/spidev.h>
 
-#define SPI_DEV    "/dev/spidev0.0"
+#define SPI_DEV    "/dev/spidev0.0"// For /dev/spidev0.0, use GPIO08
 
 int mode    = 0;        // A dummy variable for ioctl() to set write mode to SPI bus
 int speed   = 500000;   // A dummy variable for ioctl() to set SPI master speed
@@ -18,6 +18,8 @@ void transfer(int fd, int *tx_buf, size_t len) {
         .speed_hz = speed
     };
 
+    // As only define 1 struct spi_ioc_transfer so the totall message to sent is 1
+    // So we use SPI_IOC_MESSAGE(1)
     if (ioctl(fd, SPI_IOC_MESSAGE(1), &tr) < 0) {
         perror("SPI transfer failed");
         exit(EXIT_FAILURE);
