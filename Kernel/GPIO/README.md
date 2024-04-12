@@ -74,6 +74,8 @@ void iowrite32(u32 value, void *addr);
 
 # Interrupt with GPIO
 
+In Raspbian, every GPIO will have a unique IRQ number. ``gpio_to_irq()`` will return that unique number of each GPIO.
+
 By default, GPIO 2 and 14 of Raspberry Pi 3B+ are already registered with 2 register. ``cat /proc/interrupts`` returns:
 
 ```
@@ -84,11 +86,7 @@ By default, GPIO 2 and 14 of Raspberry Pi 3B+ are already registered with 2 regi
 
 GPIO 2 can be registered to interrupt normally with ``request_irq()`` while **GPIO 14 can't be registered** to any other interrupt as it belongs to ``gpiolib``.
 
-## Fundamental concepts
-
-In Raspbian, every GPIO will have a unique IRQ number. ``gpio_to_irq()`` will return that unique number of each GPIO.
-
-Flow to register the GPIO for IRQ:
+## Flow to register the GPIO for IRQ
 
 1. GPIO to be interrupt **must be input**:
 
