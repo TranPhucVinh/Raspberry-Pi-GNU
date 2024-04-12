@@ -74,13 +74,23 @@ void iowrite32(u32 value, void *addr);
 
 # Interrupt with GPIO
 
+By default, GPIO 2 and 14 of Raspberry Pi 3B+ are already registered with 2 register. ``cat /proc/interrupts`` returns:
+
+```
+           CPU0       CPU1       CPU2       CPU3  
+200:     355860          0          0          0  pinctrl-bcm2835  14 Edge      gpiolib
+201:          1          0          0          0  pinctrl-bcm2835   2 Edge    
+```
+
+GPIO 2 can be registered to interrupt normally with ``request_irq()`` while **GPIO 14 can't be registered** to any other interrupt as it belongs to ``gpiolib``.
+
 ## Fundamental concepts
+
+In Raspbian, every GPIO will have a unique IRQ number. ``gpio_to_irq()`` will return that unique number of each GPIO.
 
 Flow to register the GPIO for IRQ:
 
-1. Allocate GPIO, for input or output mode
-
-For input
+1. GPIO to be interrupt **must be input**:
 
 ```C
 if(gpio_direction_input(GPIO)){
@@ -88,54 +98,30 @@ if(gpio_direction_input(GPIO)){
 }
 ```
 
-For output: ``gpio_direction_output(GPIO, 1)``
-
 If using ``gpio_request(GPIO, LABEL)`` only and doesn't call I/O mode setup, ``request_irq()`` in step 3 will fail.
 
-2. Convert GPIO to IRQ: ``irq_number = gpio_to_irq(GPIO)``
+2. Convert GPIO to IRQ: ``irq_number = gpio_to_irq(GPIO)``.
+
 3. Call ``request_irq()``
 
-## API
-
-In Raspbian, every GPIO will have a unique IRQ number. ``gpio_to_irq()`` will return that unique number of each GPIO.
-
-### Example 1: Blink LED and count how many times IRQ is triggered
-
-**Features**:
-
-* Map a GPIO to an IRQ then blink that GPIO with a thread
-* Count how many times that IRQ is triggered in the IRQ handler (as it is triggered everytime it blinks)
-
-**Program**: [gpio_interrupt.c](gpio_interrupt.c)
-
-After inserting the module, the IRQ number registered by the GPIO and interrupt name can be viewed in ``proc/interrupts``
-
-```
-           CPU0       CPU1       CPU2       CPU3   
-199:        126          0          0          0  pinctrl-bcm2835   2 Edge      GPIO_IRQ
-```
-
-**Note**: Without ``gpio_direction_output()`` setup, there will be error:
-
-```
-[ 5808.116545] gpio gpiochip0: (pinctrl-bcm2835): gpiochip_lock_as_irq: cannot get GPIO direction
-[ 5808.116566] gpio gpiochip0: (pinctrl-bcm2835): unable to lock HW IRQ 2 for IRQ
-[ 5808.116582] genirq: Failed to request resources for GPIO_IRQ (irq 199) on irqchip pinctrl-bcm2835
-[ 5808.116597] Can't request interrupt number 199
-```
-
-### Example 2: Toggle LED by GPIO interrupt
+## Toggle LED by GPIO interrupt
 
 **Features**:
 
 * Toggle LED status by pressing button with interrupt. If pressed button for the first time, LED turn on, press one more time, LED turn off
 * Count how many times the GPIO interrupt is triggered.
 
-**Program**: [toggle_led_by_gpio_interrupt.c](toggle_led_by_gpio_interrupt.c)
+**Program**: [gpio_interrupt_toggle_led.c](gpio_interrupt_toggle_led.c)
+
+After inserting the kernel module, ``/proc/interrupts`` will include GPIO 15:
+```
+           CPU0       CPU1       CPU2       CPU3
+202:         96          0          0          0  pinctrl-bcm2835  15 Edge      Device name
+```
 
 **Trigger the registered GPIO interrupt by a userspace program**: [direct_register_access_control_led_with_button.c](https://github.com/TranPhucVinh/Raspberry-Pi-C/blob/main/Physical%20layer/GPIO/direct_register_access_control_led_with_button.c), a userspace program can trigger the IRQ number registered by this kernel module. The IRQ handler message in this kernel will then print out how many times the GPIO interrupt is triggered every time the button is pressed when running this user space program.
 
-### Disable GPIO interrupt 
+## Disable GPIO interrupt 
 
 This kernel module will disable interrupt ``199`` which is registred by the program/kernel module ``toggle_led_by_gpio_interrupt.c`` above. Note that interrupt ``199`` is not needed to be shared (by ``IRQF_SHARED`` flag) to be disable by other kernel module.
 

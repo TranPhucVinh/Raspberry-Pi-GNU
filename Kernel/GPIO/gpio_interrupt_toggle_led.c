@@ -3,8 +3,8 @@
 #include <linux/gpio.h>
 #include <linux/interrupt.h>
 
-#define LED			3
-#define BUTTON		2
+#define BUTTON		15
+#define LED			14
 
 #define DEV_NAME    "Device name"
 #define DEV_ID      NULL
