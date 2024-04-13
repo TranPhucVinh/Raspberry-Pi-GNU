@@ -53,7 +53,7 @@ do
 done
 ```
 
-## [C program for sysfs to control GPIO](sysfs_control_gpio.c)
+## [C program for sysfs to blink LED](sysfs_blink_gpio.c)
 
 # Direct register access
 
