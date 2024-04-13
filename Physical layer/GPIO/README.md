@@ -53,7 +53,7 @@ do
 done
 ```
 
-## C program for sysfs to blink LED
+## C program to blink LED
 
 Before running the program, export GPIO14 to sysfs:
 
@@ -62,7 +62,13 @@ pi@raspberrypi:~ $ echo 14 > /sys/class/gpio/export
 ```
 
 **Program**: [sysfs_blink_led.c](sysfs_blink_led.c)
+## C program to read button status
 
+Use GPIO 15 as button: 
+```sh
+pi@raspberrypi:~ $ echo 15 > /sys/class/gpio/export
+```
+**Program**: [sysfs_read_button.c](sysfs_read_button.c)
 # Direct register access
 
 Check [Direct register access document](Direct%20register%20access.md)
