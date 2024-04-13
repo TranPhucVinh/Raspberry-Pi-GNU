@@ -2,31 +2,27 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-#define PATH "/sys/class/gpio/"
+#define PATH "/sys/class/gpio/gpio"
 #define LED	"14"
 
-char path[50];
+char led_path[50];
 int fd;
 int main()
 {  
-	sprintf(path, "%sexport", PATH);
+	sprintf(led_path, "%s%s/direction", PATH, LED);
 
-	//The mode must be O_WRONLY. Mode O_RDWR result in fd=-1
-	fd = open(path, O_WRONLY);
-	if(fd < 0) return 1;
+	fd = open(led_path, O_RDWR);
+	if(fd < 0) {
+        printf("Unable to open %s%s/direction\n", PATH, LED);
+        return -1;
+    }
 
-    write(fd, LED, sizeof(LED));
-	close(fd);
-	
-	sprintf(path, "%sgpio%s/direction", PATH, LED);
-	fd = open(path, O_RDWR);//defined in fcntl.h
-	if(fd < 0) return 1;
-
-	write(fd, "OUT", sizeof("OUT"));
+	if (!write(fd, "out", sizeof("out"))) printf("Unable to write output to GPIO %s\n", LED);
+    
 	close(fd);
 
-	sprintf(path, "%sgpio%s/value", PATH, LED);
-	fd = open(path, O_RDWR);//defined in fcntl.h
+	sprintf(led_path, "%s%s/value", PATH, LED);
+	fd = open(led_path, O_WRONLY);
 	if(fd < 0) return 1;
 
     while(1){
