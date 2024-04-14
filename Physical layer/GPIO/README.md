@@ -78,9 +78,6 @@ Press on button to turn on LED, unpress button to turn off LED: [sysfs_button_co
 
 Check [Direct register access document](Direct%20register%20access.md)
 
-# WiringPi
-
-Check [WiringPi.md](https://github.com/TranPhucVinh/Raspberry-Pi-C/blob/main/Physical%20layer/GPIO/WiringPi.md)
 # Python
 ``GPIO.setmode(mode)`` has acceptance mode are ``GPIO.BOARD`` and ``GPIO.BCM``
 **Blink LED**
