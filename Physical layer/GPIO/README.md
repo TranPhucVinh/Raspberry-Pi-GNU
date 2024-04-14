@@ -81,3 +81,22 @@ Check [Direct register access document](Direct%20register%20access.md)
 # WiringPi
 
 Check [WiringPi.md](https://github.com/TranPhucVinh/Raspberry-Pi-C/blob/main/Physical%20layer/GPIO/WiringPi.md)
+# Python
+``GPIO.setmode(mode)`` has acceptance mode are ``GPIO.BOARD`` and ``GPIO.BCM``
+**Blink LED**
+
+```py
+import time
+import RPi.GPIO as GPIO
+
+LED_PIN = 7 #GPIO 7 on board
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(LED_PIN, GPIO.OUT)
+
+while True:
+	GPIO.output(LED_PIN, GPIO.HIGH)
+	time.sleep(1)
+	GPIO.output(LED_PIN, GPIO.LOW)
+	time.sleep(1)
+```	

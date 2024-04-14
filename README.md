@@ -4,6 +4,7 @@ Raspberry Pi GNU implementation with:
 
 * C-based embedded software
 * Bash script
+* Python
 
 # Environment
 

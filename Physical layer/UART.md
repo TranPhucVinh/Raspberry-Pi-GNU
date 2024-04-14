@@ -33,14 +33,23 @@ Check the corresponded document in Linux Shell: [Send characters from PC to MCU 
 
 # Raspberry reads data from Arduino
 
-**Connection**
+Communicate between Raspberry Pi and Arduino Uno R3 using UART through a logic level converter.
 
-| Uno R3 | Raspberry Pi |
+Logic level converter module: 8 channel 5V-3.3V (3.3V channel A, 5V channel B)
+
+| Uno R3 | Logic level converter |
 | ------- |:------:|
 | 5V   | 5V    |
 | GND     | GND    |
-| RX      | GPIO14 (UART0 TX)  |
-| TX      | GPIO15 (UART0 RX)  |
+| 2      | B7  |
+| 3      | B6  |
+
+| Raspberry Pi | Logic level converter |
+| ------- |:------:|
+| 3.3V   | 3.3V    |
+| GND     | GND    |
+| GPIO15 (TXD)      | A7  |
+| GPIO16 (RXD)      | A6  |
 
 **Arduino** sends a string every 1 second.
 
@@ -68,7 +77,7 @@ int main ()
 
     wiringPiSetup();
 
-    while (serialDataAvail (fd)){
+    while (serialDataAvail(fd)){
         printf("%c", serialGetChar(fd));
         fflush (stdout) ;
     }
@@ -114,4 +123,36 @@ int main ()
     }
     delay(1000);
 }    
+```
+# Python
+Use ``pyserial`` library.
+
+## Read data from Arduino using UART pins
+
+**Arduino**: Send ``Hello`` every 1 second baudrate 9600
+
+**Raspberry**
+
+```py
+import serial, time
+
+arduino_serial = serial.Serial("/dev/ttyS0", 9600)
+while True:
+	serial_receive = arduino_serial.readline()
+	print(serial_receive)
+```
+
+## Send data to Arduino using UART pins
+
+**Note**: ``write(data)`` requires the ``data`` to be ``byte`` type
+
+```py
+import serial, time
+
+arduino_serial = serial.Serial("/dev/ttyS0", 9600)
+
+while True:
+	encoded_string = 'hello, World!'.encode('utf-8')
+	arduino_serial.write(encoded_string)
+	time.sleep(1)
 ```

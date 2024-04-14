@@ -118,9 +118,6 @@ fi
 exit 0
 ```
 
-# /boot
+# Python
 
-``boot`` folder (``/boot``) contains all files related to the booting process, include:
-
-* ``dtb``
-* Kernel image (``img``)
+Python library ``RPi`` is built-in on Raspbian.
