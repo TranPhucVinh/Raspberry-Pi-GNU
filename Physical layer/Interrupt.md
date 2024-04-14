@@ -54,6 +54,10 @@ int main() {
             perror("epoll_wait error");
             return -1;
         } else if (total_ready_fd == 1){
+		/*
+			happened_event.events is a bitmask, not a single value. To check if the EPOLLIN 
+			event has occurred, you should use the & (bitwise AND) operator
+    	*/
             if (happened_event.events & EPOLLIN) {
                 printf("GPIO interrupt occurred on pin %d\n", GPIO_PIN);
 
