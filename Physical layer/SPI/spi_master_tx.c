@@ -9,7 +9,14 @@
 #define SPI_DEV    "/dev/spidev0.0"// For /dev/spidev0.0, use GPIO08
 #define SPI_SPEED   500000
 
-int mode    = 0;        // A dummy variable for ioctl() to set write mode to SPI bus
+/*
+	SPI mode (CPOL, CPHA)
+ 	0: (0, 0)
+	1: (0, 1) 
+ 	2: (1, 0) 
+  	3: (1, 1)  
+*/
+int mode    = 0;// SPI mode 0
 
 void transfer(int fd, int *tx_buf, size_t len) {
     struct spi_ioc_transfer tr = {
