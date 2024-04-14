@@ -35,7 +35,7 @@ pi@raspberrypi:/sys/class/gpio/gpio14 $ echo 0 > value #set 0 for GPIO14
 
 After powering off, ``gpio14`` will be deleted.
 
-## Bash script to control GPIO
+## Bash script to blink LED
 
 ```sh
 led=14
@@ -69,6 +69,11 @@ Use GPIO 15 as button:
 pi@raspberrypi:~ $ echo 15 > /sys/class/gpio/export
 ```
 **Program**: [sysfs_read_button.c](sysfs_read_button.c)
+
+## C program to control LED by button
+
+Press on button to turn on LED, unpress button to turn off LED: [sysfs_button_control_led.c](sysfs_button_control_led.c)
+
 # Direct register access
 
 Check [Direct register access document](Direct%20register%20access.md)
