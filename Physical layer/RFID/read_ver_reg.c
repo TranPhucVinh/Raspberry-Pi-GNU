@@ -22,7 +22,7 @@ void request_msg_from_spi_slave(int fd) {
     tx_buf[1] = DUMMY_VALUE; // Dummy byte for receiving data
 
     struct spi_ioc_transfer spi_trans;
-    memset(&spi_trans, 0, sizeof(struct spi_ioc_transfer));
+    memset(&spi_trans, 0, sizeof(struct spi_ioc_transfer));// Set all spi_ioc_transfer element bytes to 0 to avoid having garbage values
 
     spi_trans.tx_buf = (unsigned long)tx_buf;
     spi_trans.rx_buf = (unsigned long)rx_buf;
