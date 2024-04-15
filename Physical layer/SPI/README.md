@@ -3,9 +3,9 @@
 
 This struct forms a struct for a SPI transaction.
 
-* **void *rx_buf**: Buffer for receive data
+* ``void *rx_buf``: Buffer for receive data
 * **const void *tx_buf**: Buffer for transmit data
-* **size_t len**: Length of receive and transmit buffers in bytes
+* **size_t len**: Length of receive/transmit buffers in bytes. If ``len`` bytes is transmit in the ``tx_buf``, ``len`` bytes are received inside ``rx_buf``
 * **uint32_t speed_hz**: Set SPI master speed
 ## SPI_IOC_MESSAGE()
 ```c
