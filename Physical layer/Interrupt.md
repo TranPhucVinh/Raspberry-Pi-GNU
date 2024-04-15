@@ -1,6 +1,6 @@
 GPIO with sysfs can be configured to handle interrupt. 
 
-In order to enable interrupt, ``/sys/class/gpio/<gpio_pin_num>/edge`` must be set with "rising" or "falling" for the corresponding edge-triggered IRQ.
+In order to enable interrupt, ``/sys/class/gpio/<gpio_pin_num>/edge`` must be set with **rising** or **falling** for the corresponding edge-triggered IRQ.
 
 After handling the interrupt, lseek() to the beginning of the sysfs file then read GPIO value to **clear the interrupt**. When you read from the GPIO value file ``/sys/class/gpio/<gpio_pin_num>/value``, the kernel typically updates the GPIO pin's interrupt status to indicate that the interrupt has been acknowledged and handled.
 
