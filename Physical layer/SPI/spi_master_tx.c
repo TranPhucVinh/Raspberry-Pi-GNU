@@ -9,53 +9,54 @@
 #define SPI_DEV    "/dev/spidev0.0"// /dev/spidev0.0 for SPI0, use GPIO08 for CS0
 #define SPI_SPEED   500000
 
-/*
-	SPI mode (CPOL, CPHA)
- 	0: (0, 0)
-	1: (0, 1) 
- 	2: (1, 0) 
-  	3: (1, 1)  
-*/
-int mode    = 0;// SPI mode 0
-
-void transfer(int fd, int *tx_buf, size_t len) {
-    struct spi_ioc_transfer tr = {
-        .tx_buf = (unsigned long)tx_buf,
-        .len = len,
-        .speed_hz = SPI_SPEED
+void spi_transmit(int spi_fd, void *tx_buf, size_t tx_buf_sz) {
+    struct spi_ioc_transfer spi_trans = {
+        .tx_buf     = (unsigned long)tx_buf,
+        .len        = tx_buf_sz,
+        .speed_hz   = SPI_SPEED
     };
 
-    // As only define 1 struct spi_ioc_transfer so the total message to sent is 1
+    // As only define 1 struct spi_ioc_spi_transmit so the total message to sent is 1
     // So we use SPI_IOC_MESSAGE(1)
-    if (ioctl(fd, SPI_IOC_MESSAGE(1), &tr) < 0) {
-        perror("SPI transfer failed");
+    if (ioctl(spi_fd, SPI_IOC_MESSAGE(1), &spi_trans) < 0) {
+        perror("SPI spi_transmit failed");
         exit(EXIT_FAILURE);
     }
 }
 
-int main() {
-    int fd;
-	fd = open(SPI_DEV, O_RDWR);
-	if (fd < 0){
+int spi_bus_init(){
+    int spi_fd;
+	spi_fd = open(SPI_DEV, O_RDWR);
+	if (spi_fd < 0){
         printf("Unable to open %s\n", SPI_DEV);
         return 0;
     }
 
-    if (ioctl(fd, SPI_IOC_WR_MODE, &mode) < 0){
+    /*
+        SPI mode (CPOL, CPHA)
+        0: (0, 0)
+        1: (0, 1) 
+        2: (1, 0) 
+        3: (1, 1)  
+    */
+    int mode = 0;// SPI mode 0
+
+    if (ioctl(spi_fd, SPI_IOC_WR_MODE, &mode) < 0){
         perror("Error when setting write mode to SPI device\n");
-        close(fd);
+        close(spi_fd);
     }
 
-    char msg[] = "I've updated the speed";
-    size_t msg_length = sizeof(msg);
+    return spi_fd;
+}
 
-    int tx_buf[msg_length];
+int main() {
+    int spi_fd = spi_bus_init();
 
-    memcpy(tx_buf, msg, msg_length);
+    char snd_msg[] = "Hello, World !";
 
-    transfer(fd, tx_buf, msg_length);
+    spi_transmit(spi_fd, (void*)snd_msg, sizeof(snd_msg));
 
     printf("Message sent successfully\n");
 
-    close(fd);
+    close(spi_fd);
 }	
