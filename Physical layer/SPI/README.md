@@ -44,4 +44,6 @@ if (ioctl(fd, SPI_IOC_MESSAGE(2), transfer_arr) < 0) {
 
 **SPI master sends to SPI slave**: Raspberry Pi as the SPI master sends string to SPI slave connected on its SPI device, e.g /dev/spidev0.0: [spi_master_tx.c](spi_master_tx.c). For ``/dev/spidev0.0``, we use GPIO08 (also called pin CE0)
 
+**SPI master sends struct as a message to SPI slave**: [spi_master_tx_struct.c](spi_master_tx_struct.c)
+
 **SPI master reads response from SPI slave**: Raspberry Pi as SPI master sends REQ_SND, a flag number, to ESP32 as the SPI slave as a handshake. If slave receives REQ_SND from master, it will then send a string with index to master. Master receives that string and prints out. Program: [spi_master_rx.c](spi_master_rx.c)
