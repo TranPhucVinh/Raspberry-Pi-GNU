@@ -82,13 +82,13 @@ void SPI::set_config(SPIConfig *spi_config){
 }
 
 void SPI::write(void *tx_buf, size_t tx_buf_sz){
-    struct spi_ioc_transfer spi_trans = {
-        .tx_buf     = (unsigned long)tx_buf,
-        .len        = tx_buf_sz,
-        .speed_hz   =  _spi_config.speed_hz,
-        .delay_usecs = _spi_config.delay_usecs,
-        .bits_per_word = _spi_config.bits_per_word,
-    };
+    spi_ioc_transfer spi_trans[1] = {};
+
+    spi_trans[0].tx_buf     = (unsigned long)tx_buf;
+    spi_trans[0].len        = tx_buf_sz;
+    spi_trans[0].speed_hz   =  _spi_config.speed_hz;
+    spi_trans[0].delay_usecs = _spi_config.delay_usecs;
+    spi_trans[0].bits_per_word = _spi_config.bits_per_word;
 
     // As only define 1 struct spi_ioc_spi_transmit so the total message to sent is 1
     // So we use SPI_IOC_MESSAGE(1)
@@ -106,7 +106,7 @@ SPI::~SPI()
 int main() {
     SPI spi(SPI_DEVICE);
 
-    char snd_msg[] = "Use class SPI to send to SPI slave";
+    char snd_msg[] = "spi_ioc_transfer spi_trans[1] = {};";
     spi.write((void*)snd_msg, sizeof(snd_msg));
 
     std::cout << "Message sent successfully\n";
