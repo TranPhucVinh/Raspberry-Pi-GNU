@@ -1,5 +1,5 @@
 # linux/gpio.h
-
+## struct gpiochip_info
 ```c
 /**
  * struct gpiochip_info - Information about a certain GPIO chip
@@ -14,6 +14,29 @@ struct gpiochip_info {
 	__u32 lines;
 };
 ```
+## struct gpiohandle_request
+```c
+struct gpiohandle_request {
+	__u32 lineoffsets[GPIOHANDLES_MAX];
+	__u32 flags;
+	__u8 default_values[GPIOHANDLES_MAX];
+	char consumer_label[32];
+	__u32 lines;
+	int fd;
+};
+```
+* **lineoffsets**: an array desired lines, specified by offset index for the associated GPIO device
+* **lines**: number of lines requested in this request, i.e. the number of valid fields in the above arrays. **Set to 1 to request a single line**.
+* **fd**: if successful this field will contain a valid anonymous file handle after a GPIO_GET_LINEHANDLE_IOCTL operation, zero or negative value means error
+
+## struct gpiohandle_data
+Information of values on a GPIO handle
+```c
+struct gpiohandle_data {
+	__u8 values[GPIOHANDLES_MAX];
+};
+```
+* **values**: When getting the state of lines, this contains the current state of a line. When setting the state of lines, these should contain the desired target state
 # Get chip_info by ioctl() GPIO_GET_CHIPINFO_IOCTL
 
 ```c
@@ -48,3 +71,6 @@ int main() {
     close(fd);
 }
 ```
+# Read value of an input GPIO
+
+**Program**: [(linux_gpio_read_input_gpio.c]()
