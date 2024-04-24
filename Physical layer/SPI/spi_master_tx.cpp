@@ -25,10 +25,6 @@ public:
 class SPI {
     private:
         int _spi_fd;
-        int _spi_mode;
-        int _bpw; // bit per word
-        int _speed;
-        int _lsb_first;
         SPIConfig _spi_config;
 
     public:
@@ -106,7 +102,7 @@ SPI::~SPI()
 int main() {
     SPI spi(SPI_DEVICE);
 
-    char snd_msg[] = "spi_ioc_transfer spi_trans[1] = {};";
+    char snd_msg[] = "Hello, World !";
     spi.write((void*)snd_msg, sizeof(snd_msg));
 
     std::cout << "Message sent successfully\n";
