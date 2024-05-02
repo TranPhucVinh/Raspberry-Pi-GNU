@@ -73,4 +73,4 @@ int main() {
 ```
 # Read value of an input GPIO
 
-**Program**: [(linux_gpio_read_input_gpio.c]()
+**Program**: [linux_gpio_read_input_gpio.c](linux_gpio_read_input_gpio.c])
