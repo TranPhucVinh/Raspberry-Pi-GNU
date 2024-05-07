@@ -3,7 +3,6 @@ import os
 import struct
 import ctypes
 import array
-import pickle
 
 SPI_DEV = "/dev/spidev0.0"  # /dev/spidev0.0 for SPI0, use GPIO08 for CS0
 SPI_MODE_0  = 0 # SPI mode 0: (CPOL, CPHA) = (0, 0)
