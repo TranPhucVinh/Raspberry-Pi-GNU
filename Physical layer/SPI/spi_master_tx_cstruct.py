@@ -71,6 +71,11 @@ def main():
     tx_data += spi_tx_obj.str_val  # Append string value as-is
 
     spi_transmit(spi_fd, tx_data)
+
+    # ctypes.string_at() can be used
+    # spi_tx_obj = SPI_TX_Class(456, b"Hello, World !")
+    # spi_tx_obj_byte = ctypes.string_at(ctypes.addressof(spi_tx_obj), ctypes.sizeof(spi_tx_obj))
+    # spi_transmit(spi_fd, spi_tx_obj_byte)
     
     print("Message sent successfully")
 
