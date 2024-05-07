@@ -42,7 +42,10 @@ if (ioctl(fd, SPI_IOC_MESSAGE(2), transfer_arr) < 0) {
 
 # Implementations
 
-**SPI master sends to SPI slave**: Raspberry Pi as the SPI master sends string to SPI slave connected on its SPI device, e.g /dev/spidev0.0: [spi_master_tx.c](spi_master_tx.c). For ``/dev/spidev0.0``, we use GPIO08 (also called pin CE0)
+**SPI master sends to SPI slave**: Raspberry Pi as the SPI master sends string to SPI slave connected on its SPI device, e.g /dev/spidev0.0. For ``/dev/spidev0.0``, we use GPIO08 (also called pin CE0):
+
+* [spi_master_tx.c](spi_master_tx.c)
+* [spi_master_tx.py](spi_master_tx.py)
 
 **SPI master sends struct as a message to SPI slave**: 
 * [spi_master_tx_struct.c](spi_master_tx_struct.c)
