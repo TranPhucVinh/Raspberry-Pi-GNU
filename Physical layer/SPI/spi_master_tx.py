@@ -60,8 +60,12 @@ def main():
     snd_msg = b"Hello, World !"  # Message must be bytes-like object
 
     spi_transmit(spi_fd, snd_msg)
-
     print("Message sent successfully")
+    
+    # ctypes.string_at() can also be used
+    # snd_msg = b"Hello, World !"
+    # snd_msg_byte = ctypes.string_at(snd_msg, len(snd_msg))
+    # spi_transmit(spi_fd, snd_msg_byte)
 
     os.close(spi_fd)
 
