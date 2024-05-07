@@ -49,4 +49,12 @@ if (ioctl(fd, SPI_IOC_MESSAGE(2), transfer_arr) < 0) {
 * [spi_master_tx_cstruct.py](spi_master_tx_cstruct.py): Use Python cstruct
 * [spi_master_tx_class.py](spi_master_tx_class.py): Use class
 
+For [spi_master_tx_cstruct.py](spi_master_tx_cstruct.py), **ctypes.string_at()** can be used:
+```py
+spi_tx_obj = SPI_TX_Class(456, b"Hello, World !")
+
+spi_tx_obj_byte = ctypes.string_at(ctypes.addressof(spi_tx_obj), ctypes.sizeof(spi_tx_obj))
+spi_transmit(spi_fd, spi_tx_obj_byte)
+```
+
 **SPI master reads response from SPI slave**: Raspberry Pi as SPI master sends REQ_SND, a flag number, to ESP32 as the SPI slave as a handshake. If slave receives REQ_SND from master, it will then send a string with index to master. Master receives that string and prints out. Program: [spi_master_rx.c](spi_master_rx.c)
