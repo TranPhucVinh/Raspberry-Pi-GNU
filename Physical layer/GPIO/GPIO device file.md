@@ -27,7 +27,7 @@ struct gpiohandle_request {
 ```
 * **lineoffsets**: an array desired lines, specified by offset index for the associated GPIO device
 * **lines**: number of lines requested in this request, i.e. the number of valid fields in the above arrays. **Set to 1 to request a single line**.
-* **fd**: if successful this field will contain a valid anonymous file handle after a GPIO_GET_LINEHANDLE_IOCTL operation, zero or negative value means error
+* **fd**: if successful, this field will contain a valid anonymous file handle after a **GPIO_GET_LINEHANDLE_IOCTL** operation, zero or negative value means error
 
 ## struct gpiohandle_data
 Information of values on a GPIO handle
