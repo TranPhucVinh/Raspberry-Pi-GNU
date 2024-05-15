@@ -71,6 +71,14 @@ int main() {
     close(fd);
 }
 ```
-# Read value of an input GPIO
+# Read from input GPIO
+
+**Feature**: Read value of an input GPIO
 
 **Program**: [linux_gpio_read_input_gpio.c](linux_gpio_read_input_gpio.c)
+
+# Write to output GPIO
+
+**Feature**: Turn ON/OFF LED
+
+**Program**: [linux_gpio_write_output_gpio.c](linux_gpio_write_output_gpio.c)
