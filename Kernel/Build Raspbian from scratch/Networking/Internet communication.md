@@ -1,6 +1,6 @@
 # Overview
 This is a tutorial to set up network for busybox. Basically, for a host to communicate to the Internet, 2 fundamental things are required: 
-* An available IP in the local network: This can be achieved by statically setup the IP or using DHCP ([step 1: Get DHCP IP from the router]())
+* An available IP in the local network: This can be achieved by statically setup the IP or using DHCP ([step 1: Get DHCP IP from the router](#step-1-get-dhcp-ip-from-the-router))
 * Config the routing table with the IP of the ISP gateway so that the host's packets can be routed to Internet devices: [Step 2: Setup the routing table](#step-2-setup-the-routing-table)
 
 Beside that, for easier communication, DNS resolver is required so that we can communicate directly with the URL, instead of using the IP. This is implemented in [step 3: Setup DNS](#step-3-setup-dns)
