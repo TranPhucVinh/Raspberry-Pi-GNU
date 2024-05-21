@@ -104,4 +104,4 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 0.0.0.0         192.168.1.1     0.0.0.0         UG    0      0        0 eth0
 192.168.1.0     0.0.0.0         255.255.255.0   U     0      0        0 eth0
 ```
-Now we're able to ping public IP address. E.g, we can ping to the IP address ``142.251.220.14`` of google.com but we can't still ping direcyly to the URL ``google.com``. That happens as we haven't had the DNS config on the Busybox
+Now we're able to ping public IP address. E.g, we can ping to the IP address ``142.251.220.14`` of google.com but we can't still ping directly to the URL ``google.com``. That happens as we haven't had the DNS config on the Busybox
