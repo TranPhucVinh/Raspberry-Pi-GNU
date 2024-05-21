@@ -104,4 +104,12 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 0.0.0.0         192.168.1.1     0.0.0.0         UG    0      0        0 eth0
 192.168.1.0     0.0.0.0         255.255.255.0   U     0      0        0 eth0
 ```
-Now we're able to ping public IP address. E.g, we can ping to the IP address ``8.8.8.8`` or ``142.251.220.14`` of google.com but we can't still ping directly to the URL ``google.com``. That happens as we haven't had the DNS config on the Busybox
+Now we're able to ping public IP address. E.g, we can ping to the IP address ``8.8.8.8`` or ``142.251.220.14`` of google.com but we can't still ping directly to the URL ``google.com``. That happens as we haven't had the DNS config on the Busybox.
+# Step 3: Setup DNS
+By default, Busybox doesn't have ``/etc/resolv.conf`` file. Let's create it with the following content:
+```sh
+nameserver 8.8.8.8
+```
+By using ``8.8.8.8``, we relies in the google DNS resolver for our Busybox
+
+But we still can't ping ``google.com``, but we can ping ``8.8.8.8``. This is the issue of the ``ping`` command, although the ``nslookup`` command still work
