@@ -48,7 +48,6 @@ struct gpiohandle_data {
 struct gpioevent_data {
 	__u64 timestamp;
 	__u32 id;
-
 };
 ```
 ``id`` event identifier includes:
@@ -101,3 +100,6 @@ int main() {
 **Feature**: Turn ON/OFF LED
 
 **Program**: [linux_gpio_write_output_gpio.c](linux_gpio_write_output_gpio.c)
+# Handle IRQ with epoll
+
+In order to use epoll IRQ for Linux GPIO, ``GPIO_GET_LINEEVENT_IOCTL`` ioctl() macro must be used: [linux_gpio_irq_epoll.c](linux_gpio_irq_epoll.c)
