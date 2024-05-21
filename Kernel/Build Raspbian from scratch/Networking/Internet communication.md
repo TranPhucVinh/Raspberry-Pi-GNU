@@ -7,7 +7,7 @@ Beside that, for easier communication, DNS resolver is required so that we can c
 
 # Step 1: Get DHCP IP from the router
 
-IP for the Raspbian Busybox can be setup statically like in the [Setup communication between host PC and the Raspberry Pi board containing this customized Raspbian then run an a.out file]() implementation. However, for automatic implementation, DHCP is prefered.
+IP for the Raspbian Busybox can be setup statically like in the [Setup communication between host PC and the Raspberry Pi board containing this customized Raspbian then run an a.out file](Local%20network%20communication.md#setup-communication-between-host-pc-and-the-raspberry-pi-board-containing-this-customized-raspbian-then-run-an-aout-file) implementation. However, for automatic implementation, DHCP is prefered.
 
 First let create directory ``/etc/network``, then create file ``interfaces`` inside that directory, which is identical to ``/etc/network/interfaces`` on Ubuntu:
 
