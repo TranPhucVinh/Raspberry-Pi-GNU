@@ -9,9 +9,9 @@ Beside that, for easier communication, DNS resolver is required so that we can c
 
 IP for the Raspbian Busybox can be setup statically like in the [Setup communication between host PC and the Raspberry Pi board containing this customized Raspbian then run an a.out file](Local%20network%20communication.md#setup-communication-between-host-pc-and-the-raspberry-pi-board-containing-this-customized-raspbian-then-run-an-aout-file) implementation. However, for automatic implementation, DHCP is prefered.
 
-First let create directory ``/etc/network``, then create file ``interfaces`` inside that directory, which is identical to ``/etc/network/interfaces`` on Ubuntu:
+First let create directory ``/etc/network``, then create file ``interfaces`` inside that directory, which is identical to ``/etc/network/interfaces`` on Ubuntu.
 
-Add the following content to that file:
+Then add the following content to that file:
 ```sh
 auto lo
 iface lo inet loopback
