@@ -51,7 +51,7 @@ Fail to bind socket to local address
 # Setup communication between host PC and the Raspberry Pi board containing this customized Raspbian then run an a.out file
 
 **Prerequisites**:
-* Raspberry Pi board and host PC connect to the same network, we will use [TFTP](https://github.com/TranPhucVinh/Linux-Shell/tree/master/Application%20layer#tftp) for file transferring between them. Raspberry Pi will then have the network connection through **its Ethernet interface**.
+* Raspberry Pi board and host PC connect to the same network, we will use [TFTP](https://github.com/TranPhucVinh/Linux-Shell/tree/master/Application%20layer#tftp) for file transferring between them. Raspberry Pi already has the network connection through **its Ethernet interface**.
 * [TFTP server setup on host PC](https://github.com/TranPhucVinh/Linux-Shell/tree/master/Application%20layer#tftp)
 
 When first installing the minimal rootfs on the system, network interfaces doesn't acquire the IP address, ``ip a`` will be:
