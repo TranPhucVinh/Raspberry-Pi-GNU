@@ -37,6 +37,25 @@ struct gpiohandle_data {
 };
 ```
 * **values**: When getting the state of lines, this contains the current state of a line. When setting the state of lines, these should contain the desired target state
+
+## struct gpioevent_data
+```c
+/**
+ * struct gpioevent_data - The actual event being pushed to userspace
+ * @timestamp: best estimate of time of event occurrence, in nanoseconds
+ * @id: event identifier
+ */
+struct gpioevent_data {
+	__u64 timestamp;
+	__u32 id;
+
+};
+```
+``id`` event identifier includes:
+```c
+#define GPIOEVENT_EVENT_RISING_EDGE 1
+#define GPIOEVENT_EVENT_FALLING_EDGE 2
+```
 # Get chip_info by ioctl() GPIO_GET_CHIPINFO_IOCTL
 
 ```c
