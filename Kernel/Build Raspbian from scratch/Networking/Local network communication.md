@@ -94,4 +94,6 @@ tftp -g -r a.out 192.168.1.13
 ```
 Then file ``a.out`` will be able to run on the customized Raspbian.
 
-**Note**: The above implementation simply targets on internal communication inside a local network and isn't support communication with IP on the Internet as the default routing table of Busybox doesn't have the IP to route it through the IPS gateway.
+**Note**: 
+* If don't compile with **-static**, running **a.out** on this Busybox will result in: ``-/bin/sh: ./a.out: not found``
+* The above implementation simply targets on internal communication inside a local network and isn't support communication with IP on the Internet as the default routing table of Busybox doesn't have the IP to route it through the IPS gateway.
