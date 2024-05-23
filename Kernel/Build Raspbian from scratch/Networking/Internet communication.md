@@ -110,6 +110,15 @@ By default, Busybox doesn't have ``/etc/resolv.conf`` file. Let's create it with
 ```sh
 nameserver 8.8.8.8
 ```
-By using ``8.8.8.8``, we relies in the google DNS resolver for our Busybox
+By using ``8.8.8.8``, we rely in the google DNS resolver for our Busybox.
 
 But we still can't ping ``google.com``, but we can ping ``8.8.8.8``. This is the issue of the ``ping`` command, although the ``nslookup`` command still work
+
+With that DNS setup, running [gethostbyname()](https://github.com/TranPhucVinh/C/blob/master/Application%20layer/HTTP%20client/TCP%20socket/get_host_info_gethostbyname.c) will still results in fail DNS lookup, while compiling this [get_host_info_getaddrinfo](https://github.com/TranPhucVinh/C/blob/master/Application%20layer/HTTP%20client/TCP%20socket/get_host_info_getaddrinfo.c) programs results in:
+
+```c
+username@hostname:~/$ aarch64-linux-gnu-gcc -static get_host_info_getaddrinfo.c
+/tmp/ccMstwgA.o: In function `main':
+main.c:(.text+0x50): warning: Using 'getaddrinfo' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+```
+That happens as **getaddrinfo()** is unable to built statically. However, by knowing the IP address of the server, we can still communicate with it.
