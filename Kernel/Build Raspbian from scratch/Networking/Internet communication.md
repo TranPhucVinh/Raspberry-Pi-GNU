@@ -121,4 +121,6 @@ username@hostname:~/$ aarch64-linux-gnu-gcc -static get_host_info_getaddrinfo.c
 /tmp/ccMstwgA.o: In function `main':
 main.c:(.text+0x50): warning: Using 'getaddrinfo' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
 ```
-That happens as **getaddrinfo()** is unable to built statically. However, by knowing the IP address of the server, we can still communicate with it.
+That happens as **getaddrinfo()** is unable to built statically. This compilation still output an ``a.out`` file but it fails to lookup DNS when running on Busybox.
+
+However, by knowing the IP address of the server, we can still communicate with it.
