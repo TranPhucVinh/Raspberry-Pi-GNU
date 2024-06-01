@@ -4,7 +4,7 @@
 
 1. Raspbian kernel image and device tree built from [Official Raspberry Linux repository, branch rpi-5.15.y for Linux 5.15](https://github.com/raspberrypi/linux)
 2. Booting from U-boot (instead of using Raspberry proprietary bootloader)
-3. Create rootfs partition by using busybox.
+3. Create rootfs partition from **Busybox**.
 
 After successfully taking those 3 steps, the Raspberry Pi board with the customized Raspbian can be **booted successfully from USB**, not HDMI (as there is no configuration to support HDMI in those steps). As being a **minimal Linux**, this Raspbian doesn't have SSH and netutils package like ping. Drivers like **I2C won't be available** either.
 
