@@ -61,3 +61,26 @@ mkimage [-options] image
 * ``-T``: image type
 * ``-C``: compression type
 * ``-d``: specify the image data file
+
+# ext4
+
+``ext4ls``: list files in a directory (default ``/``) of an ext4 file system
+
+```sh
+U-Boot> ext4ls mmc 0:2 # This will list out all files inside the rootfs folder
+<DIR>       4096 .
+<DIR>       4096 ..
+<DIR>       4096 bin
+<DIR>       4096 dev
+<DIR>       4096 etc
+<DIR>       4096 lib
+<SYM>         11 linuxrc
+...
+```
+
+Load file ``base_busybox.img`` to RAM address at ``${loadaddr}`` on the a Ext4 filesystem
+
+```sh
+U-Boot> ext4load mmc 0:2 ${loadaddr} base_busybox.img  
+157286400 bytes read in 6506 ms (23.1 MiB/s)
+```
