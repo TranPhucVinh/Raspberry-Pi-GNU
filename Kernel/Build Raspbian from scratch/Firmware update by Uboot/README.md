@@ -134,3 +134,43 @@ Finally, copy this image to the tftp server in order to be copied by the Uboot a
 ```sh
 username@hostname:~/fw_update$ sudo cp base_busybox.img /var/lib/tftpboot/
 ```
+# Step 3: Flash image through uboot
+
+As Uboot supports DHCP and TFTP, we can get the ``base_busybox.img`` from the host machine. However, that Raspbian board must make sure that Uboot can boot up to the Ethernet interface. Some Uboot on Raspbian hardware has this issue which makes it unable to boot up to the Ethernet interface:
+
+```sh
+smsc95xx_eth address not set
+```
+
+Please note again that this issue only happens during the Uboot stage, as the Busybox - rootfs in the later steps can boot up smsc95xx_eth and access to the Ethernet interface normally.
+
+If Uboot has that issue, we will need to get the image from the host PC via TFTP after the Raspbian board boots to the Busybox - rootfs console:
+
+```sh
+~ # tftp -g -r base_busybox.img 192.168.1.11
+base_busybox.img     100% |********************************|  150M  0:00:00 ET
+```
+
+Then reboot the board to enter the Uboot console. In Uboot console, load the image ``base_busybox.img`` on the rootfs partition to RAM address at ``${loadaddr}``, which is formated as a ext4 file system:
+
+```sh
+U-Boot> ext4load mmc 0:2 ${loadaddr} base_busybox.img  
+157286400 bytes read in 6506 ms (23.1 MiB/s)
+```
+
+After successfully loading the image ``base_busybox.img``, write its content to the SD card:
+```sh
+U-Boot> mmc dev 0;mmc write ${loadaddr} 0 0x4b000
+switch to partitions #0, OK
+mmc0 is current device
+
+MMC write: dev # 0, block # 0, count 307200 ... 307200 blocks written: OK
+```
+The first ``mmc dev 0`` is to select the corresponding mmc device instance. Please make sure you run the ``mmc list`` to select the correct device.
+
+Then we use ``mmc write`` that take 3 parameters:
+* ``${loadaddr}`` is the address on RAM, at which we previously loaded the image onto
+* ``0`` is the offset address on the mmc device, as we write ``base_busybox.img`` to the whole SD card which even override the bootfs partition so we choose ``0``.
+* ``0x4b000`` is the number of count block we want to write. ``mmc info`` let us know how many bytes in the block, here it's 512 bytes. With ``157286400`` is the size of ``base_busybox.img``, we divide it for ``512``, which results in ``0x4b000``
+
+Finally reset the board by command ``reset``. The whole new ``base_busybox.img`` image has already been written to the SD card.
