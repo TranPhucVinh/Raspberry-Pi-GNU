@@ -2,7 +2,7 @@
 
 As Uboot can connect to the local network, via Ethernet by default in Raspbian, and supports DHCP and TFTP, we can use this feature to flash the new OS image to the SD card.
 
-**Prerequisite
+**Prerequisite**
 
 * Current Raspberry board runs an OS image where its ``bootfs`` has a U-boot image
 * TFTP server installed on the host PC to perform FW Update
