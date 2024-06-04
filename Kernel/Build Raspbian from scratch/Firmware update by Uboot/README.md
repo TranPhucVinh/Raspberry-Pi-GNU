@@ -1,6 +1,6 @@
 # Overview
 
-As Uboot can connect to the local network, via Ethernet by default in Raspbian, and supports DHCP and TFTP, we can use this feature to flash the new OS image to the SD card.
+As Uboot can connect to the local network, via Ethernet by default in Raspbian, and supports DHCP and TFTP, we can use this feature to flash the new OS image to the SD card. However, some Uboot on Raspbian hardware has the issue of not able to boot the Ethernet interface, while the rootfs can boot it. But we can still manage to perform the firmware update by transfering the image file from rootfs to the Uboot console.
 
 **Prerequisite**
 
@@ -77,4 +77,60 @@ base_busybox.img2      104448 307199  202752  99M 83 Linux
 Command (m for help): w
 The partition table has been altered.
 Syncing disks.
+```
+# Step 2: Format the image
+
+Inside the ``fw_update`` folder, use the following script:
+- [get_dev_loop.sh](get_dev_loop.sh): get the umounted loop device. We will use this device as a mount point for each image partition
+- [format_partition.sh](format_partition.sh): Format each partitions of the image, fat32 for ``bootfs`` and ext4 for ``rootfs``
+- [write_image_content.sh](write_image_content.sh): Write ``rootfs`` and ``bootfs`` content to the targeted image
+
+```sh
+username@hostname:~/fw_update$ ls
+base_busybox.img  get_dev_loop.sh  rootfs bootfs
+format_partition.sh write_image_content.sh
+```
+
+After we succeed creating the ``base_busybox.img``, we excecute the above script as below.
+
+```sh
+$ sudo ./format_partition.sh <path_to_base_busybox_image_file> $(./get_dev_loop.sh)
+```
+
+```sh
+username@hostname:~/fw_update$ sudo ./format_partition.sh base_busybox.img $(./get_dev_loop.sh)
+mkfs.fat 4.1 (2017-01-24)
+mke2fs 1.44.1 (24-Mar-2018)
+Discarding device blocks: done                            
+Creating filesystem with 101376 1k blocks and 25376 inodes
+Filesystem UUID: 55eb17ac-6c01-40ed-88a1-14d805827cb3
+Superblock backups stored on blocks: 
+	8193, 24577, 40961, 57345, 73729
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (4096 blocks): done
+Writing superblocks and filesystem accounting information: done
+```
+The above script will format the image, it takes two parameters. The first is the path to the previously created ``base_busybox.img`` file, the second is loop device which is fetched by the script ``get_dev_loop.sh``
+
+Now we perform the write content action using ``write_image_content.sh`` script. In order to run ``write_image_content.sh``, the owner and group of the bootfs must be ``root``:
+```sh
+username@hostname:~/fw_update$ sudo chown -R root bootfs/*
+username@hostname:~/fw_update$ sudo chgrp root bootfs/*
+```
+Then run ``write_image_content``:
+```sh
+$ sudo ./write_image_content.sh <path_to_base_busybox_image_file> <path_to_bootfs_directory> <path_to_rootfs_directory>
+```
+
+```sh
+username@hostname:~/fw_update$ sudo ./write_image_content.sh base_busybox.img bootfs rootfs
+```
+Once done, you got the complete ``base_busybox.img`` that can flash on the raspberry Pi. 
+
+Finally, copy this image to the tftp server in order to be copied by the Uboot as the TFTP client in the later step:
+
+```sh
+username@hostname:~/fw_update$ sudo cp base_busybox.img /var/lib/tftpboot/
 ```

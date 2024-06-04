@@ -84,3 +84,7 @@ Load file ``base_busybox.img`` to RAM address at ``${loadaddr}`` on the a Ext4 f
 U-Boot> ext4load mmc 0:2 ${loadaddr} base_busybox.img  
 157286400 bytes read in 6506 ms (23.1 MiB/s)
 ```
+
+**${loadaddr}** is a U-Boot environment variable that represents the default memory address where U-Boot loads and executes images, such as the kernel, device tree, or ramdisk.
+
+The **${loadaddr}** variable is commonly used in U-Boot commands and scripts to specify the memory address where the loaded file should be placed.
