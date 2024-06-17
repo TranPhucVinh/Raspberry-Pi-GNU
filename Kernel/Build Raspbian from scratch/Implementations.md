@@ -79,6 +79,58 @@ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PAT
 Copy the folder ``modules`` to the /lib inside rootfs partition.
 
 Once the system boot up completely, ``modprobe raspbian_kernel_driver`` to insert the module.
+# Enable I2C and SPI device
+With our initial setup so far with [bootfs](bootfs.md) and [rootfs](rootfs.md), I2C and SPI devices will be disable. To enable them, we need to update the ``config.txt`` file to support those devices, and build their kernel modules as the built-in modules.
+
+Append those lines to ``config.txt`` to enable i2c1 and spi interface:
+```sh
+dtparam=i2c_arm=on
+dtparam=i2c1=on
+dtparam=spi=on
+```
+
+Then enable I2C and SPI as the built-in kernel module. Get to the Raspbian linux kernel repository, run this command to config the current setting
+```sh
+username@hostname:~/Raspbian_booting/linux$ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig
+```
+``Then for i2c``
+```sh
+Device Drivers -> I2C support
+For 'I2C device interface', current value is '<M>', change it to `<*>` by press 'y'
+For 'I2C slave support', current value is '<M>', change it to `<*>` by press 'y'
+
+Device Drivers -> I2C support -> I2C Hardware Bus support
+For 'Broadcom BCM2835 I2C controller', current value is '<M>', change it to `<*>` by press 'y'
+```
+``Then for spi``
+```sh
+Device Drivers -> SPI support
+For 'BCM2835 SPI controller', current value is '<M>', change it to `<*>` by press 'y'
+For 'BCM2835 SPI auxiliary controller', current value is '<M>', change it to `<*>` by press 'y'
+For 'User mode SPI device driver support', current value is '<M>', change it to `<*>` by press 'y'
+```
+
+Then rebuild the kernel image as well its modules
+```sh
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image modules dtbs
+```
+
+Once done, copy the new kernel image to bootfs
+```sh
+# Under directory 'linux/arch/arm64/boot'
+
+sudo cp Image <bootfs_location>/
+
+# copy the device tree bin file and its overlay just to make sure everything is correct
+sudo cp dts/broadcom/bcm2710-rpi-3-b.dtb <bootfs_location>/
+```
+
+One final step would be update the module repository in rootfs
+```sh
+sudo make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MOD_PATH=<rootfs_location>
+```
+
+Once everything is done, copy the new bootfs and rootfs to the SD card for the Raspberry Pi. The I2C and SPI will then be available right after booting up without any further action.
 # [Networking](Networking)
 * [Loopback interface]()
 * Setup communication between host PC and the Raspberry Pi board containing this customized Raspbian then run an a.out file
