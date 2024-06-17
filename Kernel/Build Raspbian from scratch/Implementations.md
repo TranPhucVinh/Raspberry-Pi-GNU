@@ -80,7 +80,7 @@ Copy the folder ``modules`` to the /lib inside rootfs partition.
 
 Once the system boot up completely, ``modprobe raspbian_kernel_driver`` to insert the module.
 # Enable I2C and SPI device
-With our initial setup so far with [bootfs](bootfs.md) and [rootfs](rootfs.md), I2C and SPI devices will be disable. To enable them, we need to update the ``config.txt`` file to support those devices, and build their kernel modules as the built-in modules.
+With our initial setup so far with [bootfs](bootfs.md) and [rootfs](rootfs.md), I2C and SPI devices will be disable. To enable them, we need to update the ``config.txt`` file to support those devices, then rebuild the whole bootfs and rootfs with those kernel modules as the built-in modules.
 
 Append those lines to ``config.txt`` to enable i2c1 and spi interface:
 ```sh
