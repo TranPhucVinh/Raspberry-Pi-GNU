@@ -131,6 +131,9 @@ sudo make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules_install INSTALL_MO
 ```
 
 Once everything is done, copy the new bootfs and rootfs to the SD card for the Raspberry Pi. The I2C and SPI will then be available right after booting up without any further action.
+# [Alpine as rootfs](Alpine.md)
+Our previous step use Busybox as the rootfs. We can have other OS as the rootfs. In this case, we setup Alpine for rootfs.
+
 # [Networking](Networking)
 * [Loopback interface]()
 * Setup communication between host PC and the Raspberry Pi board containing this customized Raspbian then run an a.out file
