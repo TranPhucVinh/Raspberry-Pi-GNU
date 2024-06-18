@@ -4,8 +4,9 @@
 ```sh
 git clone -b rpi-5.15.y --depth=1 https://github.com/raspberrypi/linux
 ```
-## Specify the compiler/kernel-ver/build-configuration
-Specify the compiler/kernel-ver/build-configuration by creating ``.config`` file.  ``.config`` is the file to tell which configuration, e.g compiler, kernel modules, kernel drivers,... needed to be included:
+## Specify the compiler, kernel-ver and build-configuration
+
+Specify the compiler, kernel-ver and build-configuration by creating ``.config`` file.  ``.config`` is the file to tell which configuration, e.g compiler, kernel modules, kernel drivers,... needed to be included:
 ```sh
 cd linux
 make bcmrpi3_defconfig ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
