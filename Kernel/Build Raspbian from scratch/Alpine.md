@@ -152,3 +152,5 @@ username@hostname:~/Raspbian_booting$ sudo cp -r rootfs/lib/modules/ alpinefs/li
 Where ``rootfs`` is the [root file system built from Raspbian linux repo](https://github.com/TranPhucVinh/Raspberry-Pi-GNU/blob/main/Kernel/Build%20Raspbian%20from%20scratch/rootfs.md).
 
 Now we have successfully configure a working rootfs for alpine. Copy both bootfs and the Alpine rootfs to SD card, Raspberry Pi will run the Alpine OS successfully.
+
+As we have previously setup the network, after booting up with Ethernet connected to the Raspberry Pi board, **our Alpine will have an automatically IP assigned to it by DHCP**.
