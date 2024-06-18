@@ -25,7 +25,7 @@ build := -f $(if $(KBUILD_SRC),$(srctree)/)scripts/Makefile.build obj
 ```
 After running ``make bcmrpi3_defconfig ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-``, ``.config`` is created.
 
-## Build the kernel image/device tree/device modules
+## Build the kernel image, device tree and kernel modules
 ```sh
 make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image modules dtbs
 ```
