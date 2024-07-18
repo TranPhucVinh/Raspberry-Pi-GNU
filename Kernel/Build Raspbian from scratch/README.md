@@ -45,3 +45,4 @@ Implementations on this customized Raspbian include:
 * Create a built-in kernel module and load it into rootfs
 * Enable I2C and SPI devices
 * [Networking](Networking)
+* Other OS as rootfs: [Alpine](Alpine.md) and [Debian](Debian.md)
