@@ -122,7 +122,7 @@ We use script ``boot_cmd.txt`` (inside ``u-boot/tools``) as the u-boot script wi
 
 ## Step 1: Load kernel image
 
-At first, we need to call [fatload](https://github.com/TranPhucVinh/Raspberry-Pi-GNU/blob/main/Kernel/Raspbian%20booting/Uboot.md#fatlooad) to load the kernel image.
+At first, we need to call [fatload](Uboot.md#fatlooad) to load the kernel image.
 
 List available mmc devices by ``mmc list``:
 ```
@@ -144,8 +144,8 @@ Part			Start 		Sector		Num 		Sectors	UUID		Type
   2				206848    	30909440  	32dcba99-02	83
 ```
 From the previous step to set up the SD card partition for bootfs and rootfs, we can see that in the current MMC SD card, part 1 is the bootfs and part 2 is the rootfs.
-## Step 2: pass kernel command line parameters by [bootargs](https://github.com/TranPhucVinh/Raspberry-Pi-GNU/blob/main/Kernel/Raspbian%20booting/Uboot.md#bootargs)
-## Step 3: Start booting Linux kernel image by [booti](https://github.com/TranPhucVinh/Raspberry-Pi-GNU/blob/main/Kernel/Raspbian%20booting/Uboot.md#booti)
+## Step 2: pass kernel command line parameters by [bootargs](Uboot.md#bootargs)
+## Step 3: Start booting Linux kernel image by [booti](Uboot.md#booti)
 ## Step 4: Finish the script
 
 Finally, our boot_cmd.txt script inside ``u-boot/tools`` will be:
@@ -157,8 +157,8 @@ booti ${kernel_addr_r} - ${fdt_addr}
 ```
 Where:
 * ``fatload mmc 0:1 \${kernel_addr_r} Image``: Load the kernel image from partition 1 (boot partition) into memory.
-* [bootargs](https://github.com/TranPhucVinh/Raspberry-Pi-GNU/blob/main/Kernel/Raspbian%20booting/Uboot.md#bootargs)
-* [booti](https://github.com/TranPhucVinh/Raspberry-Pi-GNU/blob/main/Kernel/Raspbian%20booting/Uboot.md#booti)
+* [bootargs](Uboot.md#bootargs)
+* [booti](Uboot.md#booti)
 
 Then run [mkimage](https://github.com/TranPhucVinh/Raspberry-Pi-GNU/blob/main/Kernel/Raspbian%20booting/Uboot.md#mkimage) inside the u-boot repo location to output to ``boot.scr``:
 ```sh
