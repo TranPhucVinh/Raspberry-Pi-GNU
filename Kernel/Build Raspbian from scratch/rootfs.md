@@ -60,7 +60,20 @@ Our ``Raspbian_booting`` folder tree so far:
 tranphucvinh@tranphucvinh:~/Documents/Gitlab/Raspbian_booting$ ls
 bootfs  busybox  linux  rootfs  u-boot
 ```
+## mdev
+**mdev** is a command that is part of the BusyBox suite for controlling ownership/permissions of device nodes. It can indeed be used for controlling ownership, permissions, and other attributes of device nodes, especially in systems that need something more minimalistic than ``udev``. As being part of the Busybox, ``mdev`` isn't available in Ubuntu, Debian,...  On most systems, mdev is invoked during system boot to create the initial device node. This can be achived by ``mdev -s`` commands.
 
+``mdev -s`` will scan ``/sys`` (``/sys/class`` and ``/sys/block``) to create ``/dev``. Base on [its implementation in Busybox](https://coral.googlesource.com/busybox/+/refs/tags/1_18_2/util-linux/mdev.c), ``mdev -s`` scans ``/sys/class/xxx``, looking for directories which have ``dev`` file, e.g ``/sys/class/tty/tty0/dev``. Then ``mdev`` creates the ``/dev/device_name`` node.
+
+So a typical code snippet from the ``rcS`` init script will be:
+```sh
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+mdev -s
+```
+
+## Init script
 Let's create the following ``rootfs_install.sh`` script inside ``busybox`` folder. Based on the ``Raspbian_booting`` folder tree, we can set the path for ``rootfs`` and ``kernel_modules_path``
 
 ```sh
