@@ -85,6 +85,7 @@ New password:
 Retype new password:
 passwd: password updated successfully
 ```
+The username by default is ``root``.
 
 Then change the hostname of your OS, e.g change it to ```debian```
 ```sh
