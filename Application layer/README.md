@@ -17,7 +17,23 @@ User can SSH enter Raspberry Pi normally with ESP8266 as an Access point
 ## [HTTP multithread client to send and receive data](HTTP/HTTP%20multithread%20client%20to%20send%20and%20receive%20data)
 # DHCP
 
-``dhcpcd.service`` is a Systemd service which is only available in Raspbian to handle DHCP. ``dhcpcd.service`` is locaated inside ``/lib/systemd/system``.
+``dhcpcd.service`` is a Systemd service which is only available in Raspbian to handle DHCP. ``dhcpcd.service`` is located inside ``/lib/systemd/system``. Its content:
+
+```sh
+[Unit]
+Description=DHCP Client Daemon
+Wants=network.target
+Before=network-online.target
+Documentation=man:dhcpcd(8)
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/dhcpcd -b -q
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
 
 To set up a new static IP for the wlan0 network interface on Raspberry Pi, we have to modify the ``/etc/dhcpcd.conf`` file. Add the following lines at the end of the ``dhcpcd.conf`` file:
 
