@@ -13,8 +13,8 @@ User can SSH enter Raspberry Pi normally with ESP8266 as an Access point
 * **Step 5**: SSH to Raspberry Pi from computer: ``ssh pi@192.168.4.x``
 
 # HTTP
-## [HTTP multithread client to send data](HTTP/HTTP%multithread%client%20to%20send%20data)
-## [HTTP multithread client to send and receive data](HTTP/HTTP%20multithread%20client%20to%20send%20and%20receive%20data)
+* [HTTP multithread client to send data](HTTP/HTTP%multithread%client%20to%20send%20data)
+* [HTTP multithread client to send and receive data](HTTP/HTTP%20multithread%20client%20to%20send%20and%20receive%20data)
 # DHCP
 
 ``dhcpcd.service`` is a Systemd service which is only available in Raspbian to handle DHCP. ``dhcpcd.service`` is located inside ``/lib/systemd/system``. Its content:
@@ -45,3 +45,5 @@ static domain_name_servers=192.168.1.1
 ```
 
 After modifying the ``/etc/dhcpcd.conf`` file, restarting the ``dhcpcd.service`` (``sudo systemctl restart dhcpcd``) won't change IP to the newly configured static one. Raspberry Pi **must be rebooted** to take effect. After rebooting the Raspberry, user can SSH and ping to **both old and new IP** of that Raspberry.
+
+Beside modifying the ``dhcpcd.conf`` file, we can use the [ip command along with the systemd service](https://github.com/TranPhucVinh/Linux-Shell/blob/master/Network%20layer/IP/Commands.md#systemd-service-to-change-ip) to change the IP.
