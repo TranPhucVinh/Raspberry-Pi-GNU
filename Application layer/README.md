@@ -44,4 +44,4 @@ static routers=192.168.1.1
 static domain_name_servers=192.168.1.1
 ```
 
-Then restart the ``dhcpcd.service``: ``sudo systemctl restart dhcpcd``
+After modifying the ``/etc/dhcpcd.conf`` file, restarting the ``dhcpcd.service`` (``sudo systemctl restart dhcpcd``) won't change IP so the static one. Raspberry Pi must be rebooted to take effect.
